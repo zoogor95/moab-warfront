@@ -1,0 +1,23 @@
+{
+  "name": "@warfront/web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MOAB: Warfront web client. Phase 1: a hot-seat harness for play-testing the rules on one device.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p . && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@warfront/shared": "*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
+  }
+}

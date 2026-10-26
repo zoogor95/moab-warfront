@@ -1,0 +1,28 @@
+{
+  "name": "moab-warfront",
+  "private": true,
+  "version": "0.1.0",
+  "description": "MOAB: Warfront — online, turn-based island-conquest strategy for web, mobile and Discord.",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @warfront/web",
+    "build": "npm run build -w @warfront/web",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p packages/shared && tsc -p apps/web",
+    "world": "node packages/shared/scripts/build-world.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.23.15",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
