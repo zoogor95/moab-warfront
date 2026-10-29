@@ -25,14 +25,15 @@ npm run dev          # hot-seat web version, http://localhost:5173
 npm run db:up        # local Postgres in Docker on port 5434 (dev db warfront, test db warfront_test)
 npm run server       # game server on http://localhost:3100; applies migrations at start
 npm run db:migrate   # apply migrations without starting the server
-npm test             # Vitest, all packages; server DB tests skip if Postgres is down (REQUIRE_DB=1 makes them fail)
+npm test             # Vitest, all packages; server DB tests skip if Postgres is down
+npm run test:db      # the same, but DB tests fail instead of skipping (any shell)
 npm run typecheck    # tsc for packages/shared, apps/web and apps/server
 npm run build        # production build of apps/web
 npm run world        # regenerate packages/shared/src/world/world-v1.json
 npx vitest run packages/shared/test/rules.test.ts   # one file
 ```
 
-Before calling work done, run `npm run typecheck` and `npm test`. For server changes, have Postgres up and run `REQUIRE_DB=1 npm test`. For UI changes, also run `npm run build`.
+Before calling work done, run `npm run typecheck` and `npm test`. For server changes, have Postgres up and run `npm run test:db`. For UI changes, also run `npm run build`.
 
 Copy `apps/server/.env.example` to `apps/server/.env` before running the server.
 
