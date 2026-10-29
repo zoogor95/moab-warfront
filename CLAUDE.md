@@ -22,14 +22,19 @@ The name, art and icons are original. Never copy names, art or text from the ori
 ```bash
 npm install
 npm run dev          # hot-seat web version, http://localhost:5173
-npm test             # Vitest, all packages
-npm run typecheck    # tsc for packages/shared and apps/web
+npm run db:up        # local Postgres in Docker on port 5434 (dev db warfront, test db warfront_test)
+npm run server       # game server on http://localhost:3100; applies migrations at start
+npm run db:migrate   # apply migrations without starting the server
+npm test             # Vitest, all packages; server DB tests skip if Postgres is down (REQUIRE_DB=1 makes them fail)
+npm run typecheck    # tsc for packages/shared, apps/web and apps/server
 npm run build        # production build of apps/web
 npm run world        # regenerate packages/shared/src/world/world-v1.json
 npx vitest run packages/shared/test/rules.test.ts   # one file
 ```
 
-Before calling work done, run `npm run typecheck` and `npm test`. For UI changes, also run `npm run build`.
+Before calling work done, run `npm run typecheck` and `npm test`. For server changes, have Postgres up and run `REQUIRE_DB=1 npm test`. For UI changes, also run `npm run build`.
+
+Copy `apps/server/.env.example` to `apps/server/.env` before running the server.
 
 ## Layout
 
@@ -48,6 +53,13 @@ packages/shared/          @warfront/shared: rules engine, map, types. Pure TypeS
   src/bot.ts              simple land-only bot
   test/                   Vitest suites; helpers.ts builds scenarios
 apps/web/                 React 18 + Vite. Canvas 2D map (src/map), screens (src/screens)
+apps/server/              Express 5 + Socket.IO + pg in one Node process, run with tsx (no build step)
+  migrations/NNN_name.sql plain SQL, applied in name order by src/migrate.ts; never edit an applied file, add a new one
+  src/app.ts              Express routes (GET /health)
+  src/server.ts           HTTP + Socket.IO server; startServer(config, pool)
+  src/main.ts             entry: load .env, migrate, listen
+  test/                   Vitest; freshSchema() gives each suite its own Postgres schema
+compose.yaml              local Postgres 17
 ```
 
 The shared package is consumed as TypeScript source (its `exports` point at `src/index.ts`). There is no build step for it.
@@ -109,7 +121,7 @@ If a rule is unclear, check the design doc first, then ask. Don't invent rules s
 
 ## Phase 2 notes (agreed design)
 
-- PostgreSQL (not MongoDB). Plain tables for users, user_logins, push_tokens, matches, seats; JSONB for settings and turn snapshots; `match_actions` keyed `(match_id, rev)`.
+- PostgreSQL (not MongoDB). Plain tables for users, user_logins, push_tokens, matches, seats; JSONB for settings and turn snapshots; `match_actions` keyed `(match_id, rev)`. Seat numbers in the database are 0–5, like the engine.
 - Accept an action with one guarded transaction: `UPDATE matches SET rev = rev + 1 WHERE id = $1 AND rev = $2`, then insert the action.
 - Live state stays in server memory. Snapshot at each turn start; recover by replaying actions from the last snapshot.
 - Turn deadlines and notifications are a Postgres `jobs` table claimed with `FOR UPDATE SKIP LOCKED` (or pg-boss). No Redis. Use Socket.IO's Postgres adapter if a second instance is ever needed.

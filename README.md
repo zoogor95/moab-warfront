@@ -15,7 +15,18 @@ npm run build      # production build of the web version
 npm run world      # rebuild the world map from Natural Earth data
 ```
 
-Node 20 or newer.
+Node 20.12 or newer.
+
+### Game server (phase 2, in progress)
+
+Needs Docker for the local database.
+
+```bash
+cp apps/server/.env.example apps/server/.env
+npm run db:up      # Postgres 17 on localhost:5434
+npm run server     # http://localhost:3100, migrates the database first
+curl localhost:3100/health
+```
 
 ## Layout
 
@@ -28,6 +39,7 @@ packages/shared/   Rules engine, world map and shared types. Pure TypeScript, no
   scripts/         build-world.mjs and the city source list
   test/            Vitest suites
 apps/web/          React + Vite. Phase 1: hot-seat play-test harness drawn on a canvas.
+apps/server/       Express, Socket.IO and PostgreSQL. Phase 2: scaffold, health route, schema.
 ```
 
 ## The engine in one minute
