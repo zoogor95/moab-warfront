@@ -10,10 +10,14 @@
   ],
   "scripts": {
     "dev": "npm run dev -w @warfront/web",
+    "server": "npm run dev -w @warfront/server",
+    "db:up": "docker compose up -d --wait db",
+    "db:down": "docker compose down",
+    "db:migrate": "npm run migrate -w @warfront/server",
     "build": "npm run build -w @warfront/web",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc -p packages/shared && tsc -p apps/web",
+    "typecheck": "tsc -p packages/shared && tsc -p apps/web && tsc -p apps/server",
     "world": "node packages/shared/scripts/build-world.mjs"
   },
   "devDependencies": {
@@ -23,6 +27,6 @@
     "vitest": "^2.1.8"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.12"
   }
 }

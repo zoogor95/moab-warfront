@@ -1,0 +1,23 @@
+# Local PostgreSQL for development and tests: `npm run db:up`.
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: warfront
+      POSTGRES_PASSWORD: warfront
+      POSTGRES_DB: warfront
+    # 5434 on the host, so it can sit beside another local Postgres on 5432.
+    ports:
+      - "5434:5432"
+    volumes:
+      - warfront-db:/var/lib/postgresql/data
+      # Runs once, when the volume is first created.
+      - ./apps/server/dev/postgres-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U warfront -d warfront"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+volumes:
+  warfront-db:
