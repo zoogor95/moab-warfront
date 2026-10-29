@@ -1,0 +1,847 @@
+{
+ "version": "south-america-standard-v1",
+ "source": "Natural Earth 1:50m land (public domain), via world-atlas",
+ "cols": 112,
+ "rows": 127,
+ "wraps": false,
+ "degreesPerTile": 0.5604,
+ "bounds": {
+  "west": -93,
+  "north": 15
+ },
+ "rle": [
+  "s1l16s95",
+  "s2l15s95",
+  "s5l12s95",
+  "s10l7s42l1s52",
+  "s10l7s95",
+  "s11l6s20l2s73",
+  "s12l4s19l3s2l4s68",
+  "s13l4s15l12s7l1s4l1s55",
+  "s13l4s14l7s1l10s1l4s2l1s55",
+  "s15l3s13l7s1l18s55",
+  "s16l4s2l1s2l2s3l27s55",
+  "s17l7s2l2s1l30s53",
+  "s20l3s3l35s51",
+  "s21l2s4l35s50",
+  "s27l35s50",
+  "s28l36s48",
+  "s28m17l25s42",
+  "s28m17l27s40",
+  "s28m5l1m11l28s39",
+  "s28m17l30s37",
+  "s28m1l1m15l30s37",
+  "s27m18l30s37",
+  "s26l1m18l31s36",
+  "s25l2m18l31s36",
+  "s25l2m18l32s35",
+  "s23l4m18l31s36",
+  "s23l4m18l30s2l1s34",
+  "s3l1s18l5m18l34s33",
+  "s3l1s2l1s15l5m18l38s29",
+  "s22l5m18l41s26",
+  "s22l5m18l41s26",
+  "s22l5m18l45s22",
+  "s23l4m18l51s16",
+  "s22l5m8l1m9l52s15",
+  "s21l6m14l1m3l53s14",
+  "s21l6m18l55s12",
+  "s21l6m18l58s9",
+  "s21l6m18l58s9",
+  "s22l5m18l59s8",
+  "s24l3m18l59s8",
+  "s24l3m18l59s8",
+  "s25l2m5l1m12l59s8",
+  "s25l2m18l58s9",
+  "s26l1m18l58s9",
+  "s26l1m17l58s10",
+  "s27m18l56s11",
+  "s27m18l55s12",
+  "s28m17l54s13",
+  "s28l1m16l54s13",
+  "s29m13l1m2l53s14",
+  "s30m7l1m7l52s15",
+  "s30m15l51s16",
+  "s30m15l51s16",
+  "s31m14l51s16",
+  "s32m13l52s15",
+  "s34m11l52s15",
+  "s36m2l1m5l52s16",
+  "s38m7l51s16",
+  "s39m6l51s16",
+  "s40m5l50s17",
+  "s40m5l50s17",
+  "s41m4l50s17",
+  "s41l1m3l49s18",
+  "s41m4l49s18",
+  "s41m4l48s19",
+  "s41m4l48s19",
+  "s41m4l47s20",
+  "s40m5l46s21",
+  "s40l1m4l41s26",
+  "s40m5l39s28",
+  "s40m5l37s30",
+  "s40m5l36s31",
+  "s40m5l34s33",
+  "s40m5l34s33",
+  "s40m5l34s33",
+  "s39m6l35s32",
+  "s39m6l34s33",
+  "s39m6l34s33",
+  "s38m7l33s34",
+  "s39m6l32s35",
+  "s38l1m6l32s35",
+  "s38m7l29s1l1s36",
+  "s38m7l29s38",
+  "s38m7l28s39",
+  "s38m7l28s39",
+  "s38m5l1m1l27s40",
+  "s38m1l1m5l26s41",
+  "s37m8l25s42",
+  "s37m8l17s2l6s42",
+  "s37m8l19s48",
+  "s36m9l19s48",
+  "s36m9l19s48",
+  "s35l1m9l20s47",
+  "s35m10l19s48",
+  "s35m10l18s49",
+  "s35m10l17s50",
+  "s35m9l11s57",
+  "s35m10l10s57",
+  "s34l1m10l10s57",
+  "s34l1m10l10s57",
+  "s34l2m2l1m6l5s62",
+  "s34l1s1m9l5s62",
+  "s34l1s1m9l7s60",
+  "s33l2s1m9l6s61",
+  "s36m9l5s62",
+  "s35m10l4s63",
+  "s33l1s1m10l4s63",
+  "s33l1s1m10l2s65",
+  "s32l3m2l1m7l1s66",
+  "s31l4m10l1s66",
+  "s33l2m10l2s65",
+  "s33l2m10l4s63",
+  "s33l2m10l3s64",
+  "s31l4m10l2s65",
+  "s31l4m10l1s66",
+  "s31l2s1l1m10s67",
+  "s31l1s1l2m8s69",
+  "s32l3m8s69",
+  "s34l1m7l1s16l1s1l2s49",
+  "s32l1s1l1m8s14l2s1l2s50",
+  "s34l7s71",
+  "s34l5s3l2s68",
+  "s35l1s5l4s67",
+  "s37l3s1l6s53l1s11",
+  "s39l9s53l1s10",
+  "s41l4s67",
+  "s112"
+ ],
+ "cities": [
+  {
+   "id": "brasilia",
+   "name": "Brasília",
+   "x": 80,
+   "y": 54,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "buenos-aires",
+   "name": "Buenos Aires",
+   "x": 61,
+   "y": 88,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "lima",
+   "name": "Lima",
+   "x": 28,
+   "y": 48,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bogota",
+   "name": "Bogotá",
+   "x": 33,
+   "y": 18,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "santiago",
+   "name": "Santiago",
+   "x": 39,
+   "y": 86,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "caracas",
+   "name": "Caracas",
+   "x": 46,
+   "y": 8,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "quito",
+   "name": "Quito",
+   "x": 25,
+   "y": 27,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "la-paz",
+   "name": "La Paz",
+   "x": 44,
+   "y": 56,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "asuncion",
+   "name": "Asunción",
+   "x": 63,
+   "y": 71,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "montevideo",
+   "name": "Montevideo",
+   "x": 65,
+   "y": 88,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "georgetown",
+   "name": "Georgetown",
+   "x": 61,
+   "y": 14,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "paramaribo",
+   "name": "Paramaribo",
+   "x": 67,
+   "y": 16,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "panama-city",
+   "name": "Panama City",
+   "x": 23,
+   "y": 11,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "san-jose",
+   "name": "San José",
+   "x": 15,
+   "y": 9,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "managua",
+   "name": "Managua",
+   "x": 12,
+   "y": 5,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "port-of-spain",
+   "name": "Port of Spain",
+   "x": 56,
+   "y": 7,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "cayenne",
+   "name": "Cayenne",
+   "x": 72,
+   "y": 18,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "sao-paulo",
+   "name": "São Paulo",
+   "x": 82,
+   "y": 68,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "rio-de-janeiro",
+   "name": "Rio de Janeiro",
+   "x": 88,
+   "y": 67,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "manaus",
+   "name": "Manaus",
+   "x": 58,
+   "y": 32,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "recife",
+   "name": "Recife",
+   "x": 103,
+   "y": 41,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "salvador",
+   "name": "Salvador",
+   "x": 97,
+   "y": 49,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "fortaleza",
+   "name": "Fortaleza",
+   "x": 96,
+   "y": 33,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "belem",
+   "name": "Belém",
+   "x": 79,
+   "y": 29,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "porto-alegre",
+   "name": "Porto Alegre",
+   "x": 74,
+   "y": 80,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "curitiba",
+   "name": "Curitiba",
+   "x": 78,
+   "y": 72,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "belo-horizonte",
+   "name": "Belo Horizonte",
+   "x": 87,
+   "y": 62,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "cordoba",
+   "name": "Córdoba",
+   "x": 51,
+   "y": 82,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "mendoza",
+   "name": "Mendoza",
+   "x": 43,
+   "y": 85,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "bahia-blanca",
+   "name": "Bahía Blanca",
+   "x": 54,
+   "y": 95,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "comodoro-rivadavia",
+   "name": "Comodoro Rivadavia",
+   "x": 45,
+   "y": 108,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "ushuaia",
+   "name": "Ushuaia",
+   "x": 44,
+   "y": 124,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "punta-arenas",
+   "name": "Punta Arenas",
+   "x": 38,
+   "y": 121,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "antofagasta",
+   "name": "Antofagasta",
+   "x": 40,
+   "y": 68,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "arequipa",
+   "name": "Arequipa",
+   "x": 38,
+   "y": 56,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "trujillo",
+   "name": "Trujillo",
+   "x": 25,
+   "y": 41,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "iquitos",
+   "name": "Iquitos",
+   "x": 35,
+   "y": 33,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "cusco",
+   "name": "Cusco",
+   "x": 37,
+   "y": 50,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "guayaquil",
+   "name": "Guayaquil",
+   "x": 23,
+   "y": 30,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "medellin",
+   "name": "Medellín",
+   "x": 31,
+   "y": 15,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "cali",
+   "name": "Cali",
+   "x": 29,
+   "y": 20,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "barranquilla",
+   "name": "Barranquilla",
+   "x": 32,
+   "y": 7,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "maracaibo",
+   "name": "Maracaibo",
+   "x": 38,
+   "y": 7,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "santa-cruz-de-la-sierra",
+   "name": "Santa Cruz de la Sierra",
+   "x": 53,
+   "y": 58,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "cuiaba",
+   "name": "Cuiabá",
+   "x": 65,
+   "y": 54,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "porto-velho",
+   "name": "Porto Velho",
+   "x": 51,
+   "y": 42,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "sucre",
+   "name": "Sucre",
+   "x": 49,
+   "y": 60,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "bridgetown",
+   "name": "Bridgetown",
+   "x": 59,
+   "y": 3,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "natal",
+   "name": "Natal",
+   "x": 102,
+   "y": 37,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "sao-luis",
+   "name": "São Luís",
+   "x": 86,
+   "y": 31,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "teresina",
+   "name": "Teresina",
+   "x": 89,
+   "y": 35,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "campo-grande",
+   "name": "Campo Grande",
+   "x": 68,
+   "y": 63,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "goiania",
+   "name": "Goiânia",
+   "x": 78,
+   "y": 56,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "rio-branco",
+   "name": "Rio Branco",
+   "x": 44,
+   "y": 44,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "boa-vista",
+   "name": "Boa Vista",
+   "x": 57,
+   "y": 21,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "macapa",
+   "name": "Macapá",
+   "x": 74,
+   "y": 26,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "santarem",
+   "name": "Santarém",
+   "x": 68,
+   "y": 31,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "florianopolis",
+   "name": "Florianópolis",
+   "x": 79,
+   "y": 75,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "vitoria",
+   "name": "Vitória",
+   "x": 93,
+   "y": 63,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "maceio",
+   "name": "Maceió",
+   "x": 102,
+   "y": 43,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "palmas",
+   "name": "Palmas",
+   "x": 79,
+   "y": 44,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "rosario",
+   "name": "Rosario",
+   "x": 57,
+   "y": 85,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "neuquen",
+   "name": "Neuquén",
+   "x": 44,
+   "y": 96,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "salta",
+   "name": "Salta",
+   "x": 49,
+   "y": 71,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "mar-del-plata",
+   "name": "Mar del Plata",
+   "x": 62,
+   "y": 94,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "puerto-madryn",
+   "name": "Puerto Madryn",
+   "x": 49,
+   "y": 103,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "rio-gallegos",
+   "name": "Río Gallegos",
+   "x": 42,
+   "y": 118,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "bariloche",
+   "name": "Bariloche",
+   "x": 38,
+   "y": 100,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "puerto-montt",
+   "name": "Puerto Montt",
+   "x": 35,
+   "y": 100,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "concepcion",
+   "name": "Concepción",
+   "x": 35,
+   "y": 92,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "la-serena",
+   "name": "La Serena",
+   "x": 38,
+   "y": 80,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "iquique",
+   "name": "Iquique",
+   "x": 41,
+   "y": 62,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "coyhaique",
+   "name": "Coyhaique",
+   "x": 37,
+   "y": 108,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "piura",
+   "name": "Piura",
+   "x": 22,
+   "y": 36,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "pucallpa",
+   "name": "Pucallpa",
+   "x": 32,
+   "y": 41,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "puerto-maldonado",
+   "name": "Puerto Maldonado",
+   "x": 42,
+   "y": 49,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "esmeraldas",
+   "name": "Esmeraldas",
+   "x": 23,
+   "y": 25,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "bucaramanga",
+   "name": "Bucaramanga",
+   "x": 35,
+   "y": 14,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "leticia",
+   "name": "Leticia",
+   "x": 41,
+   "y": 34,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "puerto-ayacucho",
+   "name": "Puerto Ayacucho",
+   "x": 45,
+   "y": 16,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "ciudad-bolivar",
+   "name": "Ciudad Bolívar",
+   "x": 52,
+   "y": 12,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "cochabamba",
+   "name": "Cochabamba",
+   "x": 47,
+   "y": 57,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "trinidad",
+   "name": "Trinidad",
+   "x": 50,
+   "y": 53,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "ciudad-del-este",
+   "name": "Ciudad del Este",
+   "x": 68,
+   "y": 72,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "salto",
+   "name": "Salto",
+   "x": 62,
+   "y": 82,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "stanley",
+   "name": "Stanley",
+   "x": 62,
+   "y": 118,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "puerto-baquerizo-moreno",
+   "name": "Puerto Baquerizo Moreno",
+   "x": 6,
+   "y": 28,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "willemstad",
+   "name": "Willemstad",
+   "x": 42,
+   "y": 6,
+   "capital": false,
+   "port": true
+  }
+ ]
+}

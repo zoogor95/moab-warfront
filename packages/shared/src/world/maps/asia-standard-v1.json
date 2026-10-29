@@ -1,0 +1,988 @@
+{
+ "version": "asia-standard-v1",
+ "source": "Natural Earth 1:50m land (public domain), via world-atlas",
+ "cols": 132,
+ "rows": 76,
+ "wraps": false,
+ "degreesPerTile": 1.1726,
+ "bounds": {
+  "west": 25,
+  "north": 78
+ },
+ "rle": [
+  "s66l3s63",
+  "s30l7s23l2s1l12s57",
+  "s26l5s22l22s21l6s30",
+  "s25l3s24l24s8l1s14l1s32",
+  "s24l2s12l3s6l42s10l1s32",
+  "s23l3s10l53s2l2s1l13s25",
+  "l4s25l1s6l5s1l73s17",
+  "l10s10l1s9l5s2l4s1l81s1l8",
+  "l13s3l2s3l20s1l90",
+  "l14s2l24s1l57m17l17",
+  "l8s5l14m4l67m17l17",
+  "l9s1l17m4l67m17l16s1",
+  "l27m4l67m17l16s1",
+  "l27m4l67m17l3s1l10s3",
+  "l27m4l81s3l1s2l8s6",
+  "l1s2l24m4l80s5l2s14",
+  "l27m4l69s14l3s15",
+  "l27m4l67s15l5s14",
+  "l27m3l66s15l7s14",
+  "l27m4l64s16l6s15",
+  "l27m4l65s1l1s14l3s17",
+  "l27m4l70s11l2s18",
+  "l101s11l1s19",
+  "l99s1l1s31",
+  "l52m12l35s1l1s31",
+  "l52m12l34s34",
+  "m1l51m12l33s3l1s31",
+  "m1l3s2l3s2l85s36",
+  "l4s3l1s3l32m17l35s4l2s31",
+  "l3s10m7l23m1l1m8l1m6l34s5l4s29",
+  "l3s11m2l1m3l23m17l30s8l1s1l1s31",
+  "l1s3l7s1l1m7l23m17l29s43",
+  "s2l34m7l38s1l6s10l2s32",
+  "s1l34m2l1m5l36s6l3s10l1s33",
+  "s2l33m8l37s1l2s3l3s8m2s33",
+  "s3l2s1l2s1l26m26l21s4l3s6l1m3s33",
+  "s9l8m5l1m5l10m26l17s5l3s3l4m1l1s34",
+  "s9l8m11l10m2l1m23l17s9l3s1l1s37",
+  "s8l9m5l1m5l10m26l18s8l1s41",
+  "s8l9m11l10m4l1m21l18s8l1s41",
+  "l6s1l10m11l10m23l22s49",
+  "l6s1l10m2l1s2m6l10m18l1m4l22s49",
+  "l17m3s2m6l10m6l1m6l1m9l21s50",
+  "l8s1l12s3l2s1l54s51",
+  "l8s2l13s5l53s51",
+  "l9s2l12s2l2s9l44s2l1s49",
+  "l9s2l18s8l42s2l1s50",
+  "l10s2l18s8l18s1l19s56",
+  "l10s2l17s9l2s1l12s4l13s2l1s59",
+  "l10s3l15s13l11s6l11s3l1s59",
+  "l11s3l14s13l10s8l10s2l2s59",
+  "l12s2l12s15l9s9l11s11l2s49",
+  "l12s3l9s17l8s10l2s1l9s10l2s49",
+  "l13s2l8s19l5s15l10s9l1s50",
+  "l14s1l5s22l5s15l10s10l2s48",
+  "l9m4l2s1l1s25l5s16l1s1l7s9l1s2l1s47",
+  "l9m4l3s5l1s21l4s16l1s2l6s13l1s46",
+  "l9m4l9s21l4s16l1s3l4s12l1s1l1s46",
+  "l9m4l9s22l2s17l1s4l1s63",
+  "l9m4l8s26l1s15l1s19l4s45",
+  "l9m4l8s26l2s15l1s19l3s45",
+  "l21s43l2s12l2s5l1s46",
+  "l20s40l2s2l3s9l4s52",
+  "l19s42l2s2l2s8l4s53",
+  "l18s44l5s7l5s53",
+  "l16s47l3s6l8s2l1s1l1s2l1s44",
+  "l15s49l3s5l7s8l1s44",
+  "l15s49l4s4l7s2l3s3l1s3l2s39",
+  "l14s51l5s3l5s2l3s9l1s2l3s34",
+  "l13s53l3s5l1s1l2s2l3s3l1s2l1s2l9s31",
+  "l12s55l2s14l1s11l8s5l1s23",
+  "l12s84l8s2l2s24",
+  "l12s57l6s22l7s28",
+  "l12s61l3s10l1s9l1s1l3s2l2s27",
+  "l13s71l2s18l2s26",
+  "l13s119"
+ ],
+ "cities": [
+  {
+   "id": "beijing",
+   "name": "Beijing",
+   "x": 77,
+   "y": 32,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "tokyo",
+   "name": "Tokyo",
+   "x": 97,
+   "y": 36,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "new-delhi",
+   "name": "New Delhi",
+   "x": 44,
+   "y": 42,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "seoul",
+   "name": "Seoul",
+   "x": 86,
+   "y": 34,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bangkok",
+   "name": "Bangkok",
+   "x": 64,
+   "y": 54,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "jakarta",
+   "name": "Jakarta",
+   "x": 69,
+   "y": 72,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "manila",
+   "name": "Manila",
+   "x": 81,
+   "y": 53,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "hanoi",
+   "name": "Hanoi",
+   "x": 68,
+   "y": 48,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "kuala-lumpur",
+   "name": "Kuala Lumpur",
+   "x": 65,
+   "y": 63,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "naypyidaw",
+   "name": "Naypyidaw",
+   "x": 60,
+   "y": 49,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "tehran",
+   "name": "Tehran",
+   "x": 22,
+   "y": 36,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "riyadh",
+   "name": "Riyadh",
+   "x": 18,
+   "y": 45,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "baghdad",
+   "name": "Baghdad",
+   "x": 16,
+   "y": 38,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "ankara",
+   "name": "Ankara",
+   "x": 6,
+   "y": 32,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "islamabad",
+   "name": "Islamabad",
+   "x": 40,
+   "y": 37,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "kabul",
+   "name": "Kabul",
+   "x": 37,
+   "y": 37,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "dhaka",
+   "name": "Dhaka",
+   "x": 55,
+   "y": 46,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "colombo",
+   "name": "Colombo",
+   "x": 47,
+   "y": 60,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "kathmandu",
+   "name": "Kathmandu",
+   "x": 51,
+   "y": 42,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "tashkent",
+   "name": "Tashkent",
+   "x": 37,
+   "y": 31,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "astana",
+   "name": "Astana",
+   "x": 39,
+   "y": 22,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "ulaanbaatar",
+   "name": "Ulaanbaatar",
+   "x": 69,
+   "y": 25,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "damascus",
+   "name": "Damascus",
+   "x": 9,
+   "y": 37,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "moscow",
+   "name": "Moscow",
+   "x": 10,
+   "y": 18,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "cairo",
+   "name": "Cairo",
+   "x": 5,
+   "y": 40,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "shanghai",
+   "name": "Shanghai",
+   "x": 82,
+   "y": 40,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "hong-kong",
+   "name": "Hong Kong",
+   "x": 75,
+   "y": 47,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "mumbai",
+   "name": "Mumbai",
+   "x": 41,
+   "y": 50,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "chennai",
+   "name": "Chennai",
+   "x": 46,
+   "y": 55,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "karachi",
+   "name": "Karachi",
+   "x": 36,
+   "y": 45,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "istanbul",
+   "name": "Istanbul",
+   "x": 3,
+   "y": 32,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "osaka",
+   "name": "Osaka",
+   "x": 94,
+   "y": 36,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "sapporo",
+   "name": "Sapporo",
+   "x": 99,
+   "y": 29,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "taipei",
+   "name": "Taipei",
+   "x": 82,
+   "y": 45,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "ho-chi-minh-city",
+   "name": "Ho Chi Minh City",
+   "x": 69,
+   "y": 57,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "yangon",
+   "name": "Yangon",
+   "x": 60,
+   "y": 52,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "vladivostok",
+   "name": "Vladivostok",
+   "x": 91,
+   "y": 29,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "novosibirsk",
+   "name": "Novosibirsk",
+   "x": 49,
+   "y": 19,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "yekaterinburg",
+   "name": "Yekaterinburg",
+   "x": 30,
+   "y": 18,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "irkutsk",
+   "name": "Irkutsk",
+   "x": 67,
+   "y": 21,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "yakutsk",
+   "name": "Yakutsk",
+   "x": 89,
+   "y": 13,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "magadan",
+   "name": "Magadan",
+   "x": 107,
+   "y": 15,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "chengdu",
+   "name": "Chengdu",
+   "x": 67,
+   "y": 40,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "wuhan",
+   "name": "Wuhan",
+   "x": 76,
+   "y": 40,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "xi-an",
+   "name": "Xi'an",
+   "x": 71,
+   "y": 37,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "harbin",
+   "name": "Harbin",
+   "x": 86,
+   "y": 27,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "urumqi",
+   "name": "Ürümqi",
+   "x": 53,
+   "y": 29,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "lhasa",
+   "name": "Lhasa",
+   "x": 56,
+   "y": 41,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "jeddah",
+   "name": "Jeddah",
+   "x": 12,
+   "y": 48,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "dubai",
+   "name": "Dubai",
+   "x": 25,
+   "y": 45,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "surabaya",
+   "name": "Surabaya",
+   "x": 74,
+   "y": 72,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "bishkek",
+   "name": "Bishkek",
+   "x": 42,
+   "y": 29,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "dushanbe",
+   "name": "Dushanbe",
+   "x": 37,
+   "y": 33,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "ashgabat",
+   "name": "Ashgabat",
+   "x": 28,
+   "y": 34,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "baku",
+   "name": "Baku",
+   "x": 21,
+   "y": 32,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "tbilisi",
+   "name": "Tbilisi",
+   "x": 16,
+   "y": 30,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "yerevan",
+   "name": "Yerevan",
+   "x": 16,
+   "y": 32,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "amman",
+   "name": "Amman",
+   "x": 9,
+   "y": 39,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "kuwait-city",
+   "name": "Kuwait City",
+   "x": 19,
+   "y": 41,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "doha",
+   "name": "Doha",
+   "x": 22,
+   "y": 44,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "muscat",
+   "name": "Muscat",
+   "x": 28,
+   "y": 46,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "sanaa",
+   "name": "Sanaa",
+   "x": 16,
+   "y": 53,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "vientiane",
+   "name": "Vientiane",
+   "x": 66,
+   "y": 51,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "thimphu",
+   "name": "Thimphu",
+   "x": 55,
+   "y": 43,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "bandar-seri-begawan",
+   "name": "Bandar Seri Begawan",
+   "x": 76,
+   "y": 62,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "dili",
+   "name": "Dili",
+   "x": 85,
+   "y": 74,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "kyiv",
+   "name": "Kyiv",
+   "x": 4,
+   "y": 23,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "minsk",
+   "name": "Minsk",
+   "x": 2,
+   "y": 20,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "bucharest",
+   "name": "Bucharest",
+   "x": 0,
+   "y": 28,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "nicosia",
+   "name": "Nicosia",
+   "x": 7,
+   "y": 35,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "saint-petersburg",
+   "name": "Saint Petersburg",
+   "x": 4,
+   "y": 15,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "bengaluru",
+   "name": "Bengaluru",
+   "x": 44,
+   "y": 55,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "hyderabad",
+   "name": "Hyderabad",
+   "x": 45,
+   "y": 51,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "ahmedabad",
+   "name": "Ahmedabad",
+   "x": 40,
+   "y": 46,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "lahore",
+   "name": "Lahore",
+   "x": 42,
+   "y": 39,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "chittagong",
+   "name": "Chittagong",
+   "x": 57,
+   "y": 47,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "busan",
+   "name": "Busan",
+   "x": 88,
+   "y": 36,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "fukuoka",
+   "name": "Fukuoka",
+   "x": 90,
+   "y": 37,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "sendai",
+   "name": "Sendai",
+   "x": 98,
+   "y": 33,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "qingdao",
+   "name": "Qingdao",
+   "x": 81,
+   "y": 35,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "shenyang",
+   "name": "Shenyang",
+   "x": 83,
+   "y": 30,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "chongqing",
+   "name": "Chongqing",
+   "x": 69,
+   "y": 41,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "kunming",
+   "name": "Kunming",
+   "x": 66,
+   "y": 45,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "lanzhou",
+   "name": "Lanzhou",
+   "x": 67,
+   "y": 35,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "kashgar",
+   "name": "Kashgar",
+   "x": 43,
+   "y": 32,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "nanjing",
+   "name": "Nanjing",
+   "x": 79,
+   "y": 39,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "cebu",
+   "name": "Cebu",
+   "x": 83,
+   "y": 57,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "davao",
+   "name": "Davao",
+   "x": 85,
+   "y": 60,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "medan",
+   "name": "Medan",
+   "x": 62,
+   "y": 63,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "makassar",
+   "name": "Makassar",
+   "x": 80,
+   "y": 69,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "balikpapan",
+   "name": "Balikpapan",
+   "x": 78,
+   "y": 67,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "da-nang",
+   "name": "Da Nang",
+   "x": 70,
+   "y": 52,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "mandalay",
+   "name": "Mandalay",
+   "x": 60,
+   "y": 47,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "isfahan",
+   "name": "Isfahan",
+   "x": 22,
+   "y": 38,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "bandar-abbas",
+   "name": "Bandar Abbas",
+   "x": 27,
+   "y": 43,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "aleppo",
+   "name": "Aleppo",
+   "x": 10,
+   "y": 35,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "izmir",
+   "name": "Izmir",
+   "x": 1,
+   "y": 33,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "trabzon",
+   "name": "Trabzon",
+   "x": 12,
+   "y": 31,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "aden",
+   "name": "Aden",
+   "x": 16,
+   "y": 55,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "samarkand",
+   "name": "Samarkand",
+   "x": 35,
+   "y": 32,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "almaty",
+   "name": "Almaty",
+   "x": 44,
+   "y": 29,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "omsk",
+   "name": "Omsk",
+   "x": 41,
+   "y": 19,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "krasnoyarsk",
+   "name": "Krasnoyarsk",
+   "x": 57,
+   "y": 18,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "khabarovsk",
+   "name": "Khabarovsk",
+   "x": 93,
+   "y": 25,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "chita",
+   "name": "Chita",
+   "x": 75,
+   "y": 22,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "norilsk",
+   "name": "Norilsk",
+   "x": 53,
+   "y": 7,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "petropavlovsk-kamchatsky",
+   "name": "Petropavlovsk-Kamchatsky",
+   "x": 113,
+   "y": 21,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "anadyr",
+   "name": "Anadyr",
+   "x": 130,
+   "y": 11,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kazan",
+   "name": "Kazan",
+   "x": 20,
+   "y": 18,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "volgograd",
+   "name": "Volgograd",
+   "x": 16,
+   "y": 24,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "odesa",
+   "name": "Odesa",
+   "x": 4,
+   "y": 26,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "herat",
+   "name": "Herat",
+   "x": 31,
+   "y": 37,
+   "capital": false,
+   "port": false
+  }
+ ]
+}

@@ -1,4 +1,4 @@
-import { COLS, ROWS, TERRAIN, UNITS, hexHasBit, tileIndex, type PlayerView, type Point, type ViewUnit } from '@warfront/shared';
+import { UNITS, getMap, hexHasBit, type GameMap, type PlayerView, type Point, type ViewUnit } from '@warfront/shared';
 import { CITY_GLYPH, EMBLEMS, UNIT_ICONS, path2d } from '../icons';
 import { C, SEATS, seatColor } from '../theme';
 
@@ -23,71 +23,69 @@ export interface Overlay {
   pick?: Point | null;
 }
 
-/** Signed horizontal offset on a map that wraps, in the range [-90, 90). */
-export function wrapDelta(d: number): number {
-  return ((((d + COLS / 2) % COLS) + COLS) % COLS) - COLS / 2;
+/** Horizontal offset from the camera; on a wrapping map, to the copy of the tile nearest it. */
+function offsetX(map: GameMap, d: number): number {
+  return map.wraps ? ((((d + map.cols / 2) % map.cols) + map.cols) % map.cols) - map.cols / 2 : d;
 }
 
-export function screenToTile(cam: Camera, w: number, h: number, sx: number, sy: number): Point | null {
+export function screenToTile(map: GameMap, cam: Camera, w: number, h: number, sx: number, sy: number): Point | null {
   const x = Math.floor(cam.cx + (sx - w / 2) / cam.t);
   const y = Math.floor(cam.cy + (sy - h / 2) / cam.t);
-  if (y < 0 || y >= ROWS) return null;
-  return { x: ((x % COLS) + COLS) % COLS, y };
+  if (!map.inBounds(x, y)) return null;
+  return { x: map.wrapX(x), y };
 }
 
 /** Top-left corner of a tile on screen, using the copy nearest the camera. */
-export function tileToScreen(cam: Camera, w: number, h: number, p: Point): { x: number; y: number } {
+export function tileToScreen(map: GameMap, cam: Camera, w: number, h: number, p: Point): { x: number; y: number } {
   return {
-    x: w / 2 + wrapDelta(p.x + 0.5 - cam.cx) * cam.t - cam.t / 2,
+    x: w / 2 + offsetX(map, p.x + 0.5 - cam.cx) * cam.t - cam.t / 2,
     y: h / 2 + (p.y + 0.5 - cam.cy) * cam.t - cam.t / 2,
   };
 }
 
-let terrainImage: HTMLCanvasElement | null = null;
-function terrain(): HTMLCanvasElement {
-  if (terrainImage) return terrainImage;
+const terrainCache = new Map<string, HTMLCanvasElement>();
+function terrain(map: GameMap): HTMLCanvasElement {
+  const hit = terrainCache.get(map.version);
+  if (hit) return hit;
+  const { cols, rows } = map;
   const c = document.createElement('canvas');
-  c.width = COLS;
-  c.height = ROWS;
+  c.width = cols;
+  c.height = rows;
   const ctx = c.getContext('2d')!;
-  const img = ctx.createImageData(COLS, ROWS);
+  const img = ctx.createImageData(cols, rows);
   const rgb = (hex: string) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
   const sea = rgb(C.sea), shallow = rgb(C.shallow), land = rgb(C.land), mountain = rgb(C.mountain), ice = rgb(C.ice);
-  for (let y = 0; y < ROWS; y++) {
-    for (let x = 0; x < COLS; x++) {
-      const t = TERRAIN[y * COLS + x];
+  for (let y = 0; y < rows; y++) {
+    const lat = map.latitude(y);
+    const polar = lat > 66 || lat < -60;
+    for (let x = 0; x < cols; x++) {
+      const t = map.terrain[y * cols + x];
       let col = sea;
       if (t === 2) col = mountain;
-      else if (t === 1) col = y < 12 || y >= 75 ? ice : land;
-      else {
-        let coast = false;
-        for (let dy = -1; dy <= 1 && !coast; dy++) for (let dx = -1; dx <= 1; dx++) {
-          const ny = y + dy;
-          if (ny >= 0 && ny < ROWS && TERRAIN[ny * COLS + ((x + dx + COLS) % COLS)] !== 0) { coast = true; break; }
-        }
-        if (coast) col = shallow;
-      }
-      const o = (y * COLS + x) * 4;
+      else if (t === 1) col = polar ? ice : land;
+      else if (map.neighbours(x, y).some((n) => map.terrain[n.y * cols + n.x] !== 0)) col = shallow;
+      const o = (y * cols + x) * 4;
       img.data[o] = col[0]; img.data[o + 1] = col[1]; img.data[o + 2] = col[2]; img.data[o + 3] = 255;
     }
   }
   ctx.putImageData(img, 0, 0);
-  terrainImage = c;
+  if (terrainCache.size > 3) terrainCache.clear();
+  terrainCache.set(map.version, c);
   return c;
 }
 
 const maskCache = new Map<string, HTMLCanvasElement>();
 /** One pixel per tile: shade where `hex` has no bit set. */
-function mask(hex: string, rgba: [number, number, number, number]): HTMLCanvasElement {
-  const key = `${rgba.join(',')}|${hex}`;
+function mask(map: GameMap, hex: string, rgba: [number, number, number, number]): HTMLCanvasElement {
+  const key = `${map.version}|${rgba.join(',')}|${hex}`;
   const hit = maskCache.get(key);
   if (hit) return hit;
   const c = document.createElement('canvas');
-  c.width = COLS;
-  c.height = ROWS;
+  c.width = map.cols;
+  c.height = map.rows;
   const ctx = c.getContext('2d')!;
-  const img = ctx.createImageData(COLS, ROWS);
-  for (let i = 0; i < COLS * ROWS; i++) {
+  const img = ctx.createImageData(map.cols, map.rows);
+  for (let i = 0; i < map.tileCount; i++) {
     if (hexHasBit(hex, i)) continue;
     img.data.set(rgba, i * 4);
   }
@@ -97,13 +95,14 @@ function mask(hex: string, rgba: [number, number, number, number]): HTMLCanvasEl
   return c;
 }
 
-function drawWrapped(ctx: CanvasRenderingContext2D, img: HTMLCanvasElement, cam: Camera, w: number, h: number) {
+/** Draws a one-pixel-per-tile image; on a wrapping map, once per copy across the screen. */
+function drawLayer(ctx: CanvasRenderingContext2D, map: GameMap, img: HTMLCanvasElement, cam: Camera, w: number, h: number) {
   const left = cam.cx - w / 2 / cam.t;
   const top = cam.cy - h / 2 / cam.t;
-  const first = Math.floor(left / COLS) - 1;
-  const last = Math.ceil((left + w / cam.t) / COLS) + 1;
+  const first = map.wraps ? Math.floor(left / map.cols) - 1 : 0;
+  const last = map.wraps ? Math.ceil((left + w / cam.t) / map.cols) + 1 : 0;
   for (let k = first; k <= last; k++) {
-    ctx.drawImage(img, (k * COLS - left) * cam.t, -top * cam.t, COLS * cam.t, ROWS * cam.t);
+    ctx.drawImage(img, (k * map.cols - left) * cam.t, -top * cam.t, map.cols * cam.t, map.rows * cam.t);
   }
 }
 
@@ -200,20 +199,23 @@ function drawToken(
 }
 
 export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam: Camera, view: PlayerView, o: Overlay) {
+  const map = getMap(view.mapVersion);
   const t = cam.t;
-  ctx.fillStyle = C.sea;
+  // Beyond a regional map's edge is darker than open sea, so the edge reads as an edge.
+  ctx.fillStyle = map.wraps ? C.sea : C.ground;
   ctx.fillRect(0, 0, w, h);
   ctx.imageSmoothingEnabled = false;
-  drawWrapped(ctx, terrain(), cam, w, h);
-  if (view.phase === 'playing' || view.phase === 'finished') drawWrapped(ctx, mask(view.visible, [3, 7, 11, 133]), cam, w, h);
-  if (view.settings.terrain === 'unexplored') drawWrapped(ctx, mask(view.explored, [5, 8, 11, 255]), cam, w, h);
+  drawLayer(ctx, map, terrain(map), cam, w, h);
+  if (view.phase === 'playing' || view.phase === 'finished') drawLayer(ctx, map, mask(map, view.visible, [3, 7, 11, 133]), cam, w, h);
+  if (view.settings.terrain === 'unexplored') drawLayer(ctx, map, mask(map, view.explored, [5, 8, 11, 255]), cam, w, h);
+  const toScreen = (p: Point) => tileToScreen(map, cam, w, h, p);
 
-  const left = Math.floor(cam.cx - w / 2 / t) - 1;
+  const left = Math.max(map.wraps ? -Infinity : 0, Math.floor(cam.cx - w / 2 / t) - 1);
   const top = Math.max(0, Math.floor(cam.cy - h / 2 / t) - 1);
-  const right = Math.ceil(cam.cx + w / 2 / t) + 1;
-  const bottom = Math.min(ROWS, Math.ceil(cam.cy + h / 2 / t) + 1);
+  const right = Math.min(map.wraps ? Infinity : map.cols, Math.ceil(cam.cx + w / 2 / t) + 1);
+  const bottom = Math.min(map.rows, Math.ceil(cam.cy + h / 2 / t) + 1);
   const onScreen = (p: Point) => {
-    const s = tileToScreen(cam, w, h, p);
+    const s = toScreen(p);
     return s.x > -2 * t && s.x < w + t && s.y > -2 * t && s.y < h + t;
   };
 
@@ -221,21 +223,25 @@ export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam
     ctx.strokeStyle = 'rgba(255,255,255,0.06)';
     ctx.lineWidth = 1;
     ctx.beginPath();
+    const x0 = Math.round(w / 2 + (left - cam.cx) * t);
+    const x1 = Math.round(w / 2 + (right - cam.cx) * t);
+    const y0 = Math.round(h / 2 + (top - cam.cy) * t);
+    const y1 = Math.round(h / 2 + (bottom - cam.cy) * t);
     for (let x = left; x <= right; x++) {
       const sx = Math.round(w / 2 + (x - cam.cx) * t) + 0.5;
-      ctx.moveTo(sx, 0);
-      ctx.lineTo(sx, h);
+      ctx.moveTo(sx, y0);
+      ctx.lineTo(sx, y1);
     }
     for (let y = top; y <= bottom; y++) {
       const sy = Math.round(h / 2 + (y - cam.cy) * t) + 0.5;
-      ctx.moveTo(0, sy);
-      ctx.lineTo(w, sy);
+      ctx.moveTo(x0, sy);
+      ctx.lineTo(x1, sy);
     }
     ctx.stroke();
   }
 
   if (o.zone) {
-    const z = tileToScreen(cam, w, h, { x: o.zone.x - o.zone.radius, y: o.zone.y - o.zone.radius });
+    const z = toScreen({ x: o.zone.x - o.zone.radius, y: o.zone.y - o.zone.radius });
     ctx.save();
     ctx.setLineDash([6, 4]);
     ctx.strokeStyle = o.zone.color;
@@ -252,9 +258,9 @@ export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam
     ctx.strokeStyle = 'rgba(242,169,59,0.55)';
     ctx.lineWidth = 1;
     for (const i of o.reachable) {
-      const p = { x: i % COLS, y: Math.floor(i / COLS) };
+      const p = map.tilePoint(i);
       if (!onScreen(p)) continue;
-      const s = tileToScreen(cam, w, h, p);
+      const s = toScreen(p);
       ctx.fillRect(s.x, s.y, t, t);
       ctx.strokeRect(s.x + 0.5, s.y + 0.5, t - 1, t - 1);
     }
@@ -265,9 +271,9 @@ export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam
   const hideUnexplored = view.settings.terrain === 'unexplored' && view.phase !== 'picking';
   for (const c of view.cities) {
     if (!onScreen(c)) continue;
-    if (hideUnexplored && !hexHasBit(view.explored, tileIndex(c.x, c.y))) continue;
-    const s = tileToScreen(cam, w, h, c);
-    const visible = hexHasBit(view.visible, tileIndex(c.x, c.y)) || view.phase === 'picking';
+    if (hideUnexplored && !hexHasBit(view.explored, map.tileIndex(c.x, c.y))) continue;
+    const s = toScreen(c);
+    const visible = hexHasBit(view.visible, map.tileIndex(c.x, c.y)) || view.phase === 'picking';
     const color = c.known ? seatColor(c.owner) : C.neutral;
     const pad = Math.max(1, t * 0.05);
     ctx.save();
@@ -284,7 +290,7 @@ export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam
     ctx.fillStyle = color;
     ctx.fill(path2d(CITY_GLYPH));
     ctx.restore();
-    if (o.eligible?.has(tileIndex(c.x, c.y))) {
+    if (o.eligible?.has(map.tileIndex(c.x, c.y))) {
       ctx.beginPath();
       ctx.arc(s.x + t / 2, s.y + t / 2, Math.max(5, t * 0.62), 0, Math.PI * 2);
       ctx.strokeStyle = C.amber;
@@ -299,7 +305,7 @@ export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam
     const u = view.units.find((x) => x.id === o.selectedUnit);
     if (u) {
       const pts = [u, ...o.path].map((p) => {
-        const s = tileToScreen(cam, w, h, p);
+        const s = toScreen(p);
         return { x: s.x + t / 2, y: s.y + t / 2 };
       });
       ctx.save();
@@ -312,7 +318,7 @@ export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam
       ctx.stroke();
       ctx.setLineDash([]);
       for (let i = 0; i < o.path.length; i++) {
-        if (!o.turnEnds?.has(tileIndex(o.path[i].x, o.path[i].y))) continue;
+        if (!o.turnEnds?.has(map.tileIndex(o.path[i].x, o.path[i].y))) continue;
         ctx.beginPath();
         ctx.arc(pts[i + 1].x, pts[i + 1].y, Math.max(3.5, t * 0.14), 0, Math.PI * 2);
         ctx.fillStyle = C.ground;
@@ -327,7 +333,7 @@ export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam
   // Last-seen enemies
   for (const seen of view.lastSeen) {
     if (!onScreen(seen)) continue;
-    const s = tileToScreen(cam, w, h, seen);
+    const s = toScreen(seen);
     const top = seen.units[0];
     const count = seen.units.reduce((n, u) => n + u.count, 0);
     drawToken(ctx, { type: top.type, owner: top.owner, hp: UNITS[top.type].hp }, s.x, s.y, t, { ghost: true, count });
@@ -337,15 +343,15 @@ export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam
   const byTile = new Map<number, ViewUnit[]>();
   for (const u of view.units) {
     if (u.carriedBy) continue;
-    const i = tileIndex(u.x, u.y);
+    const i = map.tileIndex(u.x, u.y);
     const list = byTile.get(i);
     if (list) list.push(u);
     else byTile.set(i, [u]);
   }
   for (const [i, list] of byTile) {
-    const p = { x: i % COLS, y: Math.floor(i / COLS) };
+    const p = map.tilePoint(i);
     if (!onScreen(p)) continue;
-    const s = tileToScreen(cam, w, h, p);
+    const s = toScreen(p);
     const shown = list.find((u) => u.id === o.selectedUnit) ?? list.slice().sort((a, b) => (b.moves ?? 0) - (a.moves ?? 0))[0];
     const cargo = view.units.filter((u) => u.carriedBy && list.some((l) => l.id === u.carriedBy)).length;
     const mine = shown.owner === view.seat;
@@ -355,7 +361,7 @@ export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam
 
   // Selection and hover
   const ring = (p: Point, color: string, width: number) => {
-    const s = tileToScreen(cam, w, h, p);
+    const s = toScreen(p);
     ctx.save();
     ctx.strokeStyle = color;
     ctx.lineWidth = width;

@@ -64,7 +64,8 @@ describe('actions', () => {
   it.each([
     ['an unknown type', { type: 'teleport', unit: 'u1' }],
     ['an extra key', { type: 'endTurn', seat: 1 }],
-    ['a tile off the map', { type: 'move', unit: 'u1', to: { x: 180, y: 0 } }],
+    ['a tile no map has', { type: 'move', unit: 'u1', to: { x: 1000, y: 0 } }],
+    ['a negative tile', { type: 'move', unit: 'u1', to: { x: -1, y: 0 } }],
     ['a fractional tile', { type: 'move', unit: 'u1', to: { x: 1.5, y: 0 } }],
     ['an unknown unit type', { type: 'produce', city: 'lisbon', unitType: 'mech' }],
     ['a malformed id', { type: 'leave', unit: 'U1; DROP TABLE' }],

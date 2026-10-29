@@ -2,7 +2,7 @@ import { bitsToHex, emptyBits, setBit } from './bitset';
 import { canSeeUnit, visibleTiles } from './fog';
 import type { UnitType } from './units';
 import type { GameState, LoggedEvent, MatchSettings, Phase, UnitSighting } from './types';
-import { tileIndex, tilePoint, TILE_COUNT } from './world/world';
+import { mapOf } from './world/maps';
 
 export interface ViewCity {
   id: string;
@@ -63,12 +63,13 @@ export interface PlayerView {
 export function viewFor(s: GameState, seat: number): PlayerView {
   const me = s.players[seat];
   if (!me) throw new Error(`No seat ${seat}`);
+  const map = mapOf(s);
   const visible = visibleTiles(s, seat);
-  const visBits = emptyBits(TILE_COUNT);
+  const visBits = emptyBits(map.tileCount);
   for (const i of visible) setBit(visBits, i);
 
   const cities: ViewCity[] = s.cities.map((c) => {
-    const i = tileIndex(c.x, c.y);
+    const i = map.tileIndex(c.x, c.y);
     const base = { id: c.id, name: c.name, x: c.x, y: c.y, capital: c.capital, port: c.port };
     if (c.owner === seat) return { ...base, owner: seat, known: true, building: c.building, progress: c.progress };
     if (visible.has(i)) return { ...base, owner: c.owner, known: true };
@@ -90,7 +91,7 @@ export function viewFor(s: GameState, seat: number): PlayerView {
   for (const [key, mem] of Object.entries(me.memory)) {
     const i = Number(key);
     if (visible.has(i) || !mem.units?.length) continue;
-    const p = tilePoint(i);
+    const p = map.tilePoint(i);
     lastSeen.push({ x: p.x, y: p.y, round: mem.round, units: mem.units });
   }
 

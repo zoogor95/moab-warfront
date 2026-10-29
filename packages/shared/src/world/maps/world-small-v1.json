@@ -1,0 +1,716 @@
+{
+ "version": "world-small-v1",
+ "source": "Natural Earth 1:50m land (public domain), via world-atlas",
+ "cols": 120,
+ "rows": 60,
+ "wraps": true,
+ "degreesPerTile": 3,
+ "bounds": {
+  "west": -180,
+  "north": 90
+ },
+ "rle": [
+  "s120",
+  "s120",
+  "s32l7s5l9s67",
+  "s28l26s10l4s23l2s27",
+  "s22l2s3l7s4l15s41l4s22",
+  "s19l4s1l1s1l3s1l1s1l1s1l1s6l12s25l1s6l1s1l13s1l2s4l1s12",
+  "s6l5s8l1s1l5s2l1s1l7s5l10s15l3s12l32s6",
+  "l2s3l28s2l4s3l7s16l9s1l32m6l7",
+  "s2l1s3l26s4l3s4l4s6l2s9m1l2s1l11m1l27m6l7",
+  "s5l24s5l2s8l2s16l4s1l12m1l38s2",
+  "s7l2s5l15s5l5s19l1s3l1s1l2s2l11m1l27s6l1s6",
+  "s16l2m7l7s2l6s18l1s4l3s1l12m1l26s6l2s6",
+  "s17l1m7l16s16l1s1l1s2l17m1l27s5l1s7",
+  "s18m7l15s1l1s17l30m4l15s12",
+  "s19l1m5l14s20l3m3l3m1l20m4l13s14",
+  "s19m6l12s20l3m1l9s3m3l10m3l1m2l13s2l1s12",
+  "s19m6l11s21l4s4l3s2l3m3l27s17",
+  "s19m6l10s22l3s7l1s1l13m3l15s2l1s3l1s13",
+  "s20l14s25l5s8l3m2l1m1l5m9l7s2l1s1l2s14",
+  "s21l12s24l1m3l8s2l4m4l4m10l7s20",
+  "s22l6s4l1s23l19m1s1m2l4m9l9s19",
+  "s22l1s1l4s27l22s2l21s20",
+  "s7l1s17l2s6l1s20l18s1l7s3l15s22",
+  "s25l3s2l1s5l1s18l24s5l5s2l6s23",
+  "s27l4s23l19s1l4s6l3s5l4s4l1s19",
+  "s30l2s22l18m2s1l1s9l2s6l3s4l1s19",
+  "s31l1s3l4s16l18m1l3s8l2s8l1s24",
+  "s34l6s16l16m2l3s16l1s7l1s18",
+  "s34m1l1m1l6s14l1s4l14s16l2s4l2s20",
+  "s34m3l6s20l12s18l2s1l3s21",
+  "s33l1m3l8s18l11s19l2s1l3s1l1s19",
+  "s33l1m3l11s16l9s21l1s10l3s12",
+  "s33l1m3l11s16l9s23l1s9l3s11",
+  "s34m3l11s16l9s47",
+  "s34l1m2l10s17l10s2l1s26l3s1l1s12",
+  "s35m2l10s17l9s2l2s24l5s1l2s11",
+  "s37l10s17l8s3l1s24l9s11",
+  "s37l9s19l7s2l2s22l12s10",
+  "s36m1l7s21l6s27l13s9",
+  "s36m1l7s21l6s27l13s9",
+  "s36m1l6s23l4s28l13s9",
+  "s36l6s24l1s32l1s5l5s10",
+  "s35m2l4s66l3s8l1s1",
+  "s35m2l2s79l1s1",
+  "s36m1l2s77l2s2",
+  "s35m2l1s78l1s3",
+  "s35m2s83",
+  "s35l2s83",
+  "s120",
+  "s120",
+  "s120",
+  "s120",
+  "s37l2s36l6s6l21s12",
+  "s36l3s23l6s1l14s1l31s5",
+  "s27l5s1l7s14l62s4",
+  "s11l26s13l64s6",
+  "s9l26s8l2s4l65s6",
+  "s5l1s2l31s2l74s5",
+  "s120",
+  "s120"
+ ],
+ "cities": [
+  {
+   "id": "washington",
+   "name": "Washington",
+   "x": 34,
+   "y": 17,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "ottawa",
+   "name": "Ottawa",
+   "x": 34,
+   "y": 14,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "mexico-city",
+   "name": "Mexico City",
+   "x": 26,
+   "y": 23,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "havana",
+   "name": "Havana",
+   "x": 33,
+   "y": 22,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "brasilia",
+   "name": "Brasília",
+   "x": 44,
+   "y": 35,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "buenos-aires",
+   "name": "Buenos Aires",
+   "x": 40,
+   "y": 41,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "lima",
+   "name": "Lima",
+   "x": 34,
+   "y": 34,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bogota",
+   "name": "Bogotá",
+   "x": 35,
+   "y": 28,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "santiago",
+   "name": "Santiago",
+   "x": 36,
+   "y": 41,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "la-paz",
+   "name": "La Paz",
+   "x": 37,
+   "y": 35,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "london",
+   "name": "London",
+   "x": 59,
+   "y": 12,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "berlin",
+   "name": "Berlin",
+   "x": 64,
+   "y": 12,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "madrid",
+   "name": "Madrid",
+   "x": 58,
+   "y": 16,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "rome",
+   "name": "Rome",
+   "x": 64,
+   "y": 15,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "moscow",
+   "name": "Moscow",
+   "x": 72,
+   "y": 11,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "warsaw",
+   "name": "Warsaw",
+   "x": 67,
+   "y": 12,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "oslo",
+   "name": "Oslo",
+   "x": 63,
+   "y": 9,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "helsinki",
+   "name": "Helsinki",
+   "x": 68,
+   "y": 9,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "athens",
+   "name": "Athens",
+   "x": 67,
+   "y": 17,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "ankara",
+   "name": "Ankara",
+   "x": 70,
+   "y": 16,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "reykjavik",
+   "name": "Reykjavík",
+   "x": 53,
+   "y": 8,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "cairo",
+   "name": "Cairo",
+   "x": 70,
+   "y": 20,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "abuja",
+   "name": "Abuja",
+   "x": 62,
+   "y": 26,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "kinshasa",
+   "name": "Kinshasa",
+   "x": 65,
+   "y": 31,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "addis-ababa",
+   "name": "Addis Ababa",
+   "x": 72,
+   "y": 26,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "nairobi",
+   "name": "Nairobi",
+   "x": 72,
+   "y": 30,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "algiers",
+   "name": "Algiers",
+   "x": 61,
+   "y": 18,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "rabat",
+   "name": "Rabat",
+   "x": 57,
+   "y": 19,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "tripoli",
+   "name": "Tripoli",
+   "x": 64,
+   "y": 19,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "dakar",
+   "name": "Dakar",
+   "x": 54,
+   "y": 25,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "accra",
+   "name": "Accra",
+   "x": 59,
+   "y": 27,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "n-djamena",
+   "name": "N'Djamena",
+   "x": 65,
+   "y": 25,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "antananarivo",
+   "name": "Antananarivo",
+   "x": 75,
+   "y": 36,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "lusaka",
+   "name": "Lusaka",
+   "x": 69,
+   "y": 35,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "maputo",
+   "name": "Maputo",
+   "x": 70,
+   "y": 38,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "riyadh",
+   "name": "Riyadh",
+   "x": 75,
+   "y": 21,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "tehran",
+   "name": "Tehran",
+   "x": 77,
+   "y": 18,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "baghdad",
+   "name": "Baghdad",
+   "x": 74,
+   "y": 18,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "kabul",
+   "name": "Kabul",
+   "x": 83,
+   "y": 18,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "astana",
+   "name": "Astana",
+   "x": 83,
+   "y": 12,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "muscat",
+   "name": "Muscat",
+   "x": 79,
+   "y": 22,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "dhaka",
+   "name": "Dhaka",
+   "x": 90,
+   "y": 22,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "colombo",
+   "name": "Colombo",
+   "x": 86,
+   "y": 26,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "beijing",
+   "name": "Beijing",
+   "x": 98,
+   "y": 16,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "tokyo",
+   "name": "Tokyo",
+   "x": 106,
+   "y": 17,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "seoul",
+   "name": "Seoul",
+   "x": 102,
+   "y": 17,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "ulaanbaatar",
+   "name": "Ulaanbaatar",
+   "x": 95,
+   "y": 14,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "bangkok",
+   "name": "Bangkok",
+   "x": 93,
+   "y": 25,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "hanoi",
+   "name": "Hanoi",
+   "x": 95,
+   "y": 22,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "jakarta",
+   "name": "Jakarta",
+   "x": 96,
+   "y": 32,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "manila",
+   "name": "Manila",
+   "x": 100,
+   "y": 25,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "kuala-lumpur",
+   "name": "Kuala Lumpur",
+   "x": 93,
+   "y": 28,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "canberra",
+   "name": "Canberra",
+   "x": 109,
+   "y": 41,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "wellington",
+   "name": "Wellington",
+   "x": 118,
+   "y": 43,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "port-moresby",
+   "name": "Port Moresby",
+   "x": 108,
+   "y": 32,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "los-angeles",
+   "name": "Los Angeles",
+   "x": 20,
+   "y": 18,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "chicago",
+   "name": "Chicago",
+   "x": 30,
+   "y": 16,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "houston",
+   "name": "Houston",
+   "x": 28,
+   "y": 19,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "seattle",
+   "name": "Seattle",
+   "x": 19,
+   "y": 14,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "denver",
+   "name": "Denver",
+   "x": 25,
+   "y": 16,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "anchorage",
+   "name": "Anchorage",
+   "x": 10,
+   "y": 9,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "honolulu",
+   "name": "Honolulu",
+   "x": 7,
+   "y": 22,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "winnipeg",
+   "name": "Winnipeg",
+   "x": 27,
+   "y": 13,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "manaus",
+   "name": "Manaus",
+   "x": 39,
+   "y": 31,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "recife",
+   "name": "Recife",
+   "x": 47,
+   "y": 32,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "murmansk",
+   "name": "Murmansk",
+   "x": 71,
+   "y": 7,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "marseille",
+   "name": "Marseille",
+   "x": 61,
+   "y": 15,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "cape-town",
+   "name": "Cape Town",
+   "x": 66,
+   "y": 41,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "almaty",
+   "name": "Almaty",
+   "x": 85,
+   "y": 15,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "karachi",
+   "name": "Karachi",
+   "x": 82,
+   "y": 21,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "shanghai",
+   "name": "Shanghai",
+   "x": 100,
+   "y": 20,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "chengdu",
+   "name": "Chengdu",
+   "x": 94,
+   "y": 19,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "harbin",
+   "name": "Harbin",
+   "x": 102,
+   "y": 14,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "urumqi",
+   "name": "Ürümqi",
+   "x": 89,
+   "y": 15,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "yekaterinburg",
+   "name": "Yekaterinburg",
+   "x": 80,
+   "y": 11,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "novosibirsk",
+   "name": "Novosibirsk",
+   "x": 87,
+   "y": 11,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "yakutsk",
+   "name": "Yakutsk",
+   "x": 103,
+   "y": 9,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "magadan",
+   "name": "Magadan",
+   "x": 110,
+   "y": 9,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "perth",
+   "name": "Perth",
+   "x": 98,
+   "y": 40,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "darwin",
+   "name": "Darwin",
+   "x": 103,
+   "y": 34,
+   "capital": false,
+   "port": true
+  }
+ ]
+}

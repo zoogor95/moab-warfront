@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createMatch, DEFAULT_SETTINGS, type GameState, type MatchSettings } from '@warfront/shared';
+import { createMatch, DEFAULT_SETTINGS, loadMap, MAP_REGIONS, MAP_SIZES, mapVersionFor, type GameState, type MatchSettings } from '@warfront/shared';
 import { EmblemIcon, Logo } from '../components/Icons';
 import { SEATS } from '../theme';
 
@@ -41,13 +41,25 @@ export function Setup({ saved, onStart, onResume, onDiscard }: Props) {
   const [seats, setSeats] = useState<Seat[]>(DEFAULT_SEATS);
   const [settings, setSettings] = useState<MatchSettings>({ ...DEFAULT_SETTINGS });
   const [seed, setSeed] = useState(randomSeed);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const humans = seats.filter((s) => !s.bot).length;
   const set = <K extends keyof MatchSettings>(k: K, v: MatchSettings[K]) => setSettings((s) => ({ ...s, [k]: v }));
   const update = (i: number, patch: Partial<Seat>) => setSeats((list) => list.map((s, j) => (j === i ? { ...s, ...patch } : s)));
 
-  const start = () => {
+  const size = MAP_SIZES.find((m) => m.id === settings.mapSize)!;
+
+  const start = async () => {
     const players = seats.map((s, i) => ({ name: s.name.trim() || `Player ${i + 1}`, bot: s.bot }));
-    onStart(createMatch({ settings: { ...settings, seats: players.length }, players, seed: seed.trim() || randomSeed() }));
+    setLoading(true);
+    setError(null);
+    try {
+      await loadMap(mapVersionFor(settings.map, settings.mapSize));
+      onStart(createMatch({ settings: { ...settings, seats: players.length }, players, seed: seed.trim() || randomSeed() }));
+    } catch {
+      setError('The map did not load. Check your connection and try again.');
+      setLoading(false);
+    }
   };
 
   return (
@@ -97,6 +109,14 @@ export function Setup({ saved, onStart, onResume, onDiscard }: Props) {
         <section className="card">
           <div className="card-head"><h2>Match settings</h2></div>
           <div className="setting">
+            <div><strong>Map</strong><p className="muted">{settings.map === 'velgard' ? 'An invented continent of nine kingdoms round an inland sea.' : 'Real coastlines and cities.'}</p></div>
+            <Segmented label="Map" value={settings.map} options={MAP_REGIONS.map((r) => ({ value: r.id, label: r.name }))} onChange={(v) => set('map', v)} />
+          </div>
+          <div className="setting">
+            <div><strong>Map size</strong><p className="muted">Suits {size.players.toLowerCase()}. Any size works for any number of players.</p></div>
+            <Segmented label="Map size" value={settings.mapSize} options={MAP_SIZES.map((m) => ({ value: m.id, label: m.name }))} onChange={(v) => set('mapSize', v)} />
+          </div>
+          <div className="setting">
             <div><strong>Starting position</strong><p className="muted">{settings.startMode === 'auto' ? 'Coastal starts spread out by the game.' : 'Everyone picks a coastal city; picks stay hidden until turn 1.'}</p></div>
             <Segmented label="Starting position" value={settings.startMode} options={[{ value: 'auto', label: 'Auto' }, { value: 'pick', label: 'Pick' }]} onChange={(v) => set('startMode', v)} />
           </div>
@@ -128,7 +148,8 @@ export function Setup({ saved, onStart, onResume, onDiscard }: Props) {
         </section>
 
         <div className="setup-foot">
-          <button type="button" className="btn primary big" disabled={humans === 0} onClick={start}>Start match</button>
+          {error && <p className="warn" role="alert">{error}</p>}
+          <button type="button" className="btn primary big" disabled={humans === 0 || loading} onClick={start}>{loading ? 'Loading map…' : 'Start match'}</button>
         </div>
       </main>
     </div>

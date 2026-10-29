@@ -2,17 +2,13 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   applyAction,
   buildTurns,
-  distance,
   findPath,
+  getMap,
   PARATROOPER_DROP_RANGE,
   quietPassFor,
   reachable,
   RuleError,
   samePoint,
-  terrainAt,
-  tileIndex,
-  tilePoint,
-  tilesWithin,
   UNIT_TYPES,
   UNITS,
   viewFor,
@@ -39,6 +35,7 @@ interface Props {
 
 export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: Props) {
   const view = useMemo(() => viewFor(game, seat), [game, seat]);
+  const map = getMap(view.mapVersion);
   const myTurn = !readOnly && game.phase === 'playing' && game.activeSeat === seat;
   const fast = view.settings.production === 'fast';
 
@@ -50,7 +47,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
   const [focus, setFocus] = useState<Point | null>(() => {
     const u = view.units.find((x) => x.owner === seat && (x.moves ?? 0) > 0 && !x.carriedBy);
     const c = view.cities.find((x) => x.owner === seat);
-    return u ? { x: u.x, y: u.y } : c ? { x: c.x, y: c.y } : { x: 90, y: 40 };
+    return u ? { x: u.x, y: u.y } : c ? { x: c.x, y: c.y } : { x: Math.floor(map.cols / 2), y: Math.floor(map.rows / 2) };
   });
   const toastTimer = useRef(0);
 
@@ -73,21 +70,21 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
   const highlight = useMemo(() => {
     if (!unit || !myTurn) return undefined;
     if (mode === 'drop') {
-      const enemy = new Set(view.units.filter((u) => u.owner !== seat).map((u) => tileIndex(u.x, u.y)));
-      return new Set(tilesWithin(unit.x, unit.y, PARATROOPER_DROP_RANGE).filter((i) => {
-        const p = tilePoint(i);
-        return terrainAt(p.x, p.y) === 'land' && !enemy.has(i) && distance(p, unit) >= 1;
+      const enemy = new Set(view.units.filter((u) => u.owner !== seat).map((u) => map.tileIndex(u.x, u.y)));
+      return new Set(map.tilesWithin(unit.x, unit.y, PARATROOPER_DROP_RANGE).filter((i) => {
+        const p = map.tilePoint(i);
+        return map.terrainAt(p.x, p.y) === 'land' && !enemy.has(i) && map.distance(p, unit) >= 1;
       }));
     }
-    if (mode === 'strike') return new Set(tilesWithin(unit.x, unit.y, unit.moves ?? 0));
+    if (mode === 'strike') return new Set(map.tilesWithin(unit.x, unit.y, unit.moves ?? 0));
     if (!unit.moves || !canPass) return undefined;
-    return new Set(reachable(unit, unit.moves, canPass).keys());
-  }, [unit, myTurn, mode, view, seat, canPass]);
+    return new Set(reachable(map, unit, unit.moves, canPass).keys());
+  }, [unit, myTurn, mode, view, seat, canPass, map]);
 
   const path = useMemo(() => {
     if (!unit || !hover || mode !== 'move' || !myTurn || !canPass || samePoint(hover, unit)) return null;
-    return findPath(unit, (p) => samePoint(p, hover), canPass, 6000);
-  }, [unit, hover, mode, myTurn, canPass]);
+    return findPath(map, unit, (p) => samePoint(p, hover), canPass, 6000);
+  }, [unit, hover, mode, myTurn, canPass, map]);
 
   const turnEnds = useMemo(() => {
     if (!path || !unit) return undefined;
@@ -97,12 +94,12 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
     path.forEach((p, i) => {
       left -= 1;
       if (left <= 0 && i < path.length - 1) {
-        ends.add(tileIndex(p.x, p.y));
+        ends.add(map.tileIndex(p.x, p.y));
         left = full;
       }
     });
     return ends;
-  }, [path, unit]);
+  }, [path, unit, map]);
 
   /** Runs actions in order, stopping at the first refusal or anything that ends a move. */
   const run = (actions: Action[], opts: { stopOnFight?: boolean } = {}): GameState => {
@@ -169,10 +166,10 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
       return;
     }
     const mineHere = view.units.filter((u) => u.owner === seat && samePoint(u, p));
-    const inReach = highlight?.has(tileIndex(p.x, p.y)) ?? false;
+    const inReach = highlight?.has(map.tileIndex(p.x, p.y)) ?? false;
     const enemyThere = view.units.some((u) => u.owner !== seat && samePoint(u, p));
     if (myTurn && unit && (unit.moves ?? 0) > 0 && !samePoint(unit, p) && (inReach || enemyThere || !mineHere.length)) {
-      const route = path && samePoint(path[path.length - 1], p) ? path : canPass ? findPath(unit, (q) => samePoint(q, p), canPass, 8000) : null;
+      const route = path && samePoint(path[path.length - 1], p) ? path : canPass ? findPath(map, unit, (q) => samePoint(q, p), canPass, 8000) : null;
       if (!route) {
         say(`No route for this ${UNITS[unit.type].name.toLowerCase()} to that tile.`);
         return;
@@ -263,7 +260,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
                   <div>
                     <div className="title">{UNITS[unit.type].name}{unit.sentry ? ' · sentry' : ''}</div>
                     <div className="muted">
-                      {carrier ? `Aboard your ${UNITS[carrier.type].name.toLowerCase()}` : cityHere ? `In ${cityHere.name}${ownCityHere ? ', your city' : ''}` : terrainAt(unit.x, unit.y) === 'sea' ? 'At sea' : 'In the field'}
+                      {carrier ? `Aboard your ${UNITS[carrier.type].name.toLowerCase()}` : cityHere ? `In ${cityHere.name}${ownCityHere ? ', your city' : ''}` : map.terrainAt(unit.x, unit.y) === 'sea' ? 'At sea' : 'In the field'}
                     </div>
                   </div>
                 </div>
@@ -313,7 +310,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
                   <p className="muted">Enemy here: {summarize(unitsHere.filter((u) => u.owner !== seat), view.players)}</p>
                 )}
                 {lastSeenHere && <p className="muted">Last seen in round {lastSeenHere.round}: {lastSeenHere.units.map((u) => `${view.players[u.owner].name}'s ${UNITS[u.type].name.toLowerCase()}${u.count > 1 ? ` ×${u.count}` : ''}`).join(', ')}</p>}
-                {!cityHere && !unitsHere.length && !lastSeenHere && <p className="muted">{terrainAt(tile.x, tile.y) === 'sea' ? 'Open sea.' : terrainAt(tile.x, tile.y) === 'mountain' ? 'Mountains. Land units cannot cross.' : 'Open ground.'}</p>}
+                {!cityHere && !unitsHere.length && !lastSeenHere && <p className="muted">{map.terrainAt(tile.x, tile.y) === 'sea' ? 'Open sea.' : map.terrainAt(tile.x, tile.y) === 'mountain' ? 'Mountains. Land units cannot cross.' : 'Open ground.'}</p>}
               </>
             ) : (
               <p className="muted">{myTurn ? `${waiting.length} unit${waiting.length === 1 ? '' : 's'} waiting for orders. Tap one, or press Space.` : 'Tap any tile to inspect it.'}</p>

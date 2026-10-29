@@ -1,7 +1,10 @@
 import type { UnitType } from './units';
+import type { MapRegion, MapSize } from './world/maps';
 import type { Point } from './world/world';
 
 export interface MatchSettings {
+  map: MapRegion;
+  mapSize: MapSize;
   seats: number;
   startMode: 'auto' | 'pick';
   playMode: 'live' | 'async';
@@ -24,6 +27,8 @@ export const SETTING_LIMITS = {
 } as const;
 
 export const DEFAULT_SETTINGS: MatchSettings = {
+  map: 'world',
+  mapSize: 'standard',
   seats: 4,
   startMode: 'auto',
   playMode: 'live',
