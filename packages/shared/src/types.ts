@@ -15,6 +15,14 @@ export interface MatchSettings {
   spectators: boolean;
 }
 
+/** What a host may choose in the lobby, from the design doc's Match settings table. */
+export const SETTING_LIMITS = {
+  seats: { min: 2, max: 6 },
+  liveTurnSeconds: [60, 90, 120, 180],
+  asyncTurnHours: [12, 24, 48, 72],
+  holdPercent: { min: 50, max: 90 },
+} as const;
+
 export const DEFAULT_SETTINGS: MatchSettings = {
   seats: 4,
   startMode: 'auto',

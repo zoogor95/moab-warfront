@@ -51,6 +51,8 @@ packages/shared/          @warfront/shared: rules engine, map, types. Pure TypeS
   src/starts.ts           auto starts and hidden-pick resolution
   src/path.ts             BFS paths and reachable tiles (shared by client and bot)
   src/bot.ts              simple land-only bot
+  src/protocol/           zod schemas for every action, REST body and socket event; imported as
+                          `@warfront/shared/protocol`, never from the engine files
   test/                   Vitest suites; helpers.ts builds scenarios
 apps/web/                 React 18 + Vite. Canvas 2D map (src/map), screens (src/screens)
 apps/server/              Express 5 + Socket.IO + pg in one Node process, run with tsx (no build step)
@@ -125,12 +127,14 @@ If a rule is unclear, check the design doc first, then ask. Don't invent rules s
 - Accept an action with one guarded transaction: `UPDATE matches SET rev = rev + 1 WHERE id = $1 AND rev = $2`, then insert the action.
 - Live state stays in server memory. Snapshot at each turn start; recover by replaying actions from the last snapshot.
 - Turn deadlines and notifications are a Postgres `jobs` table claimed with `FOR UPDATE SKIP LOCKED` (or pg-boss). No Redis. Use Socket.IO's Postgres adapter if a second instance is ever needed.
-- Validate every message with zod schemas kept in the shared package.
+- Validate every message with zod schemas kept in the shared package (`src/protocol`). Client input uses strict objects (unknown keys are refused); server output uses plain objects so older clients ignore new fields. Never trust a seat sent by a client; take it from the signed-in user.
+- Every payload names its `matchId`, because one socket can follow several matches.
+- When an engine type changes, update its schema: `protocol.test.ts` checks the action and settings schemas match the engine types exactly, and parses real bot-match views.
 - Keep the stack lean: React, Vite, Capacitor, Express, Socket.IO, `pg`, zod, the Discord Embedded App SDK, web-push. No ORM. Ask before adding other dependencies.
 
 ## Conventions
 
 - TypeScript strict, ES modules, `moduleResolution: Bundler`.
-- No runtime dependencies in `packages/shared`.
+- No runtime dependencies in `packages/shared`, except zod inside `src/protocol`. A test fails if any other file imports it.
 - Comments explain why, not what. User-facing text is plain and short.
 - Commit messages: a short summary line, a blank line, then bullet points for notable changes.
