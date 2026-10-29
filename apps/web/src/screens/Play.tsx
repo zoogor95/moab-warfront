@@ -53,6 +53,16 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
     return u ? { x: u.x, y: u.y } : c ? { x: c.x, y: c.y } : { x: 90, y: 40 };
   });
   const toastTimer = useRef(0);
+  // Asked in the page because browser dialogs are blocked in embeds (Discord, artifacts).
+  const [leaving, setLeaving] = useState(false);
+  const newMatchRef = useRef<HTMLButtonElement>(null);
+  const stayRef = useRef<HTMLButtonElement>(null);
+  const leaveAsked = useRef(false);
+  useEffect(() => {
+    if (leaving) stayRef.current?.focus();
+    else if (leaveAsked.current) newMatchRef.current?.focus();
+    leaveAsked.current = leaving;
+  }, [leaving]);
 
   const unit = view.units.find((u) => u.id === selUnit && u.owner === seat) ?? null;
   useEffect(() => {
@@ -203,6 +213,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
       } else if (e.key === 'e' && myTurn) endTurn();
       else if (e.key === 's' && unit && myTurn) run([{ type: 'sentry', unit: unit.id, on: !unit.sentry }]);
       else if (e.key === 'Escape') {
+        setLeaving(false);
         setSelUnit(null);
         setSelTile(null);
         setMode('move');
@@ -239,7 +250,18 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
           ))}
         </ol>
         <span className="grow" />
-        <button type="button" className="btn ghost" onClick={() => window.confirm('Leave this match and start a new one? It cannot be resumed.') && onNewGame()}>New match</button>
+        <div className="confirm-anchor">
+          <button type="button" className="btn ghost" ref={newMatchRef} aria-expanded={leaving} onClick={() => setLeaving(!leaving)}>New match</button>
+          {leaving && (
+            <div className="confirm" role="group" aria-labelledby="leave-q">
+              <p id="leave-q">Leave this match? It cannot be resumed.</p>
+              <div className="confirm-actions">
+                <button type="button" className="btn danger" onClick={onNewGame}>Leave</button>
+                <button type="button" className="btn" ref={stayRef} onClick={() => setLeaving(false)}>Stay</button>
+              </div>
+            </div>
+          )}
+        </div>
       </header>
 
       <div className="play-body">
