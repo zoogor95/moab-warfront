@@ -1,4 +1,6 @@
-export type Emblem = 'circle' | 'triangle' | 'square' | 'diamond' | 'hexagon' | 'star';
+import { SEAT_STYLES, type Emblem } from '@warfront/shared';
+
+export type { Emblem };
 
 export interface SeatStyle {
   color: string;
@@ -6,15 +8,8 @@ export interface SeatStyle {
   emblem: Emblem;
 }
 
-/** Seat colours, each paired with an emblem so colour is never the only cue. */
-export const SEATS: readonly SeatStyle[] = [
-  { color: '#4C8DFF', colorName: 'Blue', emblem: 'circle' },
-  { color: '#FF8C42', colorName: 'Orange', emblem: 'triangle' },
-  { color: '#26C6B0', colorName: 'Teal', emblem: 'square' },
-  { color: '#A77BFF', colorName: 'Violet', emblem: 'diamond' },
-  { color: '#FF5D8F', colorName: 'Rose', emblem: 'hexagon' },
-  { color: '#B8E05A', colorName: 'Lime', emblem: 'star' },
-];
+/** Seat colours, each paired with an emblem so colour is never the only cue. Shared with the server. */
+export const SEATS: readonly SeatStyle[] = SEAT_STYLES.map((s) => ({ color: s.colour, colorName: s.colourName, emblem: s.emblem }));
 
 export const C = {
   ground: '#0D1217',

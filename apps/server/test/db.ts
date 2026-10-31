@@ -1,6 +1,8 @@
 import { randomBytes } from 'node:crypto';
 import { createPool, type Pool } from '../src/db';
 
+export const SECRET = 'test-secret-that-is-long-enough-0123456789';
+
 export const TEST_DATABASE_URL =
   process.env.TEST_DATABASE_URL ?? 'postgres://warfront:warfront@localhost:5434/warfront_test';
 

@@ -14,7 +14,7 @@ The name, art and icons are original. Never copy names, art or text from the ori
 ## Where we are
 
 - **Phase 1 (done):** rules engine, world map and a hot-seat web version for play-testing on one device.
-- **Phase 2 (next):** online play on the web. A single Node process (Express + Socket.IO) and PostgreSQL. The server owns every match and sends each seat only `viewFor(state, seat)`.
+- **Phase 2 (built, gate test passing):** online play on the web. A single Node process (Express + Socket.IO) and PostgreSQL. The server owns every match and sends each seat only `viewFor(state, seat)`. Guest accounts, lobbies by code, live sequential turns with a turn clock, bots in empty seats, chat, recovery after a restart. Still to do: the four-people play-test from the gate.
 - Later: async play and notifications, then Discord, then iOS/Android, then public launch. Follow the roadmap in the design doc. Don't build later phases early.
 
 ## Commands
@@ -34,7 +34,7 @@ npx vitest run packages/shared/test/rules.test.ts   # one file
 
 Before calling work done, run `npm run typecheck` and `npm test`. For server changes, have Postgres up and run `REQUIRE_DB=1 npm test`. For UI changes, also run `npm run build`.
 
-Copy `apps/server/.env.example` to `apps/server/.env` before running the server.
+Copy `apps/server/.env.example` to `apps/server/.env` before running the server (it needs `DATABASE_URL` and an `AUTH_SECRET` of 32+ characters). The web client finds the server at `VITE_SERVER_URL` (default http://localhost:3100).
 
 ## Layout
 
@@ -51,14 +51,26 @@ packages/shared/          @warfront/shared: rules engine, map, types. Pure TypeS
   src/starts.ts           auto starts and hidden-pick resolution
   src/path.ts             BFS paths and reachable tiles (shared by client and bot)
   src/bot.ts              simple land-only bot
+  src/protocol.ts         zod schemas and types for every REST body and socket event; seat colours
   test/                   Vitest suites; helpers.ts builds scenarios
 apps/web/                 React 18 + Vite. Canvas 2D map (src/map), screens (src/screens)
+  src/App.tsx             online or hot-seat (HotSeat.tsx); screens take a PlayerView, never a GameState
+  src/online/             sign-in, home, lobby and the online match container (useMatch follows one match)
+  src/net/                REST with token refresh (api.ts) and the one Socket.IO connection (socket.ts)
 apps/server/              Express 5 + Socket.IO + pg in one Node process, run with tsx (no build step)
   migrations/NNN_name.sql plain SQL, applied in name order by src/migrate.ts; never edit an applied file, add a new one
-  src/app.ts              Express routes (GET /health)
-  src/server.ts           HTTP + Socket.IO server; startServer(config, pool)
+  src/app.ts              REST routes: auth, lobbies, view, actions
+  src/auth.ts             guest accounts; HMAC access tokens (15 min) and hashed, rotating refresh tokens
+  src/lobby.ts            lobby rows: create, join by code, seats, ready, bots, settings, leave, start checks
+  src/matches.ts          MatchService: live state in memory, one guarded transaction per step, snapshots,
+                          replay on load, bot turns, clocks. Bot turns and pick timeouts are logged as steps
+                          (botTurn, finishPicking) so replayStep reproduces them exactly
+  src/jobs.ts             clock worker over the jobs table (FOR UPDATE SKIP LOCKED)
+  src/realtime.ts         Socket.IO: auth, match:subscribe, action:submit, chat; per-seat views
+  src/server.ts           HTTP + Socket.IO server; startServer(config, pool, { jobIntervalMs })
   src/main.ts             entry: load .env, migrate, listen
-  test/                   Vitest; freshSchema() gives each suite its own Postgres schema
+  test/                   Vitest; freshSchema() gives each suite its own Postgres schema; client.ts drives
+                          players over REST and sockets; gate.test.ts is the phase 2 gate
 compose.yaml              local Postgres 17
 ```
 
@@ -126,11 +138,12 @@ If a rule is unclear, check the design doc first, then ask. Don't invent rules s
 - Live state stays in server memory. Snapshot at each turn start; recover by replaying actions from the last snapshot.
 - Turn deadlines and notifications are a Postgres `jobs` table claimed with `FOR UPDATE SKIP LOCKED` (or pg-boss). No Redis. Use Socket.IO's Postgres adapter if a second instance is ever needed.
 - Validate every message with zod schemas kept in the shared package.
+- A player action carries `expectedRev` (the view's rev) and a `clientActionId`; a repeated id gets the first reply. `pickStart` and `resign` skip the rev check, since picks are made all at once and resigning does not depend on the map.
 - Keep the stack lean: React, Vite, Capacitor, Express, Socket.IO, `pg`, zod, the Discord Embedded App SDK, web-push. No ORM. Ask before adding other dependencies.
 
 ## Conventions
 
 - TypeScript strict, ES modules, `moduleResolution: Bundler`.
-- No runtime dependencies in `packages/shared`.
+- No runtime dependencies in `packages/shared` except zod, used only by `src/protocol.ts`.
 - Comments explain why, not what. User-facing text is plain and short.
 - Commit messages: a short summary line, a blank line, then bullet points for notable changes.

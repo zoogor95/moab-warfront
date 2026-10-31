@@ -150,6 +150,14 @@ export function applyActionInPlace(s: GameState, seat: number, action: Action, o
   return finish(s, from, settle).events;
 }
 
+/**
+ * Works out memory and who saw what after in-place actions made with `settle: false`, for a
+ * batch that ends without a settled action (a bot that wins before it can end its turn).
+ */
+export function settleInPlace(s: GameState): void {
+  finish(s, s.log.length);
+}
+
 // --- Bookkeeping ---------------------------------------------------------------
 
 type PendingEvent = LoggedEvent & { involves?: number[]; at?: Point };

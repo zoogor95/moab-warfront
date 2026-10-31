@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createMatch, DEFAULT_SETTINGS, type GameState, type MatchSettings } from '@warfront/shared';
 import { EmblemIcon, Logo } from '../components/Icons';
+import { Segmented } from '../components/Segmented';
 import { SEATS } from '../theme';
 
 interface Seat {
@@ -18,26 +19,15 @@ function randomSeed(): string {
   return Math.random().toString(36).slice(2, 10);
 }
 
-function Segmented<T extends string>({ label, value, options, onChange }: { label: string; value: T; options: { value: T; label: string }[]; onChange: (v: T) => void }) {
-  return (
-    <div className="seg" role="group" aria-label={label}>
-      {options.map((o) => (
-        <button key={o.value} type="button" aria-pressed={o.value === value} className={o.value === value ? 'on' : ''} onClick={() => onChange(o.value)}>
-          {o.label}
-        </button>
-      ))}
-    </div>
-  );
-}
-
 interface Props {
   saved: GameState | null;
   onStart: (g: GameState) => void;
   onResume: (g: GameState) => void;
   onDiscard: () => void;
+  onBack: () => void;
 }
 
-export function Setup({ saved, onStart, onResume, onDiscard }: Props) {
+export function Setup({ saved, onStart, onResume, onDiscard, onBack }: Props) {
   const [seats, setSeats] = useState<Seat[]>(DEFAULT_SEATS);
   const [settings, setSettings] = useState<MatchSettings>({ ...DEFAULT_SETTINGS });
   const [seed, setSeed] = useState(randomSeed);
@@ -55,6 +45,8 @@ export function Setup({ saved, onStart, onResume, onDiscard }: Props) {
       <header className="bar">
         <div className="brand"><Logo /><span>MOAB: Warfront</span></div>
         <span className="tag">Hot-seat play-test</span>
+        <span className="grow" />
+        <button type="button" className="btn ghost" onClick={onBack}>Play online</button>
       </header>
       <main className="setup-body">
         {saved && (

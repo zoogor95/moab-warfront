@@ -11,3 +11,4 @@ export { canTarget } from './combat';
 export { chooseAutoStarts, resolvePicks, startValue } from './starts';
 export { findPath, reachable, quietPassFor, samePoint } from './path';
 export { playBotTurn, botPickStart } from './bot';
+export * from './protocol';

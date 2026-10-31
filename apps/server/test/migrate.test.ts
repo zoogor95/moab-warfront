@@ -15,9 +15,9 @@ describe.skipIf(!dbUp)('migrations', () => {
   });
   afterAll(() => db?.drop());
 
-  it('creates every table from the design doc', async () => {
+  it('creates every table from the design doc, plus refresh tokens', async () => {
     const applied = await migrate(pool);
-    expect(applied).toEqual(['001_initial.sql']);
+    expect(applied).toEqual(['001_initial.sql', '002_refresh_tokens.sql']);
     const { rows } = await pool.query<{ table_name: string }>(
       'SELECT table_name FROM information_schema.tables WHERE table_schema = $1 ORDER BY table_name',
       [db.schema],
@@ -28,6 +28,7 @@ describe.skipIf(!dbUp)('migrations', () => {
       'match_snapshots',
       'matches',
       'push_tokens',
+      'refresh_tokens',
       'schema_migrations',
       'seats',
       'user_logins',

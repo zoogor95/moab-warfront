@@ -13,10 +13,12 @@
     "@warfront/shared": "*",
     "express": "^5.1.0",
     "pg": "^8.13.1",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
-    "@types/pg": "^8.11.10"
+    "@types/pg": "^8.11.10",
+    "socket.io-client": "^4.8.4"
   }
 }
