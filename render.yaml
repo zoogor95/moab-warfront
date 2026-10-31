@@ -1,0 +1,24 @@
+# Render Blueprint for the game server: one long-running Node process, as the design doc's
+# hosting plan says. The web client is a static site on Vercel (vercel.json).
+services:
+  - type: web
+    name: moab-warfront-server
+    runtime: node
+    plan: free
+    branch: main
+    # tsx runs the TypeScript directly, and it is a dev dependency.
+    buildCommand: npm ci --include=dev
+    startCommand: npm run start -w @warfront/server
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # Neon's unpooled connection string: migrations hold a session-level advisory lock,
+      # which a transaction-mode pooler does not keep.
+      - key: DATABASE_URL
+        sync: false
+      - key: AUTH_SECRET
+        generateValue: true
+      # The Vercel site's address, for example https://moab-warfront.vercel.app
+      - key: CLIENT_ORIGINS
+        sync: false
