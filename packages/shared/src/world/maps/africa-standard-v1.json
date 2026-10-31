@@ -1,0 +1,911 @@
+{
+ "version": "africa-standard-v1",
+ "source": "Natural Earth 1:50m land (public domain), via world-atlas",
+ "cols": 110,
+ "rows": 95,
+ "wraps": false,
+ "degreesPerTile": 0.7816,
+ "bounds": {
+  "west": -26,
+  "north": 38
+ },
+ "rle": [
+  "s22l10s17l4s8l2s5l42",
+  "s25l6s7l9s5l1s8l2s6l41",
+  "s33l14s32l31",
+  "s25l2s1l2s1l16s16l3s9l2s2l12m16l3",
+  "s25l22s32l12m16l3",
+  "s23l24s31l13m16l3",
+  "s22l27s29l13m16l3",
+  "s21l3m12l17s6l5s14l13m16l3",
+  "s21l3m12l18s5l10s3l2s3l14m16l3",
+  "s21l3m12l21s1l16s1l16m16l3",
+  "s21l53s1l16m4s3m9l3",
+  "s20l71m3l1s3m9l3",
+  "s18l73m5s3m8l3",
+  "s16l61s2l17s4l10",
+  "s15l62s2l18s5l2s2l4",
+  "s14l63s3l19s8l3",
+  "s14l64s3l18s5l1s5",
+  "s14l65s2l18s2l1s1l3s4",
+  "s13l66s3l26s2",
+  "s12l67s4l26s1",
+  "s12l68s3l27",
+  "s11l70s2l26s1",
+  "s12l69s3l24s2",
+  "s12l69s4l22s3",
+  "s12l69s5l21s3",
+  "s13l70s3l20s4",
+  "s12l71s4l17s6",
+  "s12l71s5l13s9",
+  "s12l72s4l12s10",
+  "s3l1s7l74s3l10s12",
+  "s12l74s2l8s14",
+  "s12l67m6l3s1l3s18",
+  "s12l67m6l3s14l1s7",
+  "s13l66m6l4s9l1s11",
+  "s14l65m6l4s4l6s11",
+  "s15l64m6l14s11",
+  "s16l63m6l13s12",
+  "s16l63m3l1m2l13s12",
+  "s17l62m6l12s13",
+  "s18l61m6l12s13",
+  "s19l18s2l57s14",
+  "s21l12s7l56s14",
+  "s22l3s15l55s15",
+  "s45l49s16",
+  "s46l47s17",
+  "s46l46s18",
+  "s45l46s19",
+  "s45l44s21",
+  "s41l1s3l43s22",
+  "s45l42s23",
+  "s45l42s23",
+  "s45l41s24",
+  "s46l39s25",
+  "s47l37s26",
+  "s48l36s20l1s5",
+  "s49l34s27",
+  "s49l34s27",
+  "s49l35s26",
+  "s50l34s26",
+  "s50l34s26",
+  "s50l34s26",
+  "s50l35s25",
+  "s51l34s25",
+  "s51l34s3l1s21",
+  "s50l35s11l1s13",
+  "s49l36s11l1s13",
+  "s49l36s9l3s13",
+  "s49l37s8l4s12",
+  "s48l37s8l5s12",
+  "s48l36s6l7s13",
+  "s48l35s7l7s13",
+  "s48l33s9l7s13",
+  "s49l31s10l6s14",
+  "s49l30s11l6s14",
+  "s50l28s12l6s14",
+  "s50l28s11l6s9l1s5",
+  "s51l27s11l6s15",
+  "s52l27s10l6s15",
+  "s52l27s10l5s16",
+  "s52l27s10l5s16",
+  "s52l25s13l4s16",
+  "s52l23s35",
+  "s52l23s35",
+  "s53l22s35",
+  "s53l22s35",
+  "s54l20s36",
+  "s55l18s37",
+  "s55l18s37",
+  "s56l16s38",
+  "s57l14s39",
+  "s56l14s40",
+  "s57l11s42",
+  "s57l5s48",
+  "s110",
+  "s110"
+ ],
+ "cities": [
+  {
+   "id": "cairo",
+   "name": "Cairo",
+   "x": 73,
+   "y": 10,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "abuja",
+   "name": "Abuja",
+   "x": 42,
+   "y": 37,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "kinshasa",
+   "name": "Kinshasa",
+   "x": 52,
+   "y": 54,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "addis-ababa",
+   "name": "Addis Ababa",
+   "x": 82,
+   "y": 37,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "nairobi",
+   "name": "Nairobi",
+   "x": 80,
+   "y": 50,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "algiers",
+   "name": "Algiers",
+   "x": 37,
+   "y": 2,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "rabat",
+   "name": "Rabat",
+   "x": 24,
+   "y": 5,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "tunis",
+   "name": "Tunis",
+   "x": 46,
+   "y": 1,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "tripoli",
+   "name": "Tripoli",
+   "x": 50,
+   "y": 7,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "khartoum",
+   "name": "Khartoum",
+   "x": 74,
+   "y": 28,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "dakar",
+   "name": "Dakar",
+   "x": 11,
+   "y": 29,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "luanda",
+   "name": "Luanda",
+   "x": 50,
+   "y": 59,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "accra",
+   "name": "Accra",
+   "x": 32,
+   "y": 41,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bamako",
+   "name": "Bamako",
+   "x": 23,
+   "y": 32,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "niamey",
+   "name": "Niamey",
+   "x": 35,
+   "y": 31,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "n-djamena",
+   "name": "N'Djamena",
+   "x": 52,
+   "y": 33,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "mogadishu",
+   "name": "Mogadishu",
+   "x": 91,
+   "y": 45,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "antananarivo",
+   "name": "Antananarivo",
+   "x": 94,
+   "y": 72,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "lusaka",
+   "name": "Lusaka",
+   "x": 69,
+   "y": 68,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "maputo",
+   "name": "Maputo",
+   "x": 74,
+   "y": 81,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "pretoria",
+   "name": "Pretoria",
+   "x": 69,
+   "y": 81,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "nouakchott",
+   "name": "Nouakchott",
+   "x": 13,
+   "y": 25,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "kampala",
+   "name": "Kampala",
+   "x": 74,
+   "y": 48,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "harare",
+   "name": "Harare",
+   "x": 72,
+   "y": 71,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "windhoek",
+   "name": "Windhoek",
+   "x": 55,
+   "y": 77,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "gaborone",
+   "name": "Gaborone",
+   "x": 66,
+   "y": 80,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "yaounde",
+   "name": "Yaoundé",
+   "x": 48,
+   "y": 43,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "conakry",
+   "name": "Conakry",
+   "x": 16,
+   "y": 36,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "ouagadougou",
+   "name": "Ouagadougou",
+   "x": 31,
+   "y": 32,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "juba",
+   "name": "Juba",
+   "x": 73,
+   "y": 42,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "djibouti",
+   "name": "Djibouti",
+   "x": 88,
+   "y": 33,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bangui",
+   "name": "Bangui",
+   "x": 57,
+   "y": 43,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "riyadh",
+   "name": "Riyadh",
+   "x": 93,
+   "y": 17,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "sanaa",
+   "name": "Sanaa",
+   "x": 89,
+   "y": 28,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "lagos",
+   "name": "Lagos",
+   "x": 37,
+   "y": 39,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "cape-town",
+   "name": "Cape Town",
+   "x": 57,
+   "y": 92,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "durban",
+   "name": "Durban",
+   "x": 72,
+   "y": 86,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "alexandria",
+   "name": "Alexandria",
+   "x": 71,
+   "y": 9,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "dar-es-salaam",
+   "name": "Dar es Salaam",
+   "x": 83,
+   "y": 57,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "abidjan",
+   "name": "Abidjan",
+   "x": 28,
+   "y": 41,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "jeddah",
+   "name": "Jeddah",
+   "x": 83,
+   "y": 21,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "port-sudan",
+   "name": "Port Sudan",
+   "x": 80,
+   "y": 23,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "mombasa",
+   "name": "Mombasa",
+   "x": 83,
+   "y": 53,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kano",
+   "name": "Kano",
+   "x": 44,
+   "y": 33,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "benghazi",
+   "name": "Benghazi",
+   "x": 59,
+   "y": 7,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "douala",
+   "name": "Douala",
+   "x": 45,
+   "y": 43,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "lubumbashi",
+   "name": "Lubumbashi",
+   "x": 68,
+   "y": 63,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "kisangani",
+   "name": "Kisangani",
+   "x": 65,
+   "y": 47,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "tamanrasset",
+   "name": "Tamanrasset",
+   "x": 40,
+   "y": 19,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "monrovia",
+   "name": "Monrovia",
+   "x": 19,
+   "y": 40,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bissau",
+   "name": "Bissau",
+   "x": 13,
+   "y": 33,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "banjul",
+   "name": "Banjul",
+   "x": 12,
+   "y": 31,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "lome",
+   "name": "Lomé",
+   "x": 34,
+   "y": 40,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "yamoussoukro",
+   "name": "Yamoussoukro",
+   "x": 26,
+   "y": 39,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "libreville",
+   "name": "Libreville",
+   "x": 45,
+   "y": 48,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "kigali",
+   "name": "Kigali",
+   "x": 71,
+   "y": 51,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "gitega",
+   "name": "Gitega",
+   "x": 71,
+   "y": 53,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "dodoma",
+   "name": "Dodoma",
+   "x": 78,
+   "y": 56,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "lilongwe",
+   "name": "Lilongwe",
+   "x": 76,
+   "y": 66,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "asmara",
+   "name": "Asmara",
+   "x": 83,
+   "y": 29,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "maseru",
+   "name": "Maseru",
+   "x": 68,
+   "y": 86,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "moroni",
+   "name": "Moroni",
+   "x": 88,
+   "y": 63,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "port-louis",
+   "name": "Port Louis",
+   "x": 104,
+   "y": 75,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "victoria",
+   "name": "Victoria",
+   "x": 104,
+   "y": 54,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "praia",
+   "name": "Praia",
+   "x": 3,
+   "y": 29,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "sao-tome",
+   "name": "São Tomé",
+   "x": 41,
+   "y": 48,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "muscat",
+   "name": "Muscat",
+   "x": 107,
+   "y": 18,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "abu-dhabi",
+   "name": "Abu Dhabi",
+   "x": 103,
+   "y": 17,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "doha",
+   "name": "Doha",
+   "x": 98,
+   "y": 16,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "kuwait-city",
+   "name": "Kuwait City",
+   "x": 94,
+   "y": 11,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "amman",
+   "name": "Amman",
+   "x": 79,
+   "y": 7,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "damascus",
+   "name": "Damascus",
+   "x": 79,
+   "y": 5,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "baghdad",
+   "name": "Baghdad",
+   "x": 90,
+   "y": 6,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "port-harcourt",
+   "name": "Port Harcourt",
+   "x": 42,
+   "y": 42,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kaduna",
+   "name": "Kaduna",
+   "x": 42,
+   "y": 35,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "mbuji-mayi",
+   "name": "Mbuji-Mayi",
+   "x": 63,
+   "y": 56,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "pointe-noire",
+   "name": "Pointe-Noire",
+   "x": 48,
+   "y": 54,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "benguela",
+   "name": "Benguela",
+   "x": 50,
+   "y": 64,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "huambo",
+   "name": "Huambo",
+   "x": 53,
+   "y": 64,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "bulawayo",
+   "name": "Bulawayo",
+   "x": 69,
+   "y": 74,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "gqeberha",
+   "name": "Gqeberha",
+   "x": 66,
+   "y": 91,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "bloemfontein",
+   "name": "Bloemfontein",
+   "x": 66,
+   "y": 85,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "walvis-bay",
+   "name": "Walvis Bay",
+   "x": 52,
+   "y": 77,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "beira",
+   "name": "Beira",
+   "x": 77,
+   "y": 73,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "nampula",
+   "name": "Nampula",
+   "x": 83,
+   "y": 67,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "toamasina",
+   "name": "Toamasina",
+   "x": 96,
+   "y": 71,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "toliara",
+   "name": "Toliara",
+   "x": 89,
+   "y": 78,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "mwanza",
+   "name": "Mwanza",
+   "x": 75,
+   "y": 51,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "dire-dawa",
+   "name": "Dire Dawa",
+   "x": 86,
+   "y": 36,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "hargeisa",
+   "name": "Hargeisa",
+   "x": 89,
+   "y": 36,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "aden",
+   "name": "Aden",
+   "x": 90,
+   "y": 31,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "medina",
+   "name": "Medina",
+   "x": 83,
+   "y": 17,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "aswan",
+   "name": "Aswan",
+   "x": 75,
+   "y": 17,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "marrakesh",
+   "name": "Marrakesh",
+   "x": 23,
+   "y": 8,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "oran",
+   "name": "Oran",
+   "x": 32,
+   "y": 3,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "timbuktu",
+   "name": "Timbuktu",
+   "x": 29,
+   "y": 27,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "agadez",
+   "name": "Agadez",
+   "x": 43,
+   "y": 26,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "sebha",
+   "name": "Sebha",
+   "x": 51,
+   "y": 14,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "el-obeid",
+   "name": "El Obeid",
+   "x": 71,
+   "y": 31,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "nouadhibou",
+   "name": "Nouadhibou",
+   "x": 11,
+   "y": 21,
+   "capital": false,
+   "port": true
+  }
+ ]
+}

@@ -1,4 +1,5 @@
 export * from './world/world';
+export * from './world/maps';
 export * from './units';
 export * from './types';
 export * from './rng';

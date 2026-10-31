@@ -1,5 +1,5 @@
 import { expect } from 'vitest';
-import { createMatch, DEFAULT_SETTINGS, terrainAt, UNITS, type GameState, type MatchSettings, type Unit, type UnitType } from '../src';
+import { createMatch, DEFAULT_SETTINGS, mapOf, UNITS, WORLD, type GameState, type MatchSettings, type Terrain, type Unit, type UnitType } from '../src';
 import { refreshMemory } from '../src/fog';
 import { createUnit, getCity, sameTile } from '../src/state';
 
@@ -31,7 +31,7 @@ export function blankGame(opts: { players?: number; settings?: Partial<MatchSett
   if (opts.keepAlive ?? true) {
     for (const p of s.players) {
       const x = 2 + p.seat * 3;
-      if (terrainAt(x, 62) !== 'sea') throw new Error('keep-alive tile is not sea');
+      if (WORLD.terrainAt(x, 62) !== 'sea') throw new Error('keep-alive tile is not sea');
       createUnit(s, 'submarine', p.seat, { x, y: 62 }).id = `keep${p.seat}`;
     }
   }
@@ -62,15 +62,18 @@ export function unit(s: GameState, id: string): Unit | undefined {
   return s.units.find((u) => u.id === id);
 }
 
-export function expectTerrain(x: number, y: number, t: ReturnType<typeof terrainAt>): void {
-  expect(terrainAt(x, y), `terrain at ${x},${y}`).toBe(t);
+/** Terrain on the World Standard map, which scenario tests are built on. */
+export function expectTerrain(x: number, y: number, t: Terrain): void {
+  expect(WORLD.terrainAt(x, y), `terrain at ${x},${y}`).toBe(t);
 }
 
 /** Rules that must hold after every action. */
 export function checkInvariants(s: GameState): void {
+  const map = mapOf(s);
   const ids = new Set<string>();
   for (const u of s.units) {
     expect(ids.has(u.id), `duplicate id ${u.id}`).toBe(false);
+    expect(map.inBounds(u.x, u.y) && u.x === map.wrapX(u.x), `${u.id} off the grid at ${u.x},${u.y}`).toBe(true);
     ids.add(u.id);
     expect(u.hp, `${u.id} hp`).toBeGreaterThan(0);
     expect(u.hp).toBeLessThanOrEqual(UNITS[u.type].hp);
@@ -83,7 +86,7 @@ export function checkInvariants(s: GameState): void {
       expect(sameTile(carrier!, u), `${u.id} not with its carrier`).toBe(true);
       expect(UNITS[carrier!.type].capacity?.types).toContain(u.type);
     } else {
-      const t = terrainAt(u.x, u.y);
+      const t = map.terrainAt(u.x, u.y);
       const domain = UNITS[u.type].domain;
       const city = s.cities.find((c) => sameTile(c, u));
       if (domain === 'land') expect(t, `${u.type} ${u.id} on ${t}`).toBe('land');

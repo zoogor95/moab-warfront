@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { applyAction, botPickStart, playBotTurn, type GameState } from '@warfront/shared';
+import { applyAction, botPickStart, loadMap, playBotTurn, type GameState } from '@warfront/shared';
 import { humanSeats, loadGame, saveGame } from './game/session';
 import { Setup } from './screens/Setup';
 import { Pass } from './screens/Pass';
@@ -72,7 +72,8 @@ export function App() {
       <Setup
         saved={saved}
         onStart={(g) => advance(g, null)}
-        onResume={(g) => advance(g, null)}
+        onResume={(g) => loadMap(g.mapVersion).then(() => advance(g, null))}
+        onLoad={(g) => advance(g, null)}
         onDiscard={() => {
           saveGame(null);
           setSaved(null);

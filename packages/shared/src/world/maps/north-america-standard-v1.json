@@ -1,0 +1,863 @@
+{
+ "version": "north-america-standard-v1",
+ "source": "Natural Earth 1:50m land (public domain), via world-atlas",
+ "cols": 157,
+ "rows": 87,
+ "wraps": false,
+ "degreesPerTile": 0.7657,
+ "bounds": {
+  "west": -170,
+  "north": 72
+ },
+ "rle": [
+  "s60l5s3l18s6l2s3l3s5l23s22l7",
+  "s15l5s1l2s45l18s10l5s5l24s21l2s2l2",
+  "s10l22s2l2s15l1s2l2s13l21s6l6s6l11s1l14s16l7",
+  "s8l33s4l21s4l19s4l4s2l5s6l5s4l1s3l11s17l2s2l2",
+  "s5l68s1l3s3l5s8l4s2l8s3l6s6l1s2l9s19l1s1l2",
+  "s7l66s3l3s2l7s2l2s1l3s1l10s2l6s6l3s1l1s1l11s14l5",
+  "s9l72s1l33s12l14s11l5",
+  "s5l3s3l98s2l2s12l9s1l6s11l5",
+  "s3l106s1l2s13l9s3l3s13l4",
+  "s5l103s1l6s5l17s17l3",
+  "s12l93s4l4s1l3s10l11s16l3",
+  "l1s6l96s7l1s17l9s18l2",
+  "s6l95s12l1s6l3s1l2s6l3s21l1",
+  "s5l95s20l8s29",
+  "s6l23s1l69s21l11s26",
+  "s4l1s2l16s1l4s5l65s23l10s6l1s19",
+  "s11l10s3l1s15l58s22l11s5l3s18",
+  "s14l1s1l5s21l58s20l13s2l5s17",
+  "s16l4s1l2s21l15m25l17s20l20s16",
+  "s15l3s2l2s23l1s2l11m25l21s17l20s15",
+  "s13l2s32l1s1l10m25l23s11l1s3l20s15",
+  "s10l3s34l12m25l26s11l22s14",
+  "s7l2s42l8m25l31s3l29s10",
+  "s48l2s2l7m25l31s4l28s10",
+  "s49l1s3l6m14l1m10l31s4l30s8",
+  "s54l5m23l1m1l31s4l30s8",
+  "s55l4m25l33s2l28s10",
+  "s55l4m14l1m10l61s3l1s8",
+  "s55l4m25l51s3l1s2l1s5l1s9",
+  "s57l2m2l1m24l48s5l2s5l6s5",
+  "s62m24l46s1l5s7l7s5",
+  "s59m1s2l1m23l51s8l7s5",
+  "s60m26l51s14l2s4",
+  "s60m26l54s2l1s14",
+  "s60m1l1m18l1m5l56s15",
+  "s60m26l48s2l5s16",
+  "s60m26l46s4l2s19",
+  "s59m11l1m15l44s27",
+  "s59m27l44s27",
+  "s60m26l44s27",
+  "s60m15l1m10l41s30",
+  "s60m26l39s32",
+  "s60m24l1m1l39s32",
+  "s61m25l38s33",
+  "s62l1m21l38s35",
+  "s62m22l39s34",
+  "s63m8l1m12l39s34",
+  "s64l59s34",
+  "s64l58s35",
+  "s66l54s37",
+  "s68l51s38",
+  "s69l49s19l1s19",
+  "s69l47s41",
+  "s70l2s2l42s41",
+  "s70l2s2l32s3l7s41",
+  "s71l3s1l24s3l3s8l3s41",
+  "s73l1s2l21s17l3s40",
+  "s72l3s2l18s19l3s40",
+  "s73l3s2l17s19l3s40",
+  "s75l2s2l16s20l2s40",
+  "s76l1s2l16s21l1s40",
+  "s76l1s4l14s26l1s35",
+  "s77l1s4l12s63",
+  "s78l1s4l11s63",
+  "s84l10s18l2s1l3s39",
+  "s84l11s22l4s36",
+  "s17l1s66l11s9l5s10l4s34",
+  "s84l12s8l4s13l4s32",
+  "s18l2s65l11s7l5s18l5s26",
+  "s86l11s6l5s19l6s24",
+  "s88l19s13l2s6l1s5l2s21",
+  "s90l17s50",
+  "s93l14s50",
+  "s95l2s3l12s45",
+  "s101l12s44",
+  "s102l11s44",
+  "s105l8s31l1s12",
+  "s108l5s44",
+  "s109l4s14l2s28",
+  "s110l3s12l3s1l4s24",
+  "s110l3s10l13s2l2s1l1s15",
+  "s112l2s9l5s1l13s15",
+  "s113l4s2l2s1l20s15",
+  "s115l2s3l25s12",
+  "s116l1s3l26s11",
+  "s121l26s10",
+  "s121m12l19s5"
+ ],
+ "cities": [
+  {
+   "id": "washington",
+   "name": "Washington",
+   "x": 121,
+   "y": 43,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "ottawa",
+   "name": "Ottawa",
+   "x": 123,
+   "y": 34,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "mexico-city",
+   "name": "Mexico City",
+   "x": 92,
+   "y": 68,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "havana",
+   "name": "Havana",
+   "x": 113,
+   "y": 64,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "guatemala-city",
+   "name": "Guatemala City",
+   "x": 103,
+   "y": 74,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "panama-city",
+   "name": "Panama City",
+   "x": 119,
+   "y": 82,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "santo-domingo",
+   "name": "Santo Domingo",
+   "x": 130,
+   "y": 69,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "caracas",
+   "name": "Caracas",
+   "x": 134,
+   "y": 80,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "kingston",
+   "name": "Kingston",
+   "x": 121,
+   "y": 70,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "managua",
+   "name": "Managua",
+   "x": 109,
+   "y": 78,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "san-jose",
+   "name": "San José",
+   "x": 112,
+   "y": 81,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "tegucigalpa",
+   "name": "Tegucigalpa",
+   "x": 108,
+   "y": 75,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "port-au-prince",
+   "name": "Port-au-Prince",
+   "x": 127,
+   "y": 69,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "new-york",
+   "name": "New York",
+   "x": 125,
+   "y": 40,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "los-angeles",
+   "name": "Los Angeles",
+   "x": 67,
+   "y": 49,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "chicago",
+   "name": "Chicago",
+   "x": 107,
+   "y": 39,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "san-francisco",
+   "name": "San Francisco",
+   "x": 62,
+   "y": 44,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "houston",
+   "name": "Houston",
+   "x": 97,
+   "y": 55,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "miami",
+   "name": "Miami",
+   "x": 116,
+   "y": 60,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "seattle",
+   "name": "Seattle",
+   "x": 62,
+   "y": 31,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "denver",
+   "name": "Denver",
+   "x": 84,
+   "y": 42,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "anchorage",
+   "name": "Anchorage",
+   "x": 26,
+   "y": 14,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "atlanta",
+   "name": "Atlanta",
+   "x": 111,
+   "y": 49,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "dallas",
+   "name": "Dallas",
+   "x": 95,
+   "y": 51,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "boston",
+   "name": "Boston",
+   "x": 129,
+   "y": 38,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "new-orleans",
+   "name": "New Orleans",
+   "x": 104,
+   "y": 54,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "phoenix",
+   "name": "Phoenix",
+   "x": 75,
+   "y": 50,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "salt-lake-city",
+   "name": "Salt Lake City",
+   "x": 75,
+   "y": 40,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "minneapolis",
+   "name": "Minneapolis",
+   "x": 100,
+   "y": 35,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "toronto",
+   "name": "Toronto",
+   "x": 118,
+   "y": 37,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "montreal",
+   "name": "Montreal",
+   "x": 125,
+   "y": 34,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "vancouver",
+   "name": "Vancouver",
+   "x": 61,
+   "y": 29,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "winnipeg",
+   "name": "Winnipeg",
+   "x": 95,
+   "y": 28,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "edmonton",
+   "name": "Edmonton",
+   "x": 73,
+   "y": 24,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "calgary",
+   "name": "Calgary",
+   "x": 73,
+   "y": 27,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "quebec-city",
+   "name": "Quebec City",
+   "x": 129,
+   "y": 32,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "halifax",
+   "name": "Halifax",
+   "x": 138,
+   "y": 35,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "st-john-s",
+   "name": "St. John's",
+   "x": 152,
+   "y": 32,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "yellowknife",
+   "name": "Yellowknife",
+   "x": 72,
+   "y": 12,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "whitehorse",
+   "name": "Whitehorse",
+   "x": 45,
+   "y": 14,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "iqaluit",
+   "name": "Iqaluit",
+   "x": 132,
+   "y": 10,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "churchill",
+   "name": "Churchill",
+   "x": 99,
+   "y": 17,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "nuuk",
+   "name": "Nuuk",
+   "x": 154,
+   "y": 10,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "san-juan",
+   "name": "San Juan",
+   "x": 135,
+   "y": 70,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "guadalajara",
+   "name": "Guadalajara",
+   "x": 87,
+   "y": 67,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "monterrey",
+   "name": "Monterrey",
+   "x": 90,
+   "y": 60,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "merida",
+   "name": "Mérida",
+   "x": 105,
+   "y": 66,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "hermosillo",
+   "name": "Hermosillo",
+   "x": 77,
+   "y": 56,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "san-salvador",
+   "name": "San Salvador",
+   "x": 105,
+   "y": 76,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "belmopan",
+   "name": "Belmopan",
+   "x": 106,
+   "y": 71,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "nassau",
+   "name": "Nassau",
+   "x": 121,
+   "y": 61,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "port-of-spain",
+   "name": "Port of Spain",
+   "x": 141,
+   "y": 80,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bridgetown",
+   "name": "Bridgetown",
+   "x": 144,
+   "y": 76,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "honolulu",
+   "name": "Honolulu",
+   "x": 17,
+   "y": 66,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "juneau",
+   "name": "Juneau",
+   "x": 46,
+   "y": 17,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "fairbanks",
+   "name": "Fairbanks",
+   "x": 29,
+   "y": 9,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "nome",
+   "name": "Nome",
+   "x": 5,
+   "y": 9,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "utqiagvik",
+   "name": "Utqiagvik",
+   "x": 17,
+   "y": 1,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kansas-city",
+   "name": "Kansas City",
+   "x": 98,
+   "y": 42,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "st-louis",
+   "name": "St. Louis",
+   "x": 104,
+   "y": 43,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "detroit",
+   "name": "Detroit",
+   "x": 113,
+   "y": 38,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "philadelphia",
+   "name": "Philadelphia",
+   "x": 123,
+   "y": 41,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "charlotte",
+   "name": "Charlotte",
+   "x": 116,
+   "y": 48,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "nashville",
+   "name": "Nashville",
+   "x": 108,
+   "y": 46,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "san-antonio",
+   "name": "San Antonio",
+   "x": 93,
+   "y": 55,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "el-paso",
+   "name": "El Paso",
+   "x": 82,
+   "y": 52,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "las-vegas",
+   "name": "Las Vegas",
+   "x": 71,
+   "y": 46,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "san-diego",
+   "name": "San Diego",
+   "x": 69,
+   "y": 51,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "portland",
+   "name": "Portland",
+   "x": 61,
+   "y": 34,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "boise",
+   "name": "Boise",
+   "x": 70,
+   "y": 37,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "omaha",
+   "name": "Omaha",
+   "x": 96,
+   "y": 40,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "jacksonville",
+   "name": "Jacksonville",
+   "x": 115,
+   "y": 54,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "norfolk",
+   "name": "Norfolk",
+   "x": 122,
+   "y": 45,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "billings",
+   "name": "Billings",
+   "x": 80,
+   "y": 34,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "saskatoon",
+   "name": "Saskatoon",
+   "x": 82,
+   "y": 25,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "thunder-bay",
+   "name": "Thunder Bay",
+   "x": 105,
+   "y": 30,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "goose-bay",
+   "name": "Goose Bay",
+   "x": 143,
+   "y": 24,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "kuujjuaq",
+   "name": "Kuujjuaq",
+   "x": 132,
+   "y": 18,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "rankin-inlet",
+   "name": "Rankin Inlet",
+   "x": 101,
+   "y": 11,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "prince-rupert",
+   "name": "Prince Rupert",
+   "x": 51,
+   "y": 22,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "inuvik",
+   "name": "Inuvik",
+   "x": 47,
+   "y": 4,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "cambridge-bay",
+   "name": "Cambridge Bay",
+   "x": 84,
+   "y": 3,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "chihuahua",
+   "name": "Chihuahua",
+   "x": 83,
+   "y": 56,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "mazatlan",
+   "name": "Mazatlán",
+   "x": 83,
+   "y": 63,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "la-paz",
+   "name": "La Paz",
+   "x": 77,
+   "y": 62,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "acapulco",
+   "name": "Acapulco",
+   "x": 91,
+   "y": 71,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "veracruz",
+   "name": "Veracruz",
+   "x": 96,
+   "y": 69,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "tampico",
+   "name": "Tampico",
+   "x": 94,
+   "y": 65,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "cancun",
+   "name": "Cancún",
+   "x": 108,
+   "y": 66,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "san-pedro-sula",
+   "name": "San Pedro Sula",
+   "x": 107,
+   "y": 73,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "santiago-de-cuba",
+   "name": "Santiago de Cuba",
+   "x": 122,
+   "y": 67,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "maracaibo",
+   "name": "Maracaibo",
+   "x": 128,
+   "y": 80,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "barranquilla",
+   "name": "Barranquilla",
+   "x": 124,
+   "y": 80,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "medellin",
+   "name": "Medellín",
+   "x": 123,
+   "y": 85,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "hamilton",
+   "name": "Hamilton",
+   "x": 137,
+   "y": 51,
+   "capital": false,
+   "port": true
+  }
+ ]
+}

@@ -12,7 +12,7 @@ npm run dev        # hot-seat web version at http://localhost:5173
 npm test           # rules engine tests
 npm run typecheck
 npm run build      # production build of the web version
-npm run world      # rebuild the world map from Natural Earth data
+npm run maps       # rebuild every map from Natural Earth data
 ```
 
 Node 20.12 or newer.
@@ -32,7 +32,7 @@ curl localhost:3100/health
 
 ```
 packages/shared/   Rules engine, world map and shared types. Pure TypeScript, no I/O.
-  src/world/       world-v1.json (180 x 90 tiles, 134 cities) and map helpers
+  src/world/       24 maps (8 regions x 3 sizes) and the GameMap class
   src/engine.ts    createMatch, applyAction, finishPicking
   src/view.ts      viewFor: the fogged view one player may see
   src/bot.ts       a simple bot for empty seats
@@ -68,4 +68,4 @@ These follow the design doc. A few details the doc left open:
 
 ## Map data
 
-Coastlines come from [Natural Earth](https://www.naturalearthdata.com/) (public domain) via the `world-atlas` package. Mountain ranges are approximate boxes, for terrain only. `npm run world` regenerates `packages/shared/src/world/world-v1.json`.
+Coastlines come from [Natural Earth](https://www.naturalearthdata.com/) (public domain) via the `world-atlas` package. Mountain ranges are approximate boxes, for terrain only. `npm run maps` regenerates the maps in `packages/shared/src/world/maps/`. Velgard's coastline and names are original, drawn for this game.

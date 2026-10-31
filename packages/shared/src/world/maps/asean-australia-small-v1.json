@@ -1,0 +1,475 @@
+{
+ "version": "asean-australia-small-v1",
+ "source": "Natural Earth 1:50m land (public domain), via world-atlas",
+ "cols": 122,
+ "rows": 107,
+ "wraps": false,
+ "degreesPerTile": 0.7227,
+ "bounds": {
+  "west": 92,
+  "north": 29
+ },
+ "rle": [
+  "m7l34s81",
+  "m7l33s82",
+  "l39s83",
+  "l39s83",
+  "l38s84",
+  "l37s3l1s81",
+  "l36s3l2s81",
+  "l35s4l2s81",
+  "l34s5l1s82",
+  "l29s93",
+  "l22s2l3s95",
+  "s1l19s102",
+  "s1l19s4l2s96",
+  "s2l17s4l3s96",
+  "s3l16s4l2s15l1s81",
+  "s3l17s19l3s80",
+  "s3l18s18l3s80",
+  "s3l3s1l15s17l3s80",
+  "s8l15s16l2s81",
+  "s8l16s15l2s81",
+  "s8l16s16l3s79",
+  "s9l15s19l1s78",
+  "s9l2s1l12s16l1s81",
+  "s9l2s4l9s21l1s76",
+  "s9l2s4l8s19l1s2l1s76",
+  "s9l1s6l6s15l1s5l1s1l1s76",
+  "s9l1s8l2s22l1s1l1s77",
+  "s9l2s7l1s27l1s75",
+  "s9l2s32l1s1l3s74",
+  "s10l2s30l6s74",
+  "s11l2s31l4s74",
+  "s11l3s20l1s10l2s75",
+  "s4l2s6l3s18l4s85",
+  "s5l3s4l4s15l6s85",
+  "s6l3s3l4s14l6s86",
+  "s7l3s3l3s13l6s87",
+  "s8l3s2l3s11l9s86",
+  "s9l4s2l2s7l1s1l10s86",
+  "s7l1s1l6s8l14s3l1s4l1s3l2s71",
+  "s10l6s7l13s2l4s1l2s4l1s72",
+  "s11l5s8l11s14l1s72",
+  "s11l6s7l11s3l1s2l2s11l4s64",
+  "s12l5s1l1s6l9s4l4s3l1s9l3s5l2s57",
+  "s12l8s5l9s3l4s15l3s2l6s55",
+  "s13l7s7l7s3l2s1l2s5l1s2l3s3l14s52",
+  "s14l5s12l2s5l1s1l2s14l1s1l15s49",
+  "s15l4s19l1s2l2s18l13s8l2s38",
+  "s17l2s19l1s3l1s20l12s6l2s39",
+  "s20l2s36l1s5l13s2l3s5l1s34",
+  "s19l4s2l3s36l12s46",
+  "s21l8s25l1s9l13s45",
+  "s26l4s2l1s3l1s26l1s2l5s4l3s12l1s2l1s28",
+  "s34l2s9l3s19l4s5l3s16l1s26",
+  "s37l2s5l2s31l3s14l1s27",
+  "s80l1s41",
+  "s69l1s52",
+  "s53l1s2l2s11l2s51",
+  "s53l9s7l2s51",
+  "s53l8s8l2s51",
+  "s47l2s3l10s6l4s50",
+  "s46l4s2l8s9l4s49",
+  "s45l17s6l6s29l1s18",
+  "s44l19s5l6s48",
+  "s42l1s1l21s3l6s46l1s1",
+  "s42l33s43l2s2",
+  "s42l33s47",
+  "s41l35s46",
+  "s39l39s44",
+  "s36l43s21l1s21",
+  "s33l46s22l1s20",
+  "s31l49s22l1s19",
+  "s30l51s41",
+  "s30l52s40",
+  "s30l53s39",
+  "s30l54s38",
+  "s30l55s37",
+  "s30l55s37",
+  "s30l55s37",
+  "s31l54s37",
+  "s31l54s37",
+  "s31l54s37",
+  "s32l53s37",
+  "s32l53s37",
+  "s32l52s38",
+  "s33l17s6l28s38",
+  "s33l13s12l25s39",
+  "s32l12s15l23s40",
+  "s32l6s22l1s2l19s40",
+  "s34l2s26l1s1l17s41",
+  "s62l1s2l16s32l1s8",
+  "s66l14s34l1s7",
+  "s66l14s34l2s6",
+  "s67l11s37l2s1l2s2",
+  "s70l2s2l2s38l5s3",
+  "s113l5s4",
+  "s115l3s4",
+  "s73l1s37l1s3l2s5",
+  "s73l5s32l3s2l1s6",
+  "s74l4s32l3s9",
+  "s74l3s32l3s10",
+  "s107l5s10",
+  "s105l5s12",
+  "s104l6s12",
+  "s103l6s13",
+  "s105l3s14",
+  "s122",
+  "s122"
+ ],
+ "cities": [
+  {
+   "id": "canberra",
+   "name": "Canberra",
+   "x": 79,
+   "y": 88,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "wellington",
+   "name": "Wellington",
+   "x": 115,
+   "y": 97,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "port-moresby",
+   "name": "Port Moresby",
+   "x": 76,
+   "y": 52,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "jakarta",
+   "name": "Jakarta",
+   "x": 20,
+   "y": 48,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "manila",
+   "name": "Manila",
+   "x": 40,
+   "y": 19,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bangkok",
+   "name": "Bangkok",
+   "x": 11,
+   "y": 21,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "hanoi",
+   "name": "Hanoi",
+   "x": 19,
+   "y": 11,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "kuala-lumpur",
+   "name": "Kuala Lumpur",
+   "x": 13,
+   "y": 35,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "naypyidaw",
+   "name": "Naypyidaw",
+   "x": 5,
+   "y": 12,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "phnom-penh",
+   "name": "Phnom Penh",
+   "x": 17,
+   "y": 24,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "vientiane",
+   "name": "Vientiane",
+   "x": 14,
+   "y": 15,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "singapore",
+   "name": "Singapore",
+   "x": 16,
+   "y": 37,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bandar-seri-begawan",
+   "name": "Bandar Seri Begawan",
+   "x": 31,
+   "y": 33,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "dili",
+   "name": "Dili",
+   "x": 46,
+   "y": 52,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "suva",
+   "name": "Suva",
+   "x": 119,
+   "y": 64,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "honiara",
+   "name": "Honiara",
+   "x": 94,
+   "y": 53,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "melbourne",
+   "name": "Melbourne",
+   "x": 73,
+   "y": 92,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "brisbane",
+   "name": "Brisbane",
+   "x": 84,
+   "y": 78,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "perth",
+   "name": "Perth",
+   "x": 33,
+   "y": 84,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "adelaide",
+   "name": "Adelaide",
+   "x": 64,
+   "y": 88,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "darwin",
+   "name": "Darwin",
+   "x": 53,
+   "y": 57,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "hobart",
+   "name": "Hobart",
+   "x": 76,
+   "y": 99,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "cairns",
+   "name": "Cairns",
+   "x": 73,
+   "y": 63,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "townsville",
+   "name": "Townsville",
+   "x": 75,
+   "y": 66,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "alice-springs",
+   "name": "Alice Springs",
+   "x": 57,
+   "y": 72,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "broome",
+   "name": "Broome",
+   "x": 42,
+   "y": 64,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "auckland",
+   "name": "Auckland",
+   "x": 114,
+   "y": 91,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "christchurch",
+   "name": "Christchurch",
+   "x": 111,
+   "y": 100,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "ho-chi-minh-city",
+   "name": "Ho Chi Minh City",
+   "x": 20,
+   "y": 25,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "yangon",
+   "name": "Yangon",
+   "x": 5,
+   "y": 16,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "mandalay",
+   "name": "Mandalay",
+   "x": 5,
+   "y": 9,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "surabaya",
+   "name": "Surabaya",
+   "x": 28,
+   "y": 50,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "medan",
+   "name": "Medan",
+   "x": 9,
+   "y": 35,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "makassar",
+   "name": "Makassar",
+   "x": 38,
+   "y": 47,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "palembang",
+   "name": "Palembang",
+   "x": 17,
+   "y": 44,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "balikpapan",
+   "name": "Balikpapan",
+   "x": 34,
+   "y": 41,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "pontianak",
+   "name": "Pontianak",
+   "x": 24,
+   "y": 40,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "jayapura",
+   "name": "Jayapura",
+   "x": 67,
+   "y": 44,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "davao",
+   "name": "Davao",
+   "x": 46,
+   "y": 30,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "cebu",
+   "name": "Cebu",
+   "x": 43,
+   "y": 25,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "hong-kong",
+   "name": "Hong Kong",
+   "x": 30,
+   "y": 8,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kunming",
+   "name": "Kunming",
+   "x": 14,
+   "y": 5,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "taipei",
+   "name": "Taipei",
+   "x": 40,
+   "y": 5,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "noumea",
+   "name": "Nouméa",
+   "x": 102,
+   "y": 70,
+   "capital": false,
+   "port": true
+  }
+ ]
+}

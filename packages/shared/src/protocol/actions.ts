@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { SETTING_LIMITS } from '../types';
-import { IdSchema, PointSchema, UnitTypeSchema } from './common';
+import { IdSchema, MapRegionSchema, MapSizeSchema, PointSchema, UnitTypeSchema } from './common';
 
 // Client input, so strict: an unknown key is a mistake or a probe, never something to ignore.
 export const ActionSchema = z.discriminatedUnion('type', [
@@ -19,6 +19,8 @@ export const ActionSchema = z.discriminatedUnion('type', [
 const { seats, liveTurnSeconds, asyncTurnHours, holdPercent } = SETTING_LIMITS;
 
 const settingsFields = {
+  map: MapRegionSchema,
+  mapSize: MapSizeSchema,
   seats: z.int().min(seats.min).max(seats.max),
   startMode: z.enum(['auto', 'pick']),
   playMode: z.enum(['live', 'async']),

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyAction, hexHasBit, tileIndex, viewFor } from '../src';
+import { applyAction, hexHasBit, viewFor, WORLD } from '../src';
 import { blankGame, own, put, sync } from './helpers';
 
 describe('what each player can see', () => {
@@ -78,8 +78,8 @@ describe('what each player can see', () => {
     own(s, 'lisbon', 0);
     sync(s);
     const v = viewFor(s, 0);
-    expect(hexHasBit(v.explored, tileIndex(86, 26))).toBe(true);
-    expect(hexHasBit(v.explored, tileIndex(120, 40))).toBe(false);
+    expect(hexHasBit(v.explored, WORLD.tileIndex(86, 26))).toBe(true);
+    expect(hexHasBit(v.explored, WORLD.tileIndex(120, 40))).toBe(false);
   });
 
   it('tells each player only about events they saw', () => {

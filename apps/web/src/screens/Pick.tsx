@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { applyAction, botPickStart, distance, START_SPACING, START_VALUE_RADIUS, tileIndex, viewFor, type GameState, type Point } from '@warfront/shared';
+import { applyAction, botPickStart, getMap, START_SPACING, START_VALUE_RADIUS, viewFor, type GameState, type Point } from '@warfront/shared';
 import { EmblemIcon, Logo } from '../components/Icons';
 import { MapCanvas } from '../map/MapCanvas';
 import { SEATS } from '../theme';
@@ -7,10 +7,11 @@ import { SEATS } from '../theme';
 /** Hidden start pick for one person. */
 export function Pick({ game, seat, onPicked }: { game: GameState; seat: number; onPicked: (g: GameState) => void }) {
   const view = useMemo(() => viewFor(game, seat), [game, seat]);
+  const map = getMap(view.mapVersion);
   const [choice, setChoice] = useState<string | null>(null);
   const city = view.cities.find((c) => c.id === choice) ?? null;
-  const eligible = useMemo(() => new Set(view.cities.filter((c) => c.port).map((c) => tileIndex(c.x, c.y))), [view]);
-  const nearby = city ? view.cities.filter((c) => c.id !== city.id && distance(c, city) <= START_VALUE_RADIUS) : [];
+  const eligible = useMemo(() => new Set(view.cities.filter((c) => c.port).map((c) => map.tileIndex(c.x, c.y))), [view, map]);
+  const nearby = city ? view.cities.filter((c) => c.id !== city.id && map.distance(c, city) <= START_VALUE_RADIUS) : [];
   const picked = view.picking?.picked ?? [];
 
   const click = (p: Point) => {

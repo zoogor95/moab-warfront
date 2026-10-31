@@ -2,17 +2,13 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   applyAction,
   buildTurns,
-  distance,
   findPath,
+  getMap,
   PARATROOPER_DROP_RANGE,
   quietPassFor,
   reachable,
   RuleError,
   samePoint,
-  terrainAt,
-  tileIndex,
-  tilePoint,
-  tilesWithin,
   UNIT_TYPES,
   UNITS,
   viewFor,
@@ -22,11 +18,21 @@ import {
   type ViewUnit,
 } from '@warfront/shared';
 import { EmblemIcon, Logo, UnitToken } from '../components/Icons';
-import { describeEvent } from '../game/session';
+import { SaveMenu } from '../components/SaveMenu';
+import { describeEvent, humanSeats } from '../game/session';
+import { effectsOf, isPlaying, type Effect } from '../map/effects';
 import { MapCanvas } from '../map/MapCanvas';
 
 type Mode = 'move' | 'drop' | 'strike';
 const STOPS = new Set(['combat', 'blocked', 'captured', 'captureFailed', 'strike']);
+/** The replay at the start of a turn shows at most this many of the latest events. */
+const MAX_REPLAY = 12;
+const REPLAY_STEP = 1100;
+
+interface ReplayStep {
+  effects: Effect[];
+  text: string;
+}
 
 interface Props {
   game: GameState;
@@ -39,6 +45,7 @@ interface Props {
 
 export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: Props) {
   const view = useMemo(() => viewFor(game, seat), [game, seat]);
+  const map = getMap(view.mapVersion);
   const myTurn = !readOnly && game.phase === 'playing' && game.activeSeat === seat;
   const fast = view.settings.production === 'fast';
 
@@ -50,9 +57,50 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
   const [focus, setFocus] = useState<Point | null>(() => {
     const u = view.units.find((x) => x.owner === seat && (x.moves ?? 0) > 0 && !x.carriedBy);
     const c = view.cities.find((x) => x.owner === seat);
-    return u ? { x: u.x, y: u.y } : c ? { x: c.x, y: c.y } : { x: 90, y: 40 };
+    return u ? { x: u.x, y: u.y } : c ? { x: c.x, y: c.y } : { x: Math.floor(map.cols / 2), y: Math.floor(map.rows / 2) };
   });
   const toastTimer = useRef(0);
+
+  // Effects for events as they happen: this player's own actions, or bots moving while watched.
+  const [fx, setFx] = useState<Effect[]>([]);
+  const logSeen = useRef(view.log.length);
+  useEffect(() => {
+    const fresh = view.log.slice(logSeen.current);
+    logSeen.current = view.log.length;
+    const now = performance.now();
+    const add = fresh.flatMap((e) => effectsOf(e, view, now));
+    if (add.length) setFx((list) => [...list.filter((f) => isPlaying(f, now)), ...add]);
+  }, [view]);
+
+  // When players share a device, nobody saw the other turns, so replay what this player could
+  // see happen since their last turn, panning to each event in turn.
+  const [replay, setReplay] = useState<{ steps: ReplayStep[]; at: number } | null>(() => {
+    if (readOnly || game.phase !== 'playing' || humanSeats(game).length < 2) return null;
+    const n = view.players.length;
+    const since = (view.round - 1) * n + seat;
+    const steps = view.log
+      .filter((e) => e.turnOf !== seat && e.round * n + e.turnOf > since)
+      .map((e) => ({ effects: effectsOf(e, view, 0), text: describeEvent(e, view) }))
+      .filter((step) => step.effects.length)
+      .slice(-MAX_REPLAY);
+    return steps.length ? { steps, at: 0 } : null;
+  });
+  const home = useRef(focus);
+  const endReplay = () => {
+    setReplay(null);
+    setFx([]);
+    if (home.current) setFocus({ ...home.current });
+  };
+  useEffect(() => {
+    if (!replay) return;
+    const step = replay.steps[replay.at];
+    const now = performance.now();
+    setFx(step.effects.map((f) => ({ ...f, start: now + 250 })));
+    setFocus({ x: step.effects[0].x, y: step.effects[0].y });
+    const id = window.setTimeout(() => (replay.at + 1 < replay.steps.length ? setReplay({ ...replay, at: replay.at + 1 }) : endReplay()), REPLAY_STEP);
+    return () => window.clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [replay]);
 
   const unit = view.units.find((u) => u.id === selUnit && u.owner === seat) ?? null;
   useEffect(() => {
@@ -73,21 +121,21 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
   const highlight = useMemo(() => {
     if (!unit || !myTurn) return undefined;
     if (mode === 'drop') {
-      const enemy = new Set(view.units.filter((u) => u.owner !== seat).map((u) => tileIndex(u.x, u.y)));
-      return new Set(tilesWithin(unit.x, unit.y, PARATROOPER_DROP_RANGE).filter((i) => {
-        const p = tilePoint(i);
-        return terrainAt(p.x, p.y) === 'land' && !enemy.has(i) && distance(p, unit) >= 1;
+      const enemy = new Set(view.units.filter((u) => u.owner !== seat).map((u) => map.tileIndex(u.x, u.y)));
+      return new Set(map.tilesWithin(unit.x, unit.y, PARATROOPER_DROP_RANGE).filter((i) => {
+        const p = map.tilePoint(i);
+        return map.terrainAt(p.x, p.y) === 'land' && !enemy.has(i) && map.distance(p, unit) >= 1;
       }));
     }
-    if (mode === 'strike') return new Set(tilesWithin(unit.x, unit.y, unit.moves ?? 0));
+    if (mode === 'strike') return new Set(map.tilesWithin(unit.x, unit.y, unit.moves ?? 0));
     if (!unit.moves || !canPass) return undefined;
-    return new Set(reachable(unit, unit.moves, canPass).keys());
-  }, [unit, myTurn, mode, view, seat, canPass]);
+    return new Set(reachable(map, unit, unit.moves, canPass).keys());
+  }, [unit, myTurn, mode, view, seat, canPass, map]);
 
   const path = useMemo(() => {
     if (!unit || !hover || mode !== 'move' || !myTurn || !canPass || samePoint(hover, unit)) return null;
-    return findPath(unit, (p) => samePoint(p, hover), canPass, 6000);
-  }, [unit, hover, mode, myTurn, canPass]);
+    return findPath(map, unit, (p) => samePoint(p, hover), canPass, 6000);
+  }, [unit, hover, mode, myTurn, canPass, map]);
 
   const turnEnds = useMemo(() => {
     if (!path || !unit) return undefined;
@@ -97,12 +145,12 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
     path.forEach((p, i) => {
       left -= 1;
       if (left <= 0 && i < path.length - 1) {
-        ends.add(tileIndex(p.x, p.y));
+        ends.add(map.tileIndex(p.x, p.y));
         left = full;
       }
     });
     return ends;
-  }, [path, unit]);
+  }, [path, unit, map]);
 
   /** Runs actions in order, stopping at the first refusal or anything that ends a move. */
   const run = (actions: Action[], opts: { stopOnFight?: boolean } = {}): GameState => {
@@ -152,6 +200,10 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
   };
 
   const click = (p: Point, button: 'primary' | 'secondary') => {
+    if (replay) {
+      endReplay();
+      return;
+    }
     if (button === 'secondary') {
       setSelUnit(null);
       setSelTile(null);
@@ -169,10 +221,10 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
       return;
     }
     const mineHere = view.units.filter((u) => u.owner === seat && samePoint(u, p));
-    const inReach = highlight?.has(tileIndex(p.x, p.y)) ?? false;
+    const inReach = highlight?.has(map.tileIndex(p.x, p.y)) ?? false;
     const enemyThere = view.units.some((u) => u.owner !== seat && samePoint(u, p));
     if (myTurn && unit && (unit.moves ?? 0) > 0 && !samePoint(unit, p) && (inReach || enemyThere || !mineHere.length)) {
-      const route = path && samePoint(path[path.length - 1], p) ? path : canPass ? findPath(unit, (q) => samePoint(q, p), canPass, 8000) : null;
+      const route = path && samePoint(path[path.length - 1], p) ? path : canPass ? findPath(map, unit, (q) => samePoint(q, p), canPass, 8000) : null;
       if (!route) {
         say(`No route for this ${UNITS[unit.type].name.toLowerCase()} to that tile.`);
         return;
@@ -197,6 +249,11 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
     const onKey = (e: KeyboardEvent) => {
       const el = e.target as HTMLElement;
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') return;
+      if (replay) {
+        if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') e.preventDefault();
+        endReplay();
+        return;
+      }
       if (e.key === ' ' || e.key === 'n') {
         e.preventDefault();
         nextUnit();
@@ -239,6 +296,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
           ))}
         </ol>
         <span className="grow" />
+        {game.phase === 'playing' && <SaveMenu game={game} />}
         <button type="button" className="btn ghost" onClick={() => window.confirm('Leave this match and start a new one? It cannot be resumed.') && onNewGame()}>New match</button>
       </header>
 
@@ -249,7 +307,18 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
           overlay={{ selectedUnit: unit?.id ?? null, selectedTile: selTile, hover, reachable: highlight, path, turnEnds }}
           onTileClick={click}
           onTileHover={setHover}
-        />
+          effects={fx}
+        >
+          {replay && (
+            <div className="replay" role="status" aria-live="polite">
+              <div>
+                <small className="eyebrow">Since your last turn · {replay.at + 1} of {replay.steps.length}</small>
+                <p>{replay.steps[replay.at].text}</p>
+              </div>
+              <button type="button" className="btn" onClick={endReplay}>Skip</button>
+            </div>
+          )}
+        </MapCanvas>
 
         <aside className="side">
           {readOnly && <div className="banner">{view.players[view.activeSeat].name} is moving…</div>}
@@ -263,7 +332,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
                   <div>
                     <div className="title">{UNITS[unit.type].name}{unit.sentry ? ' · sentry' : ''}</div>
                     <div className="muted">
-                      {carrier ? `Aboard your ${UNITS[carrier.type].name.toLowerCase()}` : cityHere ? `In ${cityHere.name}${ownCityHere ? ', your city' : ''}` : terrainAt(unit.x, unit.y) === 'sea' ? 'At sea' : 'In the field'}
+                      {carrier ? `Aboard your ${UNITS[carrier.type].name.toLowerCase()}` : cityHere ? `In ${cityHere.name}${ownCityHere ? ', your city' : ''}` : map.terrainAt(unit.x, unit.y) === 'sea' ? 'At sea' : 'In the field'}
                     </div>
                   </div>
                 </div>
@@ -313,7 +382,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
                   <p className="muted">Enemy here: {summarize(unitsHere.filter((u) => u.owner !== seat), view.players)}</p>
                 )}
                 {lastSeenHere && <p className="muted">Last seen in round {lastSeenHere.round}: {lastSeenHere.units.map((u) => `${view.players[u.owner].name}'s ${UNITS[u.type].name.toLowerCase()}${u.count > 1 ? ` ×${u.count}` : ''}`).join(', ')}</p>}
-                {!cityHere && !unitsHere.length && !lastSeenHere && <p className="muted">{terrainAt(tile.x, tile.y) === 'sea' ? 'Open sea.' : terrainAt(tile.x, tile.y) === 'mountain' ? 'Mountains. Land units cannot cross.' : 'Open ground.'}</p>}
+                {!cityHere && !unitsHere.length && !lastSeenHere && <p className="muted">{map.terrainAt(tile.x, tile.y) === 'sea' ? 'Open sea.' : map.terrainAt(tile.x, tile.y) === 'mountain' ? 'Mountains. Land units cannot cross.' : 'Open ground.'}</p>}
               </>
             ) : (
               <p className="muted">{myTurn ? `${waiting.length} unit${waiting.length === 1 ? '' : 's'} waiting for orders. Tap one, or press Space.` : 'Tap any tile to inspect it.'}</p>

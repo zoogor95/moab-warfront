@@ -163,3 +163,24 @@ input { height: 42px; padding: 0 12px; border-radius: 10px; border: 1px solid va
 .token { position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none; border: 1px solid rgba(5, 8, 12, 0.85); }
 .token-emblem { position: absolute; left: -4px; bottom: -4px; border-radius: 4px; background: var(--ground); display: flex; align-items: center; justify-content: center; }
 .token-count { position: absolute; top: -5px; right: -5px; padding: 0 3px; border-radius: 99px; background: var(--ground); border: 1px solid; font-weight: 600; line-height: 1; display: flex; align-items: center; justify-content: center; }
+
+/* Saves */
+.save-menu { position: relative; }
+.save-panel { position: absolute; right: 0; top: calc(100% + 8px); z-index: 20; width: min(380px, calc(100vw - 32px)); padding: 16px; display: flex; flex-direction: column; gap: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55); }
+.save-panel .row .btn { flex: 1 1 auto; }
+.save-panel p { font-size: 13px; }
+.saves { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.save-item { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; padding: 10px 12px; border-radius: 12px; background: var(--raised); }
+.save-item > div:first-child { flex: 1 1 220px; min-width: 0; }
+.save-item strong { display: block; overflow-wrap: anywhere; }
+.save-item p { font-size: 13px; }
+.file-btn input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.file-btn:focus-within { outline: 2px solid var(--amber); outline-offset: 2px; }
+@media (max-width: 600px) {
+  .save-panel { position: fixed; left: 16px; right: 16px; top: 60px; width: auto; }
+}
+
+/* Replay of events since the last turn */
+.replay { position: absolute; left: 12px; right: 72px; top: 12px; max-width: 520px; display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 16px; border-radius: 12px; background: rgba(13, 18, 23, 0.92); border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45); }
+.replay > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.replay p { font-size: 14px; }
