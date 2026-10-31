@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { getMap, type PlayerView, type Point } from '@warfront/shared';
 import { drawMap, screenToTile, type Camera, type Overlay } from './draw';
+import { drawEffects, prefersStill, type Effect } from './effects';
 
 interface Props {
   view: PlayerView;
@@ -10,19 +11,22 @@ interface Props {
   initialTile?: number;
   onTileClick?: (p: Point, button: 'primary' | 'secondary') => void;
   onTileHover?: (p: Point | null) => void;
+  effects?: Effect[];
+  /** Drawn over the map, under the zoom buttons. */
+  children?: ReactNode;
 }
 
 const MAX_TILE = 64;
 
-export function MapCanvas({ view, overlay, focus, initialTile = 30, onTileClick, onTileHover }: Props) {
+export function MapCanvas({ view, overlay, focus, initialTile = 30, onTileClick, onTileHover, effects, children }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const map = getMap(view.mapVersion);
   const cam = useRef<Camera>({ cx: focus ? focus.x + 0.5 : map.cols / 2, cy: focus ? focus.y + 0.5 : map.rows / 2, t: initialTile });
   const size = useRef({ w: 0, h: 0 });
   const frame = useRef(0);
-  const latest = useRef({ view, overlay });
-  latest.current = { view, overlay };
+  const latest = useRef({ view, overlay, effects });
+  latest.current = { view, overlay, effects };
   const [, setTick] = useState(0);
   const handlers = useRef({ onTileClick, onTileHover });
   handlers.current = { onTileClick, onTileHover };
@@ -59,7 +63,9 @@ export function MapCanvas({ view, overlay, focus, initialTile = 30, onTileClick,
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      drawMap(ctx, w, h, cam.current, latest.current.view, latest.current.overlay);
+      const { view: v, overlay: o, effects: fx } = latest.current;
+      drawMap(ctx, w, h, cam.current, v, o);
+      if (fx?.length && drawEffects(ctx, w, h, cam.current, v, fx, performance.now(), prefersStill())) render();
     });
   };
 
@@ -177,6 +183,7 @@ export function MapCanvas({ view, overlay, focus, initialTile = 30, onTileClick,
         aria-label="Map"
         role="img"
       />
+      {children}
       <div className="map-zoom">
         <button type="button" aria-label="Zoom in" onClick={() => zoomAt(1.25, size.current.w / 2, size.current.h / 2)}>
           <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>

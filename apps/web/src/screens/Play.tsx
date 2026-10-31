@@ -18,11 +18,21 @@ import {
   type ViewUnit,
 } from '@warfront/shared';
 import { EmblemIcon, Logo, UnitToken } from '../components/Icons';
-import { describeEvent } from '../game/session';
+import { SaveMenu } from '../components/SaveMenu';
+import { describeEvent, humanSeats } from '../game/session';
+import { effectsOf, isPlaying, type Effect } from '../map/effects';
 import { MapCanvas } from '../map/MapCanvas';
 
 type Mode = 'move' | 'drop' | 'strike';
 const STOPS = new Set(['combat', 'blocked', 'captured', 'captureFailed', 'strike']);
+/** The replay at the start of a turn shows at most this many of the latest events. */
+const MAX_REPLAY = 12;
+const REPLAY_STEP = 1100;
+
+interface ReplayStep {
+  effects: Effect[];
+  text: string;
+}
 
 interface Props {
   game: GameState;
@@ -50,6 +60,47 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
     return u ? { x: u.x, y: u.y } : c ? { x: c.x, y: c.y } : { x: Math.floor(map.cols / 2), y: Math.floor(map.rows / 2) };
   });
   const toastTimer = useRef(0);
+
+  // Effects for events as they happen: this player's own actions, or bots moving while watched.
+  const [fx, setFx] = useState<Effect[]>([]);
+  const logSeen = useRef(view.log.length);
+  useEffect(() => {
+    const fresh = view.log.slice(logSeen.current);
+    logSeen.current = view.log.length;
+    const now = performance.now();
+    const add = fresh.flatMap((e) => effectsOf(e, view, now));
+    if (add.length) setFx((list) => [...list.filter((f) => isPlaying(f, now)), ...add]);
+  }, [view]);
+
+  // When players share a device, nobody saw the other turns, so replay what this player could
+  // see happen since their last turn, panning to each event in turn.
+  const [replay, setReplay] = useState<{ steps: ReplayStep[]; at: number } | null>(() => {
+    if (readOnly || game.phase !== 'playing' || humanSeats(game).length < 2) return null;
+    const n = view.players.length;
+    const since = (view.round - 1) * n + seat;
+    const steps = view.log
+      .filter((e) => e.turnOf !== seat && e.round * n + e.turnOf > since)
+      .map((e) => ({ effects: effectsOf(e, view, 0), text: describeEvent(e, view) }))
+      .filter((step) => step.effects.length)
+      .slice(-MAX_REPLAY);
+    return steps.length ? { steps, at: 0 } : null;
+  });
+  const home = useRef(focus);
+  const endReplay = () => {
+    setReplay(null);
+    setFx([]);
+    if (home.current) setFocus({ ...home.current });
+  };
+  useEffect(() => {
+    if (!replay) return;
+    const step = replay.steps[replay.at];
+    const now = performance.now();
+    setFx(step.effects.map((f) => ({ ...f, start: now + 250 })));
+    setFocus({ x: step.effects[0].x, y: step.effects[0].y });
+    const id = window.setTimeout(() => (replay.at + 1 < replay.steps.length ? setReplay({ ...replay, at: replay.at + 1 }) : endReplay()), REPLAY_STEP);
+    return () => window.clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [replay]);
 
   const unit = view.units.find((u) => u.id === selUnit && u.owner === seat) ?? null;
   useEffect(() => {
@@ -149,6 +200,10 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
   };
 
   const click = (p: Point, button: 'primary' | 'secondary') => {
+    if (replay) {
+      endReplay();
+      return;
+    }
     if (button === 'secondary') {
       setSelUnit(null);
       setSelTile(null);
@@ -194,6 +249,11 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
     const onKey = (e: KeyboardEvent) => {
       const el = e.target as HTMLElement;
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') return;
+      if (replay) {
+        if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') e.preventDefault();
+        endReplay();
+        return;
+      }
       if (e.key === ' ' || e.key === 'n') {
         e.preventDefault();
         nextUnit();
@@ -236,6 +296,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
           ))}
         </ol>
         <span className="grow" />
+        {game.phase === 'playing' && <SaveMenu game={game} />}
         <button type="button" className="btn ghost" onClick={() => window.confirm('Leave this match and start a new one? It cannot be resumed.') && onNewGame()}>New match</button>
       </header>
 
@@ -246,7 +307,18 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
           overlay={{ selectedUnit: unit?.id ?? null, selectedTile: selTile, hover, reachable: highlight, path, turnEnds }}
           onTileClick={click}
           onTileHover={setHover}
-        />
+          effects={fx}
+        >
+          {replay && (
+            <div className="replay" role="status" aria-live="polite">
+              <div>
+                <small className="eyebrow">Since your last turn · {replay.at + 1} of {replay.steps.length}</small>
+                <p>{replay.steps[replay.at].text}</p>
+              </div>
+              <button type="button" className="btn" onClick={endReplay}>Skip</button>
+            </div>
+          )}
+        </MapCanvas>
 
         <aside className="side">
           {readOnly && <div className="banner">{view.players[view.activeSeat].name} is moving…</div>}

@@ -129,6 +129,8 @@ If a rule is unclear, check the design doc first, then ask. Don't invent rules s
 - Accessibility: real `<button>`s, `aria-label` on icon-only buttons, touch targets of at least 44 px, and text contrast of at least 4.5:1.
 - Mobile first: check layouts at 390 px wide as well as desktop.
 - Browser storage is a convenience only. Wrap every `localStorage` call in try/catch.
+- Map effects (`src/map/effects.ts`) are built only from `view.log`, so they show nothing a player did not see. Hot-seat turns open with a replay of events since that player's last turn. Honour `prefers-reduced-motion` with still highlights.
+- Hot-seat saves: named saves in the browser and downloadable save files (`src/game/saves.ts`). The file format and its checks are in `packages/shared/src/protocol/save.ts`: run `readSaveFile`, load the map, then `checkSavedGame`. A save holds the full state, seed included, so never offer one for an online match.
 
 ## Phase 2 notes (agreed design)
 

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createMatch, DEFAULT_SETTINGS, loadMap, MAP_REGIONS, MAP_SIZES, mapVersionFor, type GameState, type MatchSettings } from '@warfront/shared';
 import { EmblemIcon, Logo } from '../components/Icons';
+import { SavedMatches } from '../components/SavedMatches';
 import { SEATS } from '../theme';
 
 interface Seat {
@@ -34,10 +35,11 @@ interface Props {
   saved: GameState | null;
   onStart: (g: GameState) => void;
   onResume: (g: GameState) => void;
+  onLoad: (g: GameState) => void;
   onDiscard: () => void;
 }
 
-export function Setup({ saved, onStart, onResume, onDiscard }: Props) {
+export function Setup({ saved, onStart, onResume, onLoad, onDiscard }: Props) {
   const [seats, setSeats] = useState<Seat[]>(DEFAULT_SEATS);
   const [settings, setSettings] = useState<MatchSettings>({ ...DEFAULT_SETTINGS });
   const [seed, setSeed] = useState(randomSeed);
@@ -81,6 +83,8 @@ export function Setup({ saved, onStart, onResume, onDiscard }: Props) {
             </div>
           </section>
         )}
+
+        <SavedMatches replacing={saved !== null} onLoad={onLoad} />
 
         <section className="card">
           <div className="card-head">
