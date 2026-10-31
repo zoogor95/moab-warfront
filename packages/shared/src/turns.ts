@@ -1,7 +1,7 @@
 import { buildTurns, UNITS } from './units';
 import type { GameState, Unit } from './types';
 import { canCarry, createUnit, emit, freeSpace, ownCityAt, placeUnit, ref, removeUnit } from './state';
-import { distance } from './world/world';
+import { mapOf } from './world/maps';
 
 /** Start of a seat's turn: production, repairs, fresh moves. */
 export function beginTurn(s: GameState, seat: number): void {
@@ -41,9 +41,10 @@ export function landAircraft(s: GameState, seat: number): void {
 function nearestBase(s: GameState, plane: Unit) {
   type Base = { x: number; y: number; d: number; carrier?: Unit };
   const options: Base[] = [];
-  for (const c of s.cities) if (c.owner === plane.owner) options.push({ x: c.x, y: c.y, d: distance(c, plane) });
+  const map = mapOf(s);
+  for (const c of s.cities) if (c.owner === plane.owner) options.push({ x: c.x, y: c.y, d: map.distance(c, plane) });
   for (const u of s.units) {
-    if (u.owner === plane.owner && !u.carriedBy && canCarry(u, plane.type) && freeSpace(s, u) > 0) options.push({ x: u.x, y: u.y, d: distance(u, plane), carrier: u });
+    if (u.owner === plane.owner && !u.carriedBy && canCarry(u, plane.type) && freeSpace(s, u) > 0) options.push({ x: u.x, y: u.y, d: map.distance(u, plane), carrier: u });
   }
   const reachable = options.filter((o) => o.d <= plane.moves).sort((a, b) => a.d - b.d || (a.carrier ? 1 : 0) - (b.carrier ? 1 : 0));
   const best = reachable[0];

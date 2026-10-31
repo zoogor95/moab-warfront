@@ -1,16 +1,14 @@
 import type { Server as IoServer, Socket } from 'socket.io';
+import { RuleError, viewFor, type LoggedEvent } from '@warfront/shared';
 import {
-  chatSendMsg,
-  RuleError,
-  submitMsg,
-  subscribeMsg,
-  viewFor,
+  ActionSubmitSchema,
+  ChatSendSchema,
+  MatchSubscribeSchema,
   type ChatMessage,
   type ClientToServerEvents,
-  type LoggedEvent,
   type MatchUpdateMsg,
   type ServerToClientEvents,
-} from '@warfront/shared';
+} from '@warfront/shared/protocol';
 import { verifyAccess } from './auth';
 import type { Pool } from './db';
 import { HttpError } from './errors';
@@ -110,7 +108,7 @@ export function attachRealtime(io: Io, pool: Pool, matches: MatchService, secret
 
     socket.on('match:subscribe', async (raw, ack) => {
       try {
-        const { matchId } = subscribeMsg.parse(raw);
+        const { matchId } = MatchSubscribeSchema.parse(raw);
         await seatOf(matchId, userId);
         await socket.join(room(matchId));
         const lobby = await readLobby(pool, matchId);
@@ -134,7 +132,7 @@ export function attachRealtime(io: Io, pool: Pool, matches: MatchService, secret
       const clientActionId = typeof raw?.clientActionId === 'string' ? raw.clientActionId : undefined;
       try {
         if (!actionLimit.take(userId)) return ack?.({ ok: false, error: 'rate-limited', message: 'Slow down a little', clientActionId });
-        const { matchId, ...msg } = submitMsg.parse(raw);
+        const { matchId, ...msg } = ActionSubmitSchema.parse(raw);
         ack?.(await matches.submit(matchId, userId, msg));
       } catch (err) {
         ack?.({ ...refusal(err), clientActionId } as never);
@@ -144,7 +142,7 @@ export function attachRealtime(io: Io, pool: Pool, matches: MatchService, secret
     socket.on('chat:message', async (raw, ack) => {
       try {
         if (!chatLimit.take(userId)) return ack?.({ ok: false, error: 'rate-limited', message: 'Slow down a little' });
-        const { matchId, text } = chatSendMsg.parse(raw);
+        const { matchId, text } = ChatSendSchema.parse(raw);
         const seat = await seatOf(matchId, userId);
         const name = (await pool.query<{ display_name: string }>('SELECT display_name FROM users WHERE id = $1', [userId])).rows[0]?.display_name ?? 'Player';
         const msg: ChatMessage = { matchId, seat, name, text, at: new Date().toISOString() };

@@ -1,5 +1,14 @@
 import { randomInt } from 'node:crypto';
-import { DEFAULT_SETTINGS, SEAT_STYLES, type Lobby, type LobbySeat, type MatchSettings, type MatchStatus, type MatchSummary } from '@warfront/shared';
+import { DEFAULT_SETTINGS, type MatchSettings } from '@warfront/shared';
+import {
+  MatchSettingsSchema,
+  SEAT_STYLES,
+  type Lobby,
+  type LobbySeat,
+  type MatchStatus,
+  type MatchSummary,
+  type UpdateSettingsBody,
+} from '@warfront/shared/protocol';
 import { tx, type Client, type Pool } from './db';
 import { conflict, forbidden, HttpError, notFound } from './errors';
 
@@ -41,7 +50,8 @@ export async function readLobby(c: Pick<Pool, 'query'>, matchId: string): Promis
     code: row.code,
     hostId: row.host_id,
     status: row.status,
-    settings: row.settings,
+    // Lobbies made before a setting existed get its default.
+    settings: { ...DEFAULT_SETTINGS, ...row.settings },
     seats: s.rows.map((r): LobbySeat => ({
       seat: r.seat,
       userId: r.user_id,
@@ -166,10 +176,12 @@ export async function clearSeat(pool: Pool, userId: string, matchId: string, sea
   return readLobby(pool, matchId);
 }
 
-export async function updateSettings(pool: Pool, userId: string, matchId: string, settings: MatchSettings): Promise<Lobby> {
+/** Merges a host's change into the current settings and checks the result as a whole. */
+export async function updateSettings(pool: Pool, userId: string, matchId: string, change: UpdateSettingsBody): Promise<Lobby> {
   await tx(pool, async (c) => {
     const m = await lockLobby(c, matchId);
     requireHost(m, userId);
+    const settings = MatchSettingsSchema.parse({ ...DEFAULT_SETTINGS, ...m.settings, ...change });
     const seats = await seatsOf(c, matchId);
     const highest = Math.max(...seats.map((s) => s.seat));
     if (settings.seats <= highest) throw conflict('seat-in-use', `Seat ${highest + 1} is in use; empty it first`);

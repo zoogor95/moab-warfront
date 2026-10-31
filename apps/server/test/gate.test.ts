@@ -1,5 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { DEFAULT_SETTINGS, startValue, type City, type Lobby } from '@warfront/shared';
+import { DEFAULT_SETTINGS, mapOf, startValue, type City } from '@warfront/shared';
+import type { Lobby } from '@warfront/shared/protocol';
 import { Player, testServer, type TestServer } from './client';
 import { hasTestDb } from './db';
 import { expectNothingHidden, playTurnFromView } from './play';
@@ -40,7 +41,8 @@ describe.skipIf(!dbUp)('phase 2 gate', () => {
 
     // Everyone picks at once, each from what their own view shows.
     const ports = host.update!.view.cities.filter((c) => c.port) as unknown as City[];
-    const ranked = [...ports].sort((a, b) => startValue(b, ports) - startValue(a, ports) || a.id.localeCompare(b.id));
+    const map = mapOf(host.update!.view);
+    const ranked = [...ports].sort((a, b) => startValue(map, b, ports) - startValue(map, a, ports) || a.id.localeCompare(b.id));
     const picks = await Promise.all(players.map((p, i) => p.submit(id, { type: 'pickStart', city: ranked[i * 9].id })));
     expect(picks.every((r) => r.ok)).toBe(true);
     for (const p of players) await p.waitFor(() => p.update?.view.phase === 'playing', 'starts revealed');

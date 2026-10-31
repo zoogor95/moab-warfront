@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
-import { ROWS, type PlayerView, type Point } from '@warfront/shared';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { getMap, type PlayerView, type Point } from '@warfront/shared';
 import { drawMap, screenToTile, type Camera, type Overlay } from './draw';
+import { drawEffects, prefersStill, type Effect } from './effects';
 
 interface Props {
   view: PlayerView;
@@ -10,31 +11,42 @@ interface Props {
   initialTile?: number;
   onTileClick?: (p: Point, button: 'primary' | 'secondary') => void;
   onTileHover?: (p: Point | null) => void;
+  effects?: Effect[];
+  /** Drawn over the map, under the zoom buttons. */
+  children?: ReactNode;
 }
 
 const MAX_TILE = 64;
 
-export function MapCanvas({ view, overlay, focus, initialTile = 30, onTileClick, onTileHover }: Props) {
+export function MapCanvas({ view, overlay, focus, initialTile = 30, onTileClick, onTileHover, effects, children }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const cam = useRef<Camera>({ cx: focus ? focus.x + 0.5 : 90, cy: focus ? focus.y + 0.5 : 45, t: initialTile });
+  const map = getMap(view.mapVersion);
+  const cam = useRef<Camera>({ cx: focus ? focus.x + 0.5 : map.cols / 2, cy: focus ? focus.y + 0.5 : map.rows / 2, t: initialTile });
   const size = useRef({ w: 0, h: 0 });
   const frame = useRef(0);
-  const latest = useRef({ view, overlay });
-  latest.current = { view, overlay };
+  const latest = useRef({ view, overlay, effects });
+  latest.current = { view, overlay, effects };
   const [, setTick] = useState(0);
   const handlers = useRef({ onTileClick, onTileHover });
   handlers.current = { onTileClick, onTileHover };
 
-  const minTile = () => Math.max(3, size.current.h / ROWS);
+  // Zoomed all the way out, a wrapping map fills the height; a regional map fits whole on screen.
+  const minTile = () => {
+    const { w, h } = size.current;
+    return Math.max(2, map.wraps ? h / map.rows : Math.min(h / map.rows, w / map.cols));
+  };
+  /** Keeps the camera over the map: centred on an axis that fits, else no gap past an edge. */
+  const keepIn = (centre: number, screen: number, tiles: number, t: number) => {
+    const half = screen / 2 / t;
+    return tiles * t <= screen ? tiles / 2 : Math.min(tiles - half, Math.max(half, centre));
+  };
   const clamp = () => {
     const c = cam.current;
     const { w, h } = size.current;
     c.t = Math.min(MAX_TILE, Math.max(minTile(), c.t));
-    const half = h / 2 / c.t;
-    c.cy = ROWS * c.t <= h ? ROWS / 2 : Math.min(ROWS - half, Math.max(half, c.cy));
-    c.cx = ((c.cx % 180) + 180) % 180;
-    void w;
+    c.cy = keepIn(c.cy, h, map.rows, c.t);
+    c.cx = map.wraps ? ((c.cx % map.cols) + map.cols) % map.cols : keepIn(c.cx, w, map.cols, c.t);
   };
 
   const render = () => {
@@ -51,7 +63,9 @@ export function MapCanvas({ view, overlay, focus, initialTile = 30, onTileClick,
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      drawMap(ctx, w, h, cam.current, latest.current.view, latest.current.overlay);
+      const { view: v, overlay: o, effects: fx } = latest.current;
+      drawMap(ctx, w, h, cam.current, v, o);
+      if (fx?.length && drawEffects(ctx, w, h, cam.current, v, fx, performance.now(), prefersStill())) render();
     });
   };
 
@@ -118,7 +132,7 @@ export function MapCanvas({ view, overlay, focus, initialTile = 30, onTileClick,
     const p = local(e);
     const prev = pointers.current.get(e.pointerId);
     if (!prev) {
-      const tile = screenToTile(cam.current, size.current.w, size.current.h, p.x, p.y);
+      const tile = screenToTile(map, cam.current, size.current.w, size.current.h, p.x, p.y);
       const key = tile ? `${tile.x},${tile.y}` : '';
       if (key !== gesture.current.lastHover) {
         gesture.current.lastHover = key;
@@ -147,7 +161,7 @@ export function MapCanvas({ view, overlay, focus, initialTile = 30, onTileClick,
     if (pointers.current.size < 2) gesture.current.pinch = 0;
     if (!had || gesture.current.moved || pointers.current.size > 0) return;
     const p = local(e);
-    const tile = screenToTile(cam.current, size.current.w, size.current.h, p.x, p.y);
+    const tile = screenToTile(map, cam.current, size.current.w, size.current.h, p.x, p.y);
     if (tile) handlers.current.onTileClick?.(tile, e.button === 2 ? 'secondary' : 'primary');
   };
 
@@ -166,9 +180,10 @@ export function MapCanvas({ view, overlay, focus, initialTile = 30, onTileClick,
           const p = local(e);
           zoomAt(e.deltaY < 0 ? 1.15 : 1 / 1.15, p.x, p.y);
         }}
-        aria-label="World map"
+        aria-label="Map"
         role="img"
       />
+      {children}
       <div className="map-zoom">
         <button type="button" aria-label="Zoom in" onClick={() => zoomAt(1.25, size.current.w / 2, size.current.h / 2)}>
           <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>

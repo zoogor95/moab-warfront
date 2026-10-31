@@ -1,5 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { DEFAULT_SETTINGS, type Lobby, type MatchSummary } from '@warfront/shared';
+import { DEFAULT_SETTINGS } from '@warfront/shared';
+import type { Lobby, MatchSummary } from '@warfront/shared/protocol';
 import { Player, testServer, type TestServer } from './client';
 import { hasTestDb } from './db';
 
@@ -52,19 +53,22 @@ describe.skipIf(!dbUp)('lobbies', () => {
     const lobby = await create();
     await guest.ok('POST', '/matches/join', { code: lobby.code });
     await guest.ok('POST', `/matches/${lobby.id}/ready`, { ready: true });
-    expect((await guest.req('PATCH', `/matches/${lobby.id}/settings`, { settings: DEFAULT_SETTINGS })).status).toBe(403);
-    const changed = await host.ok<Lobby>('PATCH', `/matches/${lobby.id}/settings`, { settings: { ...DEFAULT_SETTINGS, seats: 2, production: 'fast' } });
+    expect((await guest.req('PATCH', `/matches/${lobby.id}/settings`, { privacy: 'public' })).status).toBe(403);
+    const changed = await host.ok<Lobby>('PATCH', `/matches/${lobby.id}/settings`, { seats: 2, production: 'fast' });
     expect(changed.settings.production).toBe('fast');
     expect(changed.seats.find((s) => s.userId === guest.id)?.ready).toBe(false);
-    // Turn limits must be one of the listed values.
-    expect((await host.req('PATCH', `/matches/${lobby.id}/settings`, { settings: { ...DEFAULT_SETTINGS, turnLimitSeconds: 61 } })).status).toBe(400);
+    // Turn limits must be one of the listed values, and fit the play mode once merged.
+    expect((await host.req('PATCH', `/matches/${lobby.id}/settings`, { turnLimitSeconds: 61 })).status).toBe(400);
+    expect((await host.req('PATCH', `/matches/${lobby.id}/settings`, { playMode: 'async' })).status).toBe(400);
+    const regional = await host.ok<Lobby>('PATCH', `/matches/${lobby.id}/settings`, { map: 'europe', mapSize: 'small' });
+    expect(regional.settings).toMatchObject({ map: 'europe', mapSize: 'small', production: 'fast' });
   });
 
   it('will not close a seat someone sits in', async () => {
     const lobby = await create({ ...DEFAULT_SETTINGS, seats: 4 });
     await guest.ok('POST', '/matches/join', { code: lobby.code });
     await guest.ok('POST', `/matches/${lobby.id}/seat`, { seat: 3 });
-    const r = await host.req<{ error: string }>('PATCH', `/matches/${lobby.id}/settings`, { settings: { ...DEFAULT_SETTINGS, seats: 3 } });
+    const r = await host.req<{ error: string }>('PATCH', `/matches/${lobby.id}/settings`, { seats: 3 });
     expect(r.status).toBe(409);
     expect(r.body.error).toBe('seat-in-use');
   });

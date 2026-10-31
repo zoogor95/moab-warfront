@@ -1,4 +1,5 @@
 export * from './world/world';
+export * from './world/maps';
 export * from './units';
 export * from './types';
 export * from './rng';
@@ -11,4 +12,3 @@ export { canTarget } from './combat';
 export { chooseAutoStarts, resolvePicks, startValue } from './starts';
 export { findPath, reachable, quietPassFor, samePoint } from './path';
 export { playBotTurn, botPickStart } from './bot';
-export * from './protocol';

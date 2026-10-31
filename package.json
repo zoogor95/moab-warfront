@@ -16,9 +16,10 @@
     "db:migrate": "npm run migrate -w @warfront/server",
     "build": "npm run build -w @warfront/web",
     "test": "vitest run",
+    "test:db": "vitest run --mode db",
     "test:watch": "vitest",
     "typecheck": "tsc -p packages/shared && tsc -p apps/web && tsc -p apps/server",
-    "world": "node packages/shared/scripts/build-world.mjs"
+    "maps": "node packages/shared/scripts/build-maps.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

@@ -1,0 +1,1861 @@
+{
+ "version": "asean-australia-detailed-v1",
+ "source": "Natural Earth 1:50m land (public domain), via world-atlas",
+ "cols": 298,
+ "rows": 261,
+ "wraps": false,
+ "degreesPerTile": 0.2951,
+ "bounds": {
+  "west": 92,
+  "north": 29
+ },
+ "rle": [
+  "m17l84s197",
+  "m17l83s198",
+  "m17l83s26l1s171",
+  "m17l81s200",
+  "m17l80s201",
+  "l97s201",
+  "l96s202",
+  "l95s203",
+  "l94s27l1s176",
+  "l94s204",
+  "l94s204",
+  "l93s205",
+  "l92s206",
+  "l91s7l3s197",
+  "l91s7l3s197",
+  "l88s9l4s197",
+  "l88s8l5s197",
+  "l87s9l4s198",
+  "l85s10l5s198",
+  "l84s11l5s198",
+  "l83s12l4s199",
+  "l73s1l4s18l3s199",
+  "l73s1l2s21l1s200",
+  "l71s26l1s200",
+  "l69s229",
+  "l54s4l1s1l5s233",
+  "l52s8l2s236",
+  "s1l50s9l2s236",
+  "s2l48s10l2s236",
+  "s3l46s12l1s236",
+  "s3l45s13l3s234",
+  "s6l41s11l6s234",
+  "s6l41s10l7s234",
+  "s6l41s9l7s235",
+  "s5l1s1l40s9l7s235",
+  "s8l39s10l4s36l3s198",
+  "s8l40s11l1s37l6s195",
+  "s8l41s47l6s196",
+  "s9l40s47l6s196",
+  "s9l41s46l7s195",
+  "s8l43s45l7s195",
+  "s8l8s2l34s44l7s195",
+  "s8l7s3l35s43l7s195",
+  "s8l5s6l36s39l1s1l6s196",
+  "s10l2s7l37s38l6s198",
+  "s19l37s39l5s198",
+  "s20l37s38l5s198",
+  "s20l38s37l5s198",
+  "s20l38s38l1s1l3s197",
+  "s20l38s40l3s197",
+  "s21l37s39l8s193",
+  "s21l38s39l2s1l7s1l1s188",
+  "s22l37s37l1s4l1s1l1s1l2s71l1s119",
+  "s3l1s18l5s3l29s38l3s6l2s190",
+  "s22l5s3l29s38l3s7l2s189",
+  "s2l1s20l4s6l26s39l2s8l1s189",
+  "s2l1s19l5s8l24s40l1s1l1s4l1s3l3s185",
+  "s2l1s19l5s9l22s37l1s11l2s1l4s184",
+  "s2l1s19l4s11l21s44l1s8l3s184",
+  "s23l3s11l21s44l4s5l3s184",
+  "s23l3s12l18s46l3s5l2s1l1s184",
+  "s22l3s15l15s37l2s8l2s1l2s1l1s2l1s186",
+  "s22l3s14l1s1l12s39l2s9l6s2l2s185",
+  "s22l2s16l1s2l7s41l2s12l1s1l1s3l1s186",
+  "s22l2s20l6s40l1s12l4s1l2s188",
+  "s22l2s20l5s41l1s12l4s1l2s3l1s184",
+  "s22l3s18l5s41l1s14l2s7l2s183",
+  "s21l6s16l3s41l2s16l1s7l3s182",
+  "s21l6s16l2s41l2s23l5s182",
+  "s21l7s77l3s1l7s182",
+  "s23l5s77l3s1l8s181",
+  "s24l4s74l15s181",
+  "s24l4s74l1s1l3s1l9s181",
+  "s25l3s57l1s16l1s6l8s26l1s154",
+  "s26l4s71l1s6l6s1l2s181",
+  "s27l6s50l3s15l1s6l5s2l1s182",
+  "s27l7s49l4s22l5s184",
+  "s28l7s47l5s23l4s184",
+  "s28l8s45l8s23l2s184",
+  "s11l2s15l9s43l11s207",
+  "s11l4s1l1s11l10s42l12s206",
+  "s11l9s9l10s38l1s1l10s209",
+  "s12l9s8l10s37l13s209",
+  "s13l8s8l10s35l16s208",
+  "s14l8s8l9s15l1s19l14s210",
+  "s15l8s7l9s34l14s211",
+  "s17l8s6l8s33l14s212",
+  "s18l8s5l8s32l15s212",
+  "s19l8s5l7s28l20s211",
+  "s13l2s4l9s5l7s26l22s210",
+  "s20l9s5l7s24l23s35l1s174",
+  "s21l12s3l5s24l23s33l1s176",
+  "s23l10s4l5s16l5s2l23s32l2s176",
+  "s18l1s4l13s3l3s16l32s21l1s8l2s1l1s174",
+  "s18l2s3l14s20l34s6l3s10l2s8l1s1l2s174",
+  "s19l1s4l13s20l31s1l2s4l16s10l2s175",
+  "s24l15s18l30s8l15s10l4s174",
+  "s25l15s18l29s7l2s25l1s176",
+  "s26l14s2l1s15l28s8l1s26l1s8l3s165",
+  "s21l1s5l13s18l28s8l1s24l3s8l2s5l1s160",
+  "s28l11s20l28s7l1s10l1s13l2s1l1s12l5s158",
+  "s28l13s18l27s7l3s4l6s25l1s1l10s5l2s148",
+  "s22l2s5l13s17l1s1l23s9l4s2l5s1l2s24l12s155",
+  "s23l2s4l13s19l22s10l10s3l1s13l2s12l9s11l2s142",
+  "s30l13s2l3s13l22s10l8s9l2s16l2s5l8s6l3s1l5s140",
+  "s30l14s2l2s13l22s9l8s36l7s9l9s24l3s110",
+  "s30l16s1l2s12l22s9l9s41l1s7l14s33l1s100",
+  "s27l1s3l19s3l2s7l21s8l6s1l4s34l9s4l19s130",
+  "s28l1s3l16s1l1s3l2s9l1s2l15s9l5s2l5s19l8s7l8s3l22s31l1s96",
+  "s33l14s20l4s2l9s9l5s2l5s12l4s4l8s7l8s1l26s29l2s94",
+  "s34l13s29l6s11l3s2l5s13l3s3l1s7l2s6l3s1l34s122",
+  "s35l12s30l2s14l3s3l5s34l2s3l35s27l1s92",
+  "s36l11s47l2s4l6s39l34s27l1s91",
+  "s37l10s46l3s4l3s45l33s21l3s1l1s91",
+  "s38l9s46l3s4l2s1l2s46l31s20l3s93",
+  "s40l7s46l3s7l2s49l28s19l3s94",
+  "s41l6s46l3s5l1s1l3s49l28s13l1s3l4s94",
+  "s42l3s1l1s47l1s49l1s11l29s4l1s1l11s11l1s84",
+  "s47l1s3l1s91l2s12l31s5l8s12l2s83",
+  "s47l7s89l2s12l32s6l4s15l2s82",
+  "s46l10s7l2s78l1s14l31s25l3s81",
+  "s46l14s3l5s90l29s28l1s3l1s78",
+  "s49l25s60l1s23l29s33l1s77",
+  "s50l20s63l2s22l30s111",
+  "s54l2s3l17s39l3s15l1s22l21s2l9s38l1s71",
+  "s62l13s80l20s7l8s30l1s6l2s69",
+  "s68l3s1l4s1l3s2l2s3l5s3l3s6l1s2l1s1l3s6l1s36l4s4l10s1l1s9l7s31l1s6l1s68",
+  "s75l1s2l1s3l10s2l10s9l6s45l10s10l7s32l1s9l1s64",
+  "s82l1s1l4s10l1s13l5s48l9s11l7s41l1s64",
+  "s109l5s52l1s1l1s1l3s13l8s40l1s63",
+  "s91l5s12l4s75l7s4l2s29l3s66",
+  "s93l4s10l4s77l8s34l3s65",
+  "s95l3s9l3s79l8s3l1s97",
+  "s196l3s36l2s61",
+  "s105l1s130l2s12l1s47",
+  "s170l2s126",
+  "s130l1s1l1s2l2s33l2s126",
+  "s129l5s3l2s31l2s36l1s89",
+  "s131l2s5l5s26l4s125",
+  "s137l12s1l2s17l4s125",
+  "s131l21s16l6s124",
+  "s130l21s18l5s124",
+  "s129l22s17l7s123",
+  "s129l20s19l7s123",
+  "s128l21s19l7s123",
+  "s118l2s8l21s2l1s16l7s123",
+  "s115l6s6l22s2l1s16l7s123",
+  "s113l9s5l21s20l11s119",
+  "s112l13s3l19s21l12s118",
+  "s112l36s20l13s72l2s43",
+  "s110l40s18l13s72l2s43",
+  "s110l41s16l14s117",
+  "s110l43s14l14s74l1s42",
+  "s107l48s12l14s74l2s39l2",
+  "s104l1s2l49s4l1s6l15s112l4",
+  "s103l3s2l51s7l16s111l2s3",
+  "s102l4s1l53s6l17s115",
+  "s102l60s3l18s107l3s5",
+  "s102l81s75l1s30l5s4",
+  "s103l80s106l5s4",
+  "s102l82s114",
+  "s101l83s114",
+  "s100l84s77l1s36",
+  "s100l86s112",
+  "s98l90s110",
+  "s96l94s108",
+  "s91l101s106",
+  "s88l105s51l2s52",
+  "s83l110s52l3s50",
+  "s81l113s52l3s5l2s42",
+  "s80l114s53l3s48",
+  "s78l117s53l4s5l1s40",
+  "s77l118s55l3s45",
+  "s74l1s1l119s1l1s55l2s44",
+  "s74l125s99",
+  "s74l125s99",
+  "s74l125s99",
+  "s74l125s99",
+  "s73l128s97",
+  "s73l129s96",
+  "s73l130s95",
+  "s73l131s94",
+  "s73l132s93",
+  "s74l132s1l1s90",
+  "s74l133s91",
+  "s71l1s3l132s91",
+  "s73l1s1l132s91",
+  "s72l1s1l133s91",
+  "s73l134s91",
+  "s74l133s91",
+  "s74l133s91",
+  "s75l133s90",
+  "s75l133s90",
+  "s75l134s89",
+  "s76l133s89",
+  "s76l133s89",
+  "s77l132s89",
+  "s78l130s90",
+  "s78l130s90",
+  "s78l130s90",
+  "s78l129s91",
+  "s78l129s91",
+  "s78l129s91",
+  "s79l128s91",
+  "s79l128s91",
+  "s80l47s7l72s92",
+  "s80l44s12l70s92",
+  "s80l40s21l64s93",
+  "s80l34s29l62s93",
+  "s80l32s31l61s94",
+  "s80l29s34l11s1l47s96",
+  "s80l29s36l9s1l47s96",
+  "s78l30s38l7s2l46s97",
+  "s78l17s51l5s3l47s97",
+  "s78l15s54l3s4l46s98",
+  "s81l10s56l2s5l2s1l43s74l1s23",
+  "s82l7s59l1s5l1s3l41s99",
+  "s152l2s3l42s76l3s20",
+  "s157l2s1l38s78l4s18",
+  "s151l5s4l38s79l3s18",
+  "s161l36s80l3s18",
+  "s162l35s82l2s17",
+  "s162l35s82l2s2l1s14",
+  "s162l34s84l2s1l1s14",
+  "s162l35s83l5s13",
+  "s163l33s84l5s13",
+  "s164l27s90l6s3l3s5",
+  "s166l12s2l8s92l13s5",
+  "s171l6s2l8s93l13s5",
+  "s173l3s6l2s96l12s6",
+  "s184l1s93l13s7",
+  "s277l11s10",
+  "s278l10s10",
+  "s176l1s12l1s91l7s10",
+  "s190l1s91l5s11",
+  "s282l5s11",
+  "s179l2s91l2s7l5s12",
+  "s178l5s3l5s80l4s1l3s2l4s13",
+  "s179l12s80l7s3l3s14",
+  "s179l12s79l9s19",
+  "s180l11s78l9s20",
+  "s180l10s79l8s21",
+  "s180l10s78l8s22",
+  "s181l9s77l9s22",
+  "s182l6s1l1s75l9s24",
+  "s183l4s77l10s24",
+  "s262l13s23",
+  "s259l12s27",
+  "s258l11s29",
+  "s257l12s29",
+  "s255l13s30",
+  "s254l14s30",
+  "s254l13s31",
+  "s253l14s31",
+  "s253l12s33",
+  "s258l6s34",
+  "s298",
+  "s257l1s40",
+  "s298",
+  "s298",
+  "s298"
+ ],
+ "cities": [
+  {
+   "id": "canberra",
+   "name": "Canberra",
+   "x": 193,
+   "y": 217,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "wellington",
+   "name": "Wellington",
+   "x": 281,
+   "y": 238,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "port-moresby",
+   "name": "Port Moresby",
+   "x": 187,
+   "y": 130,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "jakarta",
+   "name": "Jakarta",
+   "x": 50,
+   "y": 119,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "manila",
+   "name": "Manila",
+   "x": 98,
+   "y": 48,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bangkok",
+   "name": "Bangkok",
+   "x": 28,
+   "y": 51,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "hanoi",
+   "name": "Hanoi",
+   "x": 46,
+   "y": 27,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "kuala-lumpur",
+   "name": "Kuala Lumpur",
+   "x": 32,
+   "y": 87,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "naypyidaw",
+   "name": "Naypyidaw",
+   "x": 13,
+   "y": 31,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "phnom-penh",
+   "name": "Phnom Penh",
+   "x": 43,
+   "y": 59,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "vientiane",
+   "name": "Vientiane",
+   "x": 36,
+   "y": 37,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "singapore",
+   "name": "Singapore",
+   "x": 40,
+   "y": 93,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bandar-seri-begawan",
+   "name": "Bandar Seri Begawan",
+   "x": 77,
+   "y": 81,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "dili",
+   "name": "Dili",
+   "x": 113,
+   "y": 127,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "suva",
+   "name": "Suva",
+   "x": 292,
+   "y": 159,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "honiara",
+   "name": "Honiara",
+   "x": 230,
+   "y": 130,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "sydney",
+   "name": "Sydney",
+   "x": 200,
+   "y": 213,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "melbourne",
+   "name": "Melbourne",
+   "x": 179,
+   "y": 226,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "brisbane",
+   "name": "Brisbane",
+   "x": 206,
+   "y": 191,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "perth",
+   "name": "Perth",
+   "x": 80,
+   "y": 206,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "adelaide",
+   "name": "Adelaide",
+   "x": 158,
+   "y": 216,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "darwin",
+   "name": "Darwin",
+   "x": 131,
+   "y": 140,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "hobart",
+   "name": "Hobart",
+   "x": 187,
+   "y": 243,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "cairns",
+   "name": "Cairns",
+   "x": 181,
+   "y": 155,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "townsville",
+   "name": "Townsville",
+   "x": 185,
+   "y": 163,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "alice-springs",
+   "name": "Alice Springs",
+   "x": 141,
+   "y": 178,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "broome",
+   "name": "Broome",
+   "x": 102,
+   "y": 158,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "auckland",
+   "name": "Auckland",
+   "x": 280,
+   "y": 223,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "christchurch",
+   "name": "Christchurch",
+   "x": 273,
+   "y": 245,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "ho-chi-minh-city",
+   "name": "Ho Chi Minh City",
+   "x": 49,
+   "y": 61,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "yangon",
+   "name": "Yangon",
+   "x": 14,
+   "y": 41,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "mandalay",
+   "name": "Mandalay",
+   "x": 13,
+   "y": 23,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "surabaya",
+   "name": "Surabaya",
+   "x": 70,
+   "y": 122,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "medan",
+   "name": "Medan",
+   "x": 22,
+   "y": 86,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "makassar",
+   "name": "Makassar",
+   "x": 93,
+   "y": 115,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "palembang",
+   "name": "Palembang",
+   "x": 43,
+   "y": 108,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "balikpapan",
+   "name": "Balikpapan",
+   "x": 83,
+   "y": 102,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "pontianak",
+   "name": "Pontianak",
+   "x": 58,
+   "y": 98,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "jayapura",
+   "name": "Jayapura",
+   "x": 165,
+   "y": 107,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "davao",
+   "name": "Davao",
+   "x": 113,
+   "y": 74,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "cebu",
+   "name": "Cebu",
+   "x": 107,
+   "y": 63,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kota-kinabalu",
+   "name": "Kota Kinabalu",
+   "x": 81,
+   "y": 78,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kuching",
+   "name": "Kuching",
+   "x": 62,
+   "y": 93,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "hong-kong",
+   "name": "Hong Kong",
+   "x": 75,
+   "y": 22,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "guangzhou",
+   "name": "Guangzhou",
+   "x": 72,
+   "y": 19,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "kunming",
+   "name": "Kunming",
+   "x": 36,
+   "y": 13,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "taipei",
+   "name": "Taipei",
+   "x": 100,
+   "y": 13,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "noumea",
+   "name": "Nouméa",
+   "x": 252,
+   "y": 173,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "port-vila",
+   "name": "Port Vila",
+   "x": 258,
+   "y": 158,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "koror",
+   "name": "Koror",
+   "x": 143,
+   "y": 73,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "hagatna",
+   "name": "Hagåtña",
+   "x": 178,
+   "y": 52,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "newcastle",
+   "name": "Newcastle",
+   "x": 202,
+   "y": 209,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "rockhampton",
+   "name": "Rockhampton",
+   "x": 198,
+   "y": 177,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "mount-isa",
+   "name": "Mount Isa",
+   "x": 160,
+   "y": 168,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "kalgoorlie",
+   "name": "Kalgoorlie",
+   "x": 99,
+   "y": 202,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "geraldton",
+   "name": "Geraldton",
+   "x": 76,
+   "y": 195,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "port-hedland",
+   "name": "Port Hedland",
+   "x": 90,
+   "y": 167,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "esperance",
+   "name": "Esperance",
+   "x": 101,
+   "y": 212,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "port-augusta",
+   "name": "Port Augusta",
+   "x": 155,
+   "y": 208,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "mildura",
+   "name": "Mildura",
+   "x": 170,
+   "y": 214,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "katherine",
+   "name": "Katherine",
+   "x": 136,
+   "y": 147,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "tennant-creek",
+   "name": "Tennant Creek",
+   "x": 142,
+   "y": 164,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "weipa",
+   "name": "Weipa",
+   "x": 169,
+   "y": 141,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "carnarvon",
+   "name": "Carnarvon",
+   "x": 73,
+   "y": 182,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "dunedin",
+   "name": "Dunedin",
+   "x": 266,
+   "y": 253,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "nelson",
+   "name": "Nelson",
+   "x": 275,
+   "y": 238,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "gisborne",
+   "name": "Gisborne",
+   "x": 291,
+   "y": 229,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "lae",
+   "name": "Lae",
+   "x": 186,
+   "y": 121,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "madang",
+   "name": "Madang",
+   "x": 182,
+   "y": 116,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kokopo",
+   "name": "Kokopo",
+   "x": 204,
+   "y": 113,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "merauke",
+   "name": "Merauke",
+   "x": 164,
+   "y": 127,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "sorong",
+   "name": "Sorong",
+   "x": 133,
+   "y": 101,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "ambon",
+   "name": "Ambon",
+   "x": 122,
+   "y": 110,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kupang",
+   "name": "Kupang",
+   "x": 107,
+   "y": 132,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "denpasar",
+   "name": "Denpasar",
+   "x": 78,
+   "y": 127,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "manado",
+   "name": "Manado",
+   "x": 111,
+   "y": 93,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "banjarmasin",
+   "name": "Banjarmasin",
+   "x": 76,
+   "y": 109,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "padang",
+   "name": "Padang",
+   "x": 28,
+   "y": 101,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "banda-aceh",
+   "name": "Banda Aceh",
+   "x": 11,
+   "y": 79,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "semarang",
+   "name": "Semarang",
+   "x": 62,
+   "y": 122,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "zamboanga",
+   "name": "Zamboanga",
+   "x": 101,
+   "y": 74,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "iloilo",
+   "name": "Iloilo",
+   "x": 103,
+   "y": 61,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "laoag",
+   "name": "Laoag",
+   "x": 97,
+   "y": 36,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "puerto-princesa",
+   "name": "Puerto Princesa",
+   "x": 90,
+   "y": 65,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "da-nang",
+   "name": "Da Nang",
+   "x": 54,
+   "y": 43,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "haiphong",
+   "name": "Haiphong",
+   "x": 49,
+   "y": 27,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "chiang-mai",
+   "name": "Chiang Mai",
+   "x": 23,
+   "y": 34,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "phuket",
+   "name": "Phuket",
+   "x": 21,
+   "y": 69,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "penang",
+   "name": "Penang",
+   "x": 28,
+   "y": 79,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "sittwe",
+   "name": "Sittwe",
+   "x": 3,
+   "y": 29,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kaohsiung",
+   "name": "Kaohsiung",
+   "x": 96,
+   "y": 21,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "haikou",
+   "name": "Haikou",
+   "x": 62,
+   "y": 30,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "nanning",
+   "name": "Nanning",
+   "x": 55,
+   "y": 20,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "xiamen",
+   "name": "Xiamen",
+   "x": 88,
+   "y": 14,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "albany",
+   "name": "Albany",
+   "x": 87,
+   "y": 216,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "port-lincoln",
+   "name": "Port Lincoln",
+   "x": 148,
+   "y": 215,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "dubbo",
+   "name": "Dubbo",
+   "x": 191,
+   "y": 207,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "launceston",
+   "name": "Launceston",
+   "x": 186,
+   "y": 238,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "mackay",
+   "name": "Mackay",
+   "x": 193,
+   "y": 169,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "bundaberg",
+   "name": "Bundaberg",
+   "x": 204,
+   "y": 182,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "longreach",
+   "name": "Longreach",
+   "x": 177,
+   "y": 177,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "charleville",
+   "name": "Charleville",
+   "x": 183,
+   "y": 187,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "broken-hill",
+   "name": "Broken Hill",
+   "x": 167,
+   "y": 206,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "coober-pedy",
+   "name": "Coober Pedy",
+   "x": 144,
+   "y": 196,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "ceduna",
+   "name": "Ceduna",
+   "x": 141,
+   "y": 207,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "eucla",
+   "name": "Eucla",
+   "x": 124,
+   "y": 205,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "wagga-wagga",
+   "name": "Wagga Wagga",
+   "x": 187,
+   "y": 217,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "mount-gambier",
+   "name": "Mount Gambier",
+   "x": 165,
+   "y": 226,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "bendigo",
+   "name": "Bendigo",
+   "x": 177,
+   "y": 222,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "gold-coast",
+   "name": "Gold Coast",
+   "x": 208,
+   "y": 193,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "coffs-harbour",
+   "name": "Coffs Harbour",
+   "x": 206,
+   "y": 200,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "bunbury",
+   "name": "Bunbury",
+   "x": 80,
+   "y": 211,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "newman",
+   "name": "Newman",
+   "x": 93,
+   "y": 177,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "karratha",
+   "name": "Karratha",
+   "x": 84,
+   "y": 168,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "exmouth",
+   "name": "Exmouth",
+   "x": 74,
+   "y": 173,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kununurra",
+   "name": "Kununurra",
+   "x": 124,
+   "y": 151,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "derby",
+   "name": "Derby",
+   "x": 107,
+   "y": 156,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "halls-creek",
+   "name": "Halls Creek",
+   "x": 120,
+   "y": 160,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "nhulunbuy",
+   "name": "Nhulunbuy",
+   "x": 151,
+   "y": 139,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "normanton",
+   "name": "Normanton",
+   "x": 166,
+   "y": 158,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "cooktown",
+   "name": "Cooktown",
+   "x": 180,
+   "y": 150,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "thursday-island",
+   "name": "Thursday Island",
+   "x": 170,
+   "y": 135,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "devonport",
+   "name": "Devonport",
+   "x": 184,
+   "y": 238,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "hamilton",
+   "name": "Hamilton",
+   "x": 282,
+   "y": 226,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "tauranga",
+   "name": "Tauranga",
+   "x": 285,
+   "y": 226,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "napier",
+   "name": "Napier",
+   "x": 287,
+   "y": 232,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "new-plymouth",
+   "name": "New Plymouth",
+   "x": 278,
+   "y": 230,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "whangarei",
+   "name": "Whangārei",
+   "x": 278,
+   "y": 219,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "greymouth",
+   "name": "Greymouth",
+   "x": 268,
+   "y": 242,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "queenstown",
+   "name": "Queenstown",
+   "x": 259,
+   "y": 250,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "invercargill",
+   "name": "Invercargill",
+   "x": 258,
+   "y": 255,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "wewak",
+   "name": "Wewak",
+   "x": 174,
+   "y": 110,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "daru",
+   "name": "Daru",
+   "x": 173,
+   "y": 128,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "mount-hagen",
+   "name": "Mount Hagen",
+   "x": 177,
+   "y": 118,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "alotau",
+   "name": "Alotau",
+   "x": 198,
+   "y": 133,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kavieng",
+   "name": "Kavieng",
+   "x": 197,
+   "y": 106,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "arawa",
+   "name": "Arawa",
+   "x": 215,
+   "y": 119,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "luganville",
+   "name": "Luganville",
+   "x": 254,
+   "y": 150,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "lautoka",
+   "name": "Lautoka",
+   "x": 289,
+   "y": 158,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "gizo",
+   "name": "Gizo",
+   "x": 220,
+   "y": 125,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "timika",
+   "name": "Timika",
+   "x": 152,
+   "y": 113,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "manokwari",
+   "name": "Manokwari",
+   "x": 142,
+   "y": 101,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "ternate",
+   "name": "Ternate",
+   "x": 120,
+   "y": 96,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kendari",
+   "name": "Kendari",
+   "x": 103,
+   "y": 111,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "palu",
+   "name": "Palu",
+   "x": 94,
+   "y": 101,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "samarinda",
+   "name": "Samarinda",
+   "x": 85,
+   "y": 99,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "tarakan",
+   "name": "Tarakan",
+   "x": 85,
+   "y": 87,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "palangkaraya",
+   "name": "Palangkaraya",
+   "x": 74,
+   "y": 105,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "mataram",
+   "name": "Mataram",
+   "x": 82,
+   "y": 127,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "ende",
+   "name": "Ende",
+   "x": 100,
+   "y": 127,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "bandung",
+   "name": "Bandung",
+   "x": 52,
+   "y": 121,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "yogyakarta",
+   "name": "Yogyakarta",
+   "x": 62,
+   "y": 124,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "bandar-lampung",
+   "name": "Bandar Lampung",
+   "x": 44,
+   "y": 116,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "bengkulu",
+   "name": "Bengkulu",
+   "x": 34,
+   "y": 110,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "jambi",
+   "name": "Jambi",
+   "x": 39,
+   "y": 103,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "pekanbaru",
+   "name": "Pekanbaru",
+   "x": 32,
+   "y": 96,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "sibolga",
+   "name": "Sibolga",
+   "x": 23,
+   "y": 92,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "pangkal-pinang",
+   "name": "Pangkal Pinang",
+   "x": 47,
+   "y": 105,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "legazpi",
+   "name": "Legazpi",
+   "x": 107,
+   "y": 53,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "tacloban",
+   "name": "Tacloban",
+   "x": 111,
+   "y": 60,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "cagayan-de-oro",
+   "name": "Cagayan de Oro",
+   "x": 110,
+   "y": 69,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "general-santos",
+   "name": "General Santos",
+   "x": 112,
+   "y": 77,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "tuguegarao",
+   "name": "Tuguegarao",
+   "x": 100,
+   "y": 38,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "baguio",
+   "name": "Baguio",
+   "x": 96,
+   "y": 42,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "nha-trang",
+   "name": "Nha Trang",
+   "x": 58,
+   "y": 56,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "can-tho",
+   "name": "Cần Thơ",
+   "x": 46,
+   "y": 64,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "vinh",
+   "name": "Vinh",
+   "x": 46,
+   "y": 34,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "lao-cai",
+   "name": "Lào Cai",
+   "x": 40,
+   "y": 22,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "buon-ma-thuot",
+   "name": "Buôn Ma Thuột",
+   "x": 54,
+   "y": 55,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "hat-yai",
+   "name": "Hat Yai",
+   "x": 28,
+   "y": 74,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "khon-kaen",
+   "name": "Khon Kaen",
+   "x": 36,
+   "y": 42,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "ubon-ratchathani",
+   "name": "Ubon Ratchathani",
+   "x": 43,
+   "y": 46,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "nakhon-sawan",
+   "name": "Nakhon Sawan",
+   "x": 27,
+   "y": 45,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "surat-thani",
+   "name": "Surat Thani",
+   "x": 24,
+   "y": 67,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "luang-prabang",
+   "name": "Luang Prabang",
+   "x": 34,
+   "y": 30,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "pakse",
+   "name": "Pakse",
+   "x": 46,
+   "y": 47,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "savannakhet",
+   "name": "Savannakhet",
+   "x": 43,
+   "y": 42,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "siem-reap",
+   "name": "Siem Reap",
+   "x": 40,
+   "y": 53,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "sihanoukville",
+   "name": "Sihanoukville",
+   "x": 39,
+   "y": 62,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kuantan",
+   "name": "Kuantan",
+   "x": 38,
+   "y": 85,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kota-bharu",
+   "name": "Kota Bharu",
+   "x": 34,
+   "y": 77,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "miri",
+   "name": "Miri",
+   "x": 74,
+   "y": 83,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "sandakan",
+   "name": "Sandakan",
+   "x": 88,
+   "y": 78,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "tawau",
+   "name": "Tawau",
+   "x": 87,
+   "y": 83,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "myitkyina",
+   "name": "Myitkyina",
+   "x": 18,
+   "y": 12,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "dawei",
+   "name": "Dawei",
+   "x": 21,
+   "y": 50,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "mawlamyine",
+   "name": "Mawlamyine",
+   "x": 19,
+   "y": 42,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "lashio",
+   "name": "Lashio",
+   "x": 19,
+   "y": 20,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "pathein",
+   "name": "Pathein",
+   "x": 9,
+   "y": 41,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "imphal",
+   "name": "Imphal",
+   "x": 6,
+   "y": 14,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "port-blair",
+   "name": "Port Blair",
+   "x": 2,
+   "y": 58,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "fuzhou",
+   "name": "Fuzhou",
+   "x": 92,
+   "y": 9,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "guilin",
+   "name": "Guilin",
+   "x": 61,
+   "y": 12,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "zhanjiang",
+   "name": "Zhanjiang",
+   "x": 62,
+   "y": 25,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "shantou",
+   "name": "Shantou",
+   "x": 83,
+   "y": 19,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "guiyang",
+   "name": "Guiyang",
+   "x": 49,
+   "y": 7,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "sanya",
+   "name": "Sanya",
+   "x": 59,
+   "y": 36,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "taichung",
+   "name": "Taichung",
+   "x": 97,
+   "y": 16,
+   "capital": false,
+   "port": true
+  }
+ ]
+}

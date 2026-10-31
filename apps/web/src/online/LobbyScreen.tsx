@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
-import { LIVE_TURN_LIMITS, type ChatMessage, type Lobby, type MatchSettings } from '@warfront/shared';
+import { MAP_REGIONS, MAP_SIZES, SETTING_LIMITS, type MatchSettings } from '@warfront/shared';
+import type { ChatMessage, Lobby } from '@warfront/shared/protocol';
 import { Chat } from '../components/Chat';
 import { ConfirmButton } from '../components/ConfirmButton';
 import { EmblemIcon, Logo } from '../components/Icons';
@@ -44,7 +45,9 @@ export function LobbyScreen({ lobby, me, chat, say, onLobby, onLeave, onBack }: 
       setBusy(false);
     }
   };
-  const set = <K extends keyof MatchSettings>(k: K, v: MatchSettings[K]) => void call('PATCH', '/settings', { settings: { ...settings, [k]: v } });
+  // The server merges a change into the current settings and checks the whole.
+  const set = <K extends keyof MatchSettings>(k: K, v: MatchSettings[K]) => void call('PATCH', '/settings', { [k]: v });
+  const size = MAP_SIZES.find((m) => m.id === settings.mapSize) ?? MAP_SIZES[1];
 
   const copy = async () => {
     try {
@@ -131,10 +134,14 @@ export function LobbyScreen({ lobby, me, chat, say, onLobby, onLeave, onBack }: 
 
         <section className="card">
           <div className="card-head"><h2>Match settings</h2>{!host && <span className="muted">Set by the host</span>}</div>
+          {option('Map', `${MAP_REGIONS.find((r) => r.id === settings.map)?.name ?? settings.map}. ${settings.map === 'velgard' ? 'An invented continent of nine kingdoms round an inland sea.' : 'Real coastlines and cities.'}`,
+            <Segmented label="Map" disabled={busy} value={settings.map} options={MAP_REGIONS.map((r) => ({ value: r.id, label: r.name }))} onChange={(v) => set('map', v)} />)}
+          {option('Map size', `${size.name}: suits ${size.players.toLowerCase()}. Any size works for any number of players.`,
+            <Segmented label="Map size" disabled={busy} value={settings.mapSize} options={MAP_SIZES.map((m) => ({ value: m.id, label: m.name }))} onChange={(v) => set('mapSize', v)} />)}
           {option('Starting position', settings.startMode === 'auto' ? 'Auto: coastal starts spread out by the game.' : 'Pick: everyone picks a coastal city; picks stay hidden until turn 1.',
             <Segmented label="Starting position" disabled={busy} value={settings.startMode} options={[{ value: 'auto', label: 'Auto' }, { value: 'pick', label: 'Pick' }]} onChange={(v) => set('startMode', v)} />)}
           {option('Turn timer', `${settings.turnLimitSeconds} seconds per turn. When it runs out, the turn ends.`,
-            <Segmented label="Turn timer" disabled={busy} value={String(settings.turnLimitSeconds)} options={LIVE_TURN_LIMITS.map((s) => ({ value: String(s), label: `${s} s` }))} onChange={(v) => set('turnLimitSeconds', Number(v))} />)}
+            <Segmented label="Turn timer" disabled={busy} value={String(settings.turnLimitSeconds)} options={SETTING_LIMITS.liveTurnSeconds.map((s) => ({ value: String(s), label: `${s} s` }))} onChange={(v) => set('turnLimitSeconds', Number(v))} />)}
           {option('Terrain at start', settings.terrain === 'revealed' ? 'Revealed: coastlines and cities visible from turn 1.' : 'Unexplored: dark until your units explore.',
             <Segmented label="Terrain at start" disabled={busy} value={settings.terrain} options={[{ value: 'revealed', label: 'Revealed' }, { value: 'unexplored', label: 'Unexplored' }]} onChange={(v) => set('terrain', v)} />)}
           {option('Victory', settings.victory.kind === 'last' ? 'Last player with a city or unit wins.' : `Hold ${settings.victory.percent}% of cities for a full round.`,
@@ -142,7 +149,7 @@ export function LobbyScreen({ lobby, me, chat, say, onLobby, onLeave, onBack }: 
               label="Victory"
               disabled={busy}
               value={settings.victory.kind === 'last' ? 'last' : String(settings.victory.percent)}
-              options={[{ value: 'last', label: 'Last standing' }, { value: '30', label: 'Hold 30%' }, { value: '50', label: 'Hold 50%' }]}
+              options={[{ value: 'last', label: 'Last standing' }, { value: '50', label: 'Hold 50%' }, { value: '70', label: 'Hold 70%' }, { value: '90', label: 'Hold 90%' }]}
               onChange={(v) => set('victory', v === 'last' ? { kind: 'last' } : { kind: 'hold', percent: Number(v) })}
             />)}
           {option('Production speed', settings.production === 'fast' ? 'Fast: build times halved.' : 'Normal build times.',

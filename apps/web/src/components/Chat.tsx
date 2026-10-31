@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { CHAT_MAX_LENGTH, type ChatMessage } from '@warfront/shared';
+import { CHAT_MAX_LENGTH, type ChatMessage } from '@warfront/shared/protocol';
 import { EmblemIcon } from './Icons';
 
 interface Props {

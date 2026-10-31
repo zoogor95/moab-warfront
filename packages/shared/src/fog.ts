@@ -1,17 +1,19 @@
 import { emptyBits, bitsToHex, hexToBits, setBit } from './bitset';
 import { CITY_SIGHT, UNITS } from './units';
 import type { GameState, TileMemory, Unit, UnitSighting } from './types';
-import { distance, tileIndex, tilesWithin, TILE_COUNT } from './world/world';
+import { mapOf } from './world/maps';
+import type { GameMap } from './world/world';
 
 /** Tiles a seat can see right now: around its cities and units. */
 export function visibleTiles(s: GameState, seat: number): Set<number> {
+  const map = mapOf(s);
   const out = new Set<number>();
   for (const c of s.cities) {
-    if (c.owner === seat) for (const i of tilesWithin(c.x, c.y, CITY_SIGHT)) out.add(i);
+    if (c.owner === seat) for (const i of map.tilesWithin(c.x, c.y, CITY_SIGHT)) out.add(i);
   }
   for (const u of s.units) {
     if (u.owner !== seat || u.carriedBy) continue;
-    for (const i of tilesWithin(u.x, u.y, UNITS[u.type].sight)) out.add(i);
+    for (const i of map.tilesWithin(u.x, u.y, UNITS[u.type].sight)) out.add(i);
   }
   return out;
 }
@@ -19,13 +21,13 @@ export function visibleTiles(s: GameState, seat: number): Set<number> {
 /** Submarines show up for other players only next to one of their destroyers. */
 export function subHiddenFrom(s: GameState, sub: Unit, seat: number): boolean {
   if (sub.type !== 'submarine' || sub.owner === seat) return false;
-  return !s.units.some((u) => u.owner === seat && u.type === 'destroyer' && !u.carriedBy && distance(u, sub) <= 1);
+  return !s.units.some((u) => u.owner === seat && u.type === 'destroyer' && !u.carriedBy && mapOf(s).distance(u, sub) <= 1);
 }
 
 export function canSeeUnit(s: GameState, unit: Unit, seat: number, visible: Set<number>): boolean {
   if (unit.owner === seat) return true;
   if (unit.carriedBy) return false;
-  if (!visible.has(tileIndex(unit.x, unit.y))) return false;
+  if (!visible.has(mapOf(s).tileIndex(unit.x, unit.y))) return false;
   return !subHiddenFrom(s, unit, seat);
 }
 
@@ -45,8 +47,9 @@ function summarize(units: Unit[]): UnitSighting[] {
  * which the engine reuses to decide who saw each event.
  */
 export function refreshMemory(s: GameState): Map<number, Set<number>> {
+  const map = mapOf(s);
   const result = new Map<number, Set<number>>();
-  const cityByTile = new Map(s.cities.map((c) => [tileIndex(c.x, c.y), c]));
+  const cityByTile = new Map(s.cities.map((c) => [map.tileIndex(c.x, c.y), c]));
   for (const p of s.players) {
     const visible = visibleTiles(s, p.seat);
     result.set(p.seat, visible);
@@ -61,7 +64,7 @@ export function refreshMemory(s: GameState): Map<number, Set<number>> {
     const enemiesByTile = new Map<number, Unit[]>();
     for (const u of s.units) {
       if (u.owner === p.seat || !canSeeUnit(s, u, p.seat, visible)) continue;
-      const i = tileIndex(u.x, u.y);
+      const i = map.tileIndex(u.x, u.y);
       const list = enemiesByTile.get(i);
       if (list) list.push(u);
       else enemiesByTile.set(i, [u]);
@@ -82,6 +85,6 @@ export function refreshMemory(s: GameState): Map<number, Set<number>> {
   return result;
 }
 
-export function initialExplored(revealed: boolean): string {
-  return bitsToHex(emptyBits(TILE_COUNT, revealed));
+export function initialExplored(map: GameMap, revealed: boolean): string {
+  return bitsToHex(emptyBits(map.tileCount, revealed));
 }

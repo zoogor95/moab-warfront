@@ -1,5 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { DEFAULT_SETTINGS, type Lobby, type MatchSettings } from '@warfront/shared';
+import { DEFAULT_SETTINGS, type MatchSettings } from '@warfront/shared';
+import type { Lobby } from '@warfront/shared/protocol';
 import { Player, testServer, type TestServer } from './client';
 import { hasTestDb } from './db';
 import { expectNothingHidden } from './play';
@@ -74,7 +75,7 @@ describe.skipIf(!dbUp)('live matches', () => {
     const [dee, eve] = [await Player.guest(t, 'Dee'), await Player.guest(t, 'Eve')];
     const id = await startMatch([dee], 1);
     await eve.connect();
-    const reply = await new Promise<{ ok: boolean; error?: string }>((resolve) => eve.socket!.emit('match:subscribe', { matchId: id }, (r) => resolve(r as never)));
+    const reply = await new Promise<{ ok: boolean; error?: string }>((resolve) => eve.socket!.emit('match:subscribe', { matchId: id, lastRev: 0 }, (r) => resolve(r as never)));
     expect(reply).toMatchObject({ ok: false, error: 'forbidden' });
     expect(await eve.submit(id, { type: 'endTurn' })).toMatchObject({ ok: false, error: 'forbidden' });
     expect((await eve.req('GET', `/matches/${id}/view`)).status).toBe(403);

@@ -8,7 +8,7 @@ export const TEST_DATABASE_URL =
 
 /**
  * True when the test database answers. Without one the database suites are skipped,
- * unless REQUIRE_DB is set (as CI should), in which case they fail.
+ * unless REQUIRE_DB is set (`npm run test:db`, and CI), in which case they fail.
  */
 export async function hasTestDb(): Promise<boolean> {
   const pool = createPool(TEST_DATABASE_URL, { connectionTimeoutMillis: 2_000 });
@@ -16,7 +16,12 @@ export async function hasTestDb(): Promise<boolean> {
     await pool.query('SELECT 1');
     return true;
   } catch (err) {
-    if (process.env.REQUIRE_DB) throw err;
+    if (process.env.REQUIRE_DB) {
+      // pg's own error is a long AggregateError; say what to do instead.
+      throw new Error(`No Postgres at ${TEST_DATABASE_URL}. Start Docker Desktop, then run \`npm run db:up\`.`, {
+        cause: err,
+      });
+    }
     console.warn(`Skipping database tests: no Postgres at ${TEST_DATABASE_URL}. Run \`npm run db:up\`.`);
     return false;
   } finally {

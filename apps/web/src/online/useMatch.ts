@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import type { ChatMessage, Lobby, MatchUpdateMsg } from '@warfront/shared';
+import { useEffect, useRef, useState } from 'react';
+import type { ChatMessage, Lobby, MatchUpdateMsg } from '@warfront/shared/protocol';
 import { gameSocket } from '../net/socket';
 
 export interface MatchChannel {
@@ -23,11 +23,15 @@ export function useMatch(matchId: string): MatchChannel {
   const [connected, setConnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // The last rev seen, for the server to know what this client already has.
+  const lastRev = useRef(0);
+  lastRev.current = update?.view.rev ?? 0;
+
   useEffect(() => {
     const s = gameSocket();
     const mine = <T extends { matchId?: string; id?: string }>(m: T) => (m.matchId ?? m.id) === matchId;
     const subscribe = () =>
-      s.emit('match:subscribe', { matchId }, (r) => setError('ok' in r && r.ok ? null : (r as { message: string }).message));
+      s.emit('match:subscribe', { matchId, lastRev: lastRev.current }, (r) => setError('ok' in r && r.ok ? null : (r as { message: string }).message));
     const onLobby = (l: Lobby) => mine(l) && setLobby(l);
     const onUpdate = (u: MatchUpdateMsg) => mine(u) && setUpdate(u);
     const onChat = (m: ChatMessage) => mine(m) && setChat((list) => [...list.slice(-99), m]);

@@ -1,6 +1,7 @@
 import { UNITS, type UnitType } from './units';
 import type { City, GameEvent, GameState, LoggedEvent, Unit, UnitRef } from './types';
-import { wrapX, type Point } from './world/world';
+import { mapOf } from './world/maps';
+import type { Point } from './world/world';
 
 export class RuleError extends Error {
   constructor(readonly code: string, message: string) {
@@ -13,8 +14,9 @@ export function fail(code: string, message: string): never {
   throw new RuleError(code, message);
 }
 
+/** Stored positions are always on the grid (createUnit and placeUnit fold them), so plain equality works. */
 export function sameTile(a: Point, b: Point): boolean {
-  return wrapX(a.x) === wrapX(b.x) && a.y === b.y;
+  return a.x === b.x && a.y === b.y;
 }
 
 export function findUnit(s: GameState, id: string): Unit | undefined {
@@ -64,7 +66,7 @@ export function createUnit(s: GameState, type: UnitType, owner: number, at: Poin
     id: `u${s.nextId++}`,
     type,
     owner,
-    x: wrapX(at.x),
+    x: mapOf(s).wrapX(at.x),
     y: at.y,
     hp: UNITS[type].hp,
     moves: UNITS[type].moves,
@@ -82,7 +84,7 @@ export function removeUnit(s: GameState, id: string): Unit[] {
 
 /** Moves a unit and its cargo to a tile. */
 export function placeUnit(s: GameState, unit: Unit, p: Point): void {
-  unit.x = wrapX(p.x);
+  unit.x = mapOf(s).wrapX(p.x);
   unit.y = p.y;
   for (const c of cargoOf(s, unit.id)) {
     c.x = unit.x;

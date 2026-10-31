@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { matchCode, type Lobby, type MatchSummary } from '@warfront/shared';
+import { MatchCodeSchema, type Lobby, type MatchSummary } from '@warfront/shared/protocol';
 import { ConfirmButton } from '../components/ConfirmButton';
 import { EmblemIcon, Logo } from '../components/Icons';
 import { api, signOut, type Session } from '../net/api';
@@ -65,7 +65,7 @@ export function Home({ session, inviteCode, onInviteUsed, onOpen, onHotSeat }: P
   };
 
   const join = (raw: string) => {
-    const parsed = matchCode.safeParse(raw);
+    const parsed = MatchCodeSchema.safeParse(raw);
     if (!parsed.success) {
       setError('Codes are 6 letters or digits.');
       return;

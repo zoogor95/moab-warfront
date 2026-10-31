@@ -1,11 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { CITY_INFO, COLS, ROWS, TERRAIN, distance, neighbours, terrainAt, wrapX } from '../src';
+import { WORLD } from '../src';
+
+const { cities: CITY_INFO } = WORLD;
+const distance = WORLD.distance.bind(WORLD);
+const terrainAt = WORLD.terrainAt.bind(WORLD);
 
 describe('world map', () => {
   it('is 180 x 90 tiles of 2 degrees', () => {
-    expect(COLS).toBe(180);
-    expect(ROWS).toBe(90);
-    expect(TERRAIN.length).toBe(180 * 90);
+    expect(WORLD.version).toBe('world-v1');
+    expect(WORLD.cols).toBe(180);
+    expect(WORLD.rows).toBe(90);
+    expect(WORLD.terrain.length).toBe(180 * 90);
   });
 
   it('has the 134 agreed cities, 87 of them ports', () => {
@@ -31,11 +36,12 @@ describe('world map', () => {
   });
 
   it('wraps east to west but not over the poles', () => {
-    expect(wrapX(-1)).toBe(179);
-    expect(wrapX(180)).toBe(0);
+    expect(WORLD.wraps).toBe(true);
+    expect(WORLD.wrapX(-1)).toBe(179);
+    expect(WORLD.wrapX(180)).toBe(0);
     expect(distance({ x: 0, y: 10 }, { x: 179, y: 10 })).toBe(1);
-    expect(neighbours(0, 0)).toHaveLength(5);
-    expect(neighbours(0, 45).some((p) => p.x === 179)).toBe(true);
+    expect(WORLD.neighbours(0, 0)).toHaveLength(5);
+    expect(WORLD.neighbours(0, 45).some((p) => p.x === 179)).toBe(true);
   });
 
   it('places a few landmarks where they belong', () => {

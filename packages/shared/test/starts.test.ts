@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyAction, createMatch, DEFAULT_SETTINGS, distance, finishPicking, START_SPACING, viewFor } from '../src';
+import { applyAction, createMatch, DEFAULT_SETTINGS, finishPicking, START_SPACING, viewFor, WORLD } from '../src';
 
 const players = (n: number) => Array.from({ length: n }, (_, i) => ({ name: `P${i}` }));
 
@@ -12,7 +12,7 @@ describe('auto starts', () => {
         expect(starts).toHaveLength(n);
         expect(new Set(starts.map((c) => c.owner)).size).toBe(n);
         for (const c of starts) expect(c.port).toBe(true);
-        for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) expect(distance(starts[i], starts[j])).toBeGreaterThanOrEqual(START_SPACING);
+        for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) expect(WORLD.distance(starts[i], starts[j])).toBeGreaterThanOrEqual(START_SPACING);
       }
     }
   });
@@ -65,7 +65,7 @@ describe('picked starts', () => {
     expect(owner('lisbon')).toBeNull();
     const seat0 = r.state.cities.find((c) => c.owner === 0)!;
     expect(seat0.port).toBe(true);
-    expect(distance(seat0, r.state.cities.find((c) => c.id === 'rabat')!)).toBeGreaterThanOrEqual(START_SPACING);
+    expect(WORLD.distance(seat0, r.state.cities.find((c) => c.id === 'rabat')!)).toBeGreaterThanOrEqual(START_SPACING);
     expect(r.events.find((e) => e.type === 'startsRevealed')).toMatchObject({ moved: [0] });
   });
 

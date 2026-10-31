@@ -1,0 +1,416 @@
+{
+ "version": "europe-small-v1",
+ "source": "Natural Earth 1:50m land (public domain), via world-atlas",
+ "cols": 92,
+ "rows": 48,
+ "wraps": false,
+ "degreesPerTile": 0.9227,
+ "bounds": {
+  "west": -25,
+  "north": 72
+ },
+ "rle": [
+  "l3s80l5s4",
+  "s1l3s47l1s1l7s28l1s3",
+  "l2s45l16s29",
+  "s43l2s1l22s12l1s3l1s4l2s1",
+  "s43m1l27s4l2s3l12",
+  "s42m2l28s3l2s1l14",
+  "s1l3s1l6s30m3l21s6l21",
+  "s3l9s28m4l6s4l11s2l1s3l18m3",
+  "s3l7s28m6l6s2l37m3",
+  "s36m8l4s3l38m3",
+  "s33l3m8l2s4l39m3",
+  "s33l13s4l39m3",
+  "s33l14s4l6s1l31m3",
+  "s33l14s7l2s1l32m3",
+  "s33l4s2l7s5l38m3",
+  "s21l4s15l5s6l1s1l36m3",
+  "s21l4s11l3s2l4s5l39m3",
+  "s21l4s11l2s1l1s1l2s7l39m3",
+  "s18l3s1l4s10l2s1l1s9l40m3",
+  "s16l5s3l3s9l6s1l46m3",
+  "s17l4s1l6s4l57m3",
+  "s16l4s2l7s3l57m3",
+  "s23l5s2l62",
+  "s22l1s6l63",
+  "s25l1s1l65",
+  "s22l70",
+  "s24l10m8l10m3l37",
+  "s25l9m8l10m3l11s2l24",
+  "s26l8m3l1m4l10m3l5s3l2s3l24",
+  "s26l14s3l16s4l2s2l25",
+  "s25l11s2l3s3l14s12l22",
+  "s17l9m4l1s8l3s4l11s14m8l13",
+  "s17l9m3l2s5l1s3l4s4l9s15m3l1m3l13",
+  "s18l11s13l4s2l8s3l9s1m1s1m8l13",
+  "s17l10s9l2s5l2s1l1s1l5s4l35",
+  "s17l10s9l1s7l2s3l3s3l37",
+  "s17l10s23l3s3l36",
+  "s18l8s15l3s6l2s4l36",
+  "s20l1s7l11s18l3s2l2s2l26",
+  "s21l1s4l13s14l1s12l26",
+  "s20l19s23l1s3l10m14l2",
+  "s19l20s26l11m14l2",
+  "s17l25s8l2s13l11m14l2",
+  "s17l3m9l15s5l5s10l12m14l2",
+  "s16l4m9l18s2l13s1l13m14l2",
+  "s16l46s1l13m4s1m9l2",
+  "s16l60m3s3m8l2",
+  "s14l62m4s3m7l2"
+ ],
+ "cities": [
+  {
+   "id": "london",
+   "name": "London",
+   "x": 26,
+   "y": 22,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "paris",
+   "name": "Paris",
+   "x": 29,
+   "y": 25,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "berlin",
+   "name": "Berlin",
+   "x": 41,
+   "y": 21,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "madrid",
+   "name": "Madrid",
+   "x": 23,
+   "y": 34,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "rome",
+   "name": "Rome",
+   "x": 40,
+   "y": 32,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "moscow",
+   "name": "Moscow",
+   "x": 67,
+   "y": 17,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "kyiv",
+   "name": "Kyiv",
+   "x": 60,
+   "y": 23,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "warsaw",
+   "name": "Warsaw",
+   "x": 49,
+   "y": 21,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "stockholm",
+   "name": "Stockholm",
+   "x": 46,
+   "y": 13,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "oslo",
+   "name": "Oslo",
+   "x": 38,
+   "y": 13,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "helsinki",
+   "name": "Helsinki",
+   "x": 54,
+   "y": 12,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "copenhagen",
+   "name": "Copenhagen",
+   "x": 41,
+   "y": 17,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "lisbon",
+   "name": "Lisbon",
+   "x": 17,
+   "y": 36,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "athens",
+   "name": "Athens",
+   "x": 52,
+   "y": 36,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "ankara",
+   "name": "Ankara",
+   "x": 62,
+   "y": 34,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "bucharest",
+   "name": "Bucharest",
+   "x": 55,
+   "y": 29,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "vienna",
+   "name": "Vienna",
+   "x": 44,
+   "y": 25,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "budapest",
+   "name": "Budapest",
+   "x": 47,
+   "y": 26,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "amsterdam",
+   "name": "Amsterdam",
+   "x": 32,
+   "y": 21,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "dublin",
+   "name": "Dublin",
+   "x": 20,
+   "y": 20,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "reykjavik",
+   "name": "Reykjavík",
+   "x": 3,
+   "y": 8,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "belgrade",
+   "name": "Belgrade",
+   "x": 49,
+   "y": 29,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "minsk",
+   "name": "Minsk",
+   "x": 56,
+   "y": 19,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "sofia",
+   "name": "Sofia",
+   "x": 52,
+   "y": 31,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "algiers",
+   "name": "Algiers",
+   "x": 30,
+   "y": 38,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "tunis",
+   "name": "Tunis",
+   "x": 38,
+   "y": 38,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "rabat",
+   "name": "Rabat",
+   "x": 19,
+   "y": 41,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "tripoli",
+   "name": "Tripoli",
+   "x": 41,
+   "y": 42,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "cairo",
+   "name": "Cairo",
+   "x": 60,
+   "y": 45,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "tbilisi",
+   "name": "Tbilisi",
+   "x": 75,
+   "y": 32,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "baku",
+   "name": "Baku",
+   "x": 81,
+   "y": 34,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "damascus",
+   "name": "Damascus",
+   "x": 66,
+   "y": 41,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "istanbul",
+   "name": "Istanbul",
+   "x": 58,
+   "y": 34,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "saint-petersburg",
+   "name": "Saint Petersburg",
+   "x": 59,
+   "y": 13,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "barcelona",
+   "name": "Barcelona",
+   "x": 29,
+   "y": 32,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "milan",
+   "name": "Milan",
+   "x": 37,
+   "y": 28,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "hamburg",
+   "name": "Hamburg",
+   "x": 37,
+   "y": 19,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "munich",
+   "name": "Munich",
+   "x": 39,
+   "y": 25,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "marseille",
+   "name": "Marseille",
+   "x": 32,
+   "y": 30,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "edinburgh",
+   "name": "Edinburgh",
+   "x": 23,
+   "y": 17,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "kazan",
+   "name": "Kazan",
+   "x": 80,
+   "y": 17,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "volgograd",
+   "name": "Volgograd",
+   "x": 75,
+   "y": 25,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "murmansk",
+   "name": "Murmansk",
+   "x": 62,
+   "y": 3,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "odesa",
+   "name": "Odesa",
+   "x": 60,
+   "y": 27,
+   "capital": false,
+   "port": true
+  }
+ ]
+}

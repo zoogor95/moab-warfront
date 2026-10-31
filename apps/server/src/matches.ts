@@ -4,16 +4,15 @@ import {
   botPickStart,
   createMatch,
   finishPicking,
+  loadMap,
+  mapVersionFor,
   playBotTurn,
   RuleError,
   type Action,
-  type ActionResultMsg,
   type GameState,
-  type Lobby,
   type LoggedEvent,
-  type MatchStatus,
-  type Standings,
 } from '@warfront/shared';
+import type { ActionResultMsg, Lobby, MatchStatus, Standings } from '@warfront/shared/protocol';
 import { tx, type Client, type Pool } from './db';
 import { forbidden, HttpError, notFound } from './errors';
 import { claimStart, readLobby } from './lobby';
@@ -144,6 +143,8 @@ export class MatchService {
       [matchId, snap.rows[0].rev],
     );
     let state = snap.rows[0].state;
+    // The engine is synchronous and maps load on demand, so load this one before replaying.
+    await loadMap(state.mapVersion);
     let rev = snap.rows[0].rev;
     for (const row of steps.rows) {
       if (row.rev !== rev + 1) throw new Error(`Match ${matchId} is missing action ${rev + 1}`);
@@ -188,6 +189,7 @@ export class MatchService {
     const live = await this.withLock(matchId, async () => {
       const created = await tx(this.pool, async (c) => {
         const lobby = await claimStart(c, userId, matchId);
+        await loadMap(mapVersionFor(lobby.settings.map, lobby.settings.mapSize));
         const state = createMatch({
           settings: lobby.settings,
           players: lobby.seats.map((s) => ({ name: s.name, bot: s.bot })),

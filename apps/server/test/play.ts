@@ -1,5 +1,6 @@
 import { expect } from 'vitest';
-import { distance, findPath, hexHasBit, quietPassFor, samePoint, tileIndex, UNITS, type MatchUpdateMsg, type Point } from '@warfront/shared';
+import { findPath, hexHasBit, mapOf, quietPassFor, samePoint, UNITS, type Point } from '@warfront/shared';
+import type { MatchUpdateMsg } from '@warfront/shared/protocol';
 import type { Player } from './client';
 
 const STOPS = new Set(['combat', 'blocked', 'captured', 'captureFailed']);
@@ -12,6 +13,7 @@ const STOPS = new Set(['combat', 'blocked', 'captured', 'captureFailed']);
 export async function playTurnFromView(p: Player, matchId: string): Promise<number | null> {
   let view = p.update!.view;
   const seat = view.seat;
+  const map = mapOf(view);
   const garrisoned = new Set<number>();
   const tanks = view.units.filter((u) => u.owner === seat && UNITS[u.type].domain === 'land' && !u.carriedBy);
   for (const start of tanks) {
@@ -19,17 +21,17 @@ export async function playTurnFromView(p: Player, matchId: string): Promise<numb
     if (view.phase !== 'playing' || view.activeSeat !== seat) return null;
     let unit = view.units.find((u) => u.id === start.id);
     if (!unit) continue;
-    const here = tileIndex(unit.x, unit.y);
-    if (view.cities.some((c) => c.owner === seat && tileIndex(c.x, c.y) === here) && !garrisoned.has(here)) {
+    const here = map.tileIndex(unit.x, unit.y);
+    if (view.cities.some((c) => c.owner === seat && map.tileIndex(c.x, c.y) === here) && !garrisoned.has(here)) {
       garrisoned.add(here);
       continue;
     }
     while (unit && (unit.moves ?? 0) > 0) {
-      const foe = view.units.find((o) => o.owner !== seat && UNITS[o.type].domain === 'land' && distance(o, unit!) === 1);
+      const foe = view.units.find((o) => o.owner !== seat && UNITS[o.type].domain === 'land' && map.distance(o, unit!) === 1);
       let to: Point | undefined = foe ? { x: foe.x, y: foe.y } : undefined;
       if (!to) {
         const targets = view.cities.filter((c) => c.owner !== seat);
-        const path = findPath(unit, (q) => targets.some((c) => samePoint(c, q)), quietPassFor(view, unit), 8000);
+        const path = findPath(map, unit, (q) => targets.some((c) => samePoint(c, q)), quietPassFor(view, unit), 8000);
         to = path?.[0];
       }
       if (!to) break;
@@ -51,12 +53,13 @@ export async function playTurnFromView(p: Player, matchId: string): Promise<numb
 /** What a seat must never be sent. */
 export function expectNothingHidden(u: MatchUpdateMsg, seat: number): void {
   const v = u.view;
+  const map = mapOf(v);
   expect(v.seat).toBe(seat);
   const json = JSON.stringify(u);
   expect(json).not.toMatch(/"rng"|"seed"|"picks"|"memory"/);
   for (const unit of v.units) {
     if (unit.owner === seat) continue;
-    expect(hexHasBit(v.visible, tileIndex(unit.x, unit.y)), `enemy ${unit.type} out of sight`).toBe(true);
+    expect(hexHasBit(v.visible, map.tileIndex(unit.x, unit.y)), `enemy ${unit.type} out of sight`).toBe(true);
     expect(unit.moves).toBeUndefined();
   }
   for (const c of v.cities) if (c.owner !== seat) expect(c.building).toBeUndefined();

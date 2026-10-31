@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import type { AuthResponse } from '@warfront/shared';
+import type { AuthResponse } from '@warfront/shared/protocol';
 import { ACCESS_TTL_SECONDS, signAccess, verifyAccess } from '../src/auth';
 import { RateLimiter } from '../src/limits';
 import { Player, testServer, type TestServer } from './client';
@@ -56,7 +56,7 @@ describe.skipIf(!dbUp)('guest accounts', () => {
   it('refuses a missing or bad token and an empty name', async () => {
     expect((await fetch(`${t.base}/me`)).status).toBe(401);
     expect((await fetch(`${t.base}/me`, { headers: { authorization: 'Bearer nope' } })).status).toBe(401);
-    const res = await post('/auth/guest', { name: '   ' });
+    const res = await post('/auth/guest', { displayName: '   ' });
     expect(res.status).toBe(400);
     expect(((await res.json()) as { error: string }).error).toBe('bad-request');
   });

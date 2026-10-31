@@ -1,6 +1,6 @@
 import { io as connect, type Socket } from 'socket.io-client';
+import type { Action } from '@warfront/shared';
 import type {
-  Action,
   ActionResultMsg,
   AuthResponse,
   ChatMessage,
@@ -8,7 +8,7 @@ import type {
   Lobby,
   MatchUpdateMsg,
   ServerToClientEvents,
-} from '@warfront/shared';
+} from '@warfront/shared/protocol';
 import { migrate } from '../src/migrate';
 import { startServer, type RunningServer } from '../src/server';
 import { freshSchema, SECRET } from './db';
@@ -60,7 +60,7 @@ export class Player {
     const res = await fetch(`${t.base}/auth/guest`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ displayName: name }),
     });
     if (res.status !== 201) throw new Error(`guest sign-in failed: ${res.status} ${await res.text()}`);
     return new Player(t, (await res.json()) as AuthResponse);
@@ -110,7 +110,7 @@ export class Player {
     });
     socket.on('chat:message', (m) => (this.chat.push(m), changed()));
     socket.on('connect', () => {
-      for (const id of matchIds) socket.emit('match:subscribe', { matchId: id, lastRev: this.update?.view.rev }, () => {});
+      for (const id of matchIds) socket.emit('match:subscribe', { matchId: id, lastRev: this.update?.view.rev ?? 0 }, () => {});
     });
     await new Promise<void>((resolve, reject) => {
       socket.once('connect', () => resolve());

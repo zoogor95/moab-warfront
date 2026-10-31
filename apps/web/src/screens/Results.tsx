@@ -1,4 +1,4 @@
-import type { Standings } from '@warfront/shared';
+import type { Standings } from '@warfront/shared/protocol';
 import { EmblemIcon, Logo } from '../components/Icons';
 import { SEATS } from '../theme';
 

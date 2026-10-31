@@ -1,0 +1,451 @@
+{
+ "version": "africa-small-v1",
+ "source": "Natural Earth 1:50m land (public domain), via world-atlas",
+ "cols": 78,
+ "rows": 67,
+ "wraps": false,
+ "degreesPerTile": 1.1053,
+ "bounds": {
+  "west": -26,
+  "north": 38
+ },
+ "rle": [
+  "s16l6s13l2s6l1s4l30",
+  "s24l9s17l1s1l2s2l22",
+  "s18l3s1l12s19l1s2l8m12l2",
+  "s17l16s23l8m12l2",
+  "s16l19s20l9m12l2",
+  "s15l2m8l13s4l4s9l9m12l2",
+  "s15l2m8l15s1l11s1l11m12l2",
+  "s14l38s1l11m3s2m7l2",
+  "s13l51m3s3m6l2",
+  "s11l43s2l12s3l7",
+  "s11l44s1l13s6l3",
+  "s10l45s2l13s4l1s3",
+  "s9l47s2l13s1l3s3",
+  "s9l47s2l19s1",
+  "s8l49s2l19",
+  "s8l49s2l18s1",
+  "s9l48s3l16s2",
+  "s9l49s3l14s3",
+  "s9l50s3l12s4",
+  "s9l50s3l9s7",
+  "s8l52s2l8s8",
+  "s8l53s1l6s10",
+  "s8l48m4l2s1l2s13",
+  "s9l47m4l2s16",
+  "s10l46m4l3s3l4s8",
+  "s11l45m4l10s8",
+  "s11l45m2l1m1l9s9",
+  "s12l44m4l9s9",
+  "s13l55s10",
+  "s15l8s5l40s10",
+  "s32l35s11",
+  "s32l34s12",
+  "s32l33s13",
+  "s32l31s15",
+  "s32l30s16",
+  "s32l30s16",
+  "s32l28s18",
+  "s33l27s18",
+  "s34l25s19",
+  "s35l24s19",
+  "s35l24s19",
+  "s35l24s19",
+  "s35l24s19",
+  "s35l25s18",
+  "s36l24s18",
+  "s36l24s18",
+  "s35l25s7l2s9",
+  "s35l25s7l2s9",
+  "s34l26s5l4s9",
+  "s34l25s4l6s9",
+  "s34l23s6l5s10",
+  "s35l21s7l5s10",
+  "s35l20s9l4s10",
+  "s36l19s8l4s11",
+  "s36l20s7l4s11",
+  "s37l19s7l4s11",
+  "s37l18s8l3s12",
+  "s37l17s10l1s13",
+  "s37l16s25",
+  "s38l15s25",
+  "s38l14s26",
+  "s39l13s26",
+  "s39l12s27",
+  "s40l10s28",
+  "s40l9s29",
+  "s41l2s35",
+  "s78"
+ ],
+ "cities": [
+  {
+   "id": "cairo",
+   "name": "Cairo",
+   "x": 51,
+   "y": 7,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "abuja",
+   "name": "Abuja",
+   "x": 30,
+   "y": 26,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "kinshasa",
+   "name": "Kinshasa",
+   "x": 37,
+   "y": 38,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "addis-ababa",
+   "name": "Addis Ababa",
+   "x": 58,
+   "y": 26,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "nairobi",
+   "name": "Nairobi",
+   "x": 56,
+   "y": 35,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "algiers",
+   "name": "Algiers",
+   "x": 26,
+   "y": 1,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "rabat",
+   "name": "Rabat",
+   "x": 17,
+   "y": 3,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "tunis",
+   "name": "Tunis",
+   "x": 32,
+   "y": 1,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "tripoli",
+   "name": "Tripoli",
+   "x": 35,
+   "y": 5,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "khartoum",
+   "name": "Khartoum",
+   "x": 52,
+   "y": 20,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "dakar",
+   "name": "Dakar",
+   "x": 8,
+   "y": 21,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "luanda",
+   "name": "Luanda",
+   "x": 35,
+   "y": 42,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "accra",
+   "name": "Accra",
+   "x": 23,
+   "y": 28,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bamako",
+   "name": "Bamako",
+   "x": 16,
+   "y": 22,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "niamey",
+   "name": "Niamey",
+   "x": 25,
+   "y": 22,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "n-djamena",
+   "name": "N'Djamena",
+   "x": 37,
+   "y": 23,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "mogadishu",
+   "name": "Mogadishu",
+   "x": 64,
+   "y": 32,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "antananarivo",
+   "name": "Antananarivo",
+   "x": 66,
+   "y": 51,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "lusaka",
+   "name": "Lusaka",
+   "x": 49,
+   "y": 48,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "maputo",
+   "name": "Maputo",
+   "x": 52,
+   "y": 57,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "pretoria",
+   "name": "Pretoria",
+   "x": 49,
+   "y": 57,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "nouakchott",
+   "name": "Nouakchott",
+   "x": 9,
+   "y": 18,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "kampala",
+   "name": "Kampala",
+   "x": 52,
+   "y": 34,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "windhoek",
+   "name": "Windhoek",
+   "x": 38,
+   "y": 54,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "gaborone",
+   "name": "Gaborone",
+   "x": 46,
+   "y": 56,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "yaounde",
+   "name": "Yaoundé",
+   "x": 33,
+   "y": 30,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "conakry",
+   "name": "Conakry",
+   "x": 11,
+   "y": 25,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "ouagadougou",
+   "name": "Ouagadougou",
+   "x": 22,
+   "y": 23,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "juba",
+   "name": "Juba",
+   "x": 52,
+   "y": 29,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "djibouti",
+   "name": "Djibouti",
+   "x": 62,
+   "y": 24,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "bangui",
+   "name": "Bangui",
+   "x": 40,
+   "y": 30,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "riyadh",
+   "name": "Riyadh",
+   "x": 65,
+   "y": 12,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "sanaa",
+   "name": "Sanaa",
+   "x": 63,
+   "y": 20,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "lagos",
+   "name": "Lagos",
+   "x": 26,
+   "y": 28,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "cape-town",
+   "name": "Cape Town",
+   "x": 40,
+   "y": 64,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "durban",
+   "name": "Durban",
+   "x": 51,
+   "y": 61,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "dar-es-salaam",
+   "name": "Dar es Salaam",
+   "x": 58,
+   "y": 40,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "abidjan",
+   "name": "Abidjan",
+   "x": 19,
+   "y": 29,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "jeddah",
+   "name": "Jeddah",
+   "x": 59,
+   "y": 14,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "port-sudan",
+   "name": "Port Sudan",
+   "x": 56,
+   "y": 16,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "mombasa",
+   "name": "Mombasa",
+   "x": 59,
+   "y": 37,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kano",
+   "name": "Kano",
+   "x": 31,
+   "y": 23,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "benghazi",
+   "name": "Benghazi",
+   "x": 42,
+   "y": 5,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "lubumbashi",
+   "name": "Lubumbashi",
+   "x": 48,
+   "y": 44,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "kisangani",
+   "name": "Kisangani",
+   "x": 46,
+   "y": 33,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "tamanrasset",
+   "name": "Tamanrasset",
+   "x": 28,
+   "y": 13,
+   "capital": false,
+   "port": false
+  }
+ ]
+}

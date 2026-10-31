@@ -1,4 +1,4 @@
-import type { AuthResponse } from '@warfront/shared';
+import type { AuthResponse } from '@warfront/shared/protocol';
 
 export const SERVER_URL = (import.meta.env.VITE_SERVER_URL || 'http://localhost:3100').replace(/\/$/, '');
 
@@ -79,7 +79,7 @@ async function parse<T>(res: Response): Promise<T> {
 }
 
 export async function signInAsGuest(name: string): Promise<Session> {
-  return adopt(await parse<AuthResponse>(await send('POST', '/auth/guest', { name })));
+  return adopt(await parse<AuthResponse>(await send('POST', '/auth/guest', { displayName: name })));
 }
 
 export function signOut(): void {

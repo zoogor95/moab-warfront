@@ -1,5 +1,6 @@
 import { io, type Socket } from 'socket.io-client';
-import type { Action, ActionResultMsg, ClientToServerEvents, ServerToClientEvents } from '@warfront/shared';
+import type { Action } from '@warfront/shared';
+import type { ActionResultMsg, ClientToServerEvents, ServerToClientEvents } from '@warfront/shared/protocol';
 import { freshToken, refreshSession, SERVER_URL } from './api';
 
 export type GameSocket = Socket<ServerToClientEvents, ClientToServerEvents>;

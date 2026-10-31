@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { applyAction, botPickStart, playBotTurn, viewFor, type GameState } from '@warfront/shared';
+import { applyAction, botPickStart, loadMap, playBotTurn, viewFor, type GameState } from '@warfront/shared';
+import { SaveMenu } from './components/SaveMenu';
 import { runLocal } from './game/local';
 import { humanSeats, loadGame, saveGame } from './game/session';
 import { Setup } from './screens/Setup';
@@ -77,7 +78,8 @@ export function HotSeat({ onExit }: { onExit: () => void }) {
       <Setup
         saved={saved}
         onStart={(g) => advance(g, null)}
-        onResume={(g) => advance(g, null)}
+        onResume={(g) => loadMap(g.mapVersion).then(() => advance(g, null))}
+        onLoad={(g) => advance(g, null)}
         onDiscard={() => {
           saveGame(null);
           setSaved(null);
@@ -121,7 +123,16 @@ export function HotSeat({ onExit }: { onExit: () => void }) {
         }
         return notes;
       };
-      return <Play key={seat} view={view!} run={run} exit={exit} />;
+      return (
+        <Play
+          key={seat}
+          view={view!}
+          run={run}
+          exit={exit}
+          headerExtra={game.phase === 'playing' && <SaveMenu game={game} />}
+          replaySinceLastTurn={humanSeats(game).length > 1}
+        />
+      );
     }
     case 'bots':
       return screen.watchSeat !== null ? (

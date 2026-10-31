@@ -1,16 +1,16 @@
 import express, { type ErrorRequestHandler, type RequestHandler } from 'express';
 import { z } from 'zod';
+import { RuleError } from '@warfront/shared';
 import {
-  createMatchBody,
-  guestBody,
-  joinBody,
-  readyBody,
-  refreshBody,
-  RuleError,
-  seatBody,
-  settingsBody,
-  submitBody,
-} from '@warfront/shared';
+  CreateMatchBodySchema,
+  GuestSignInBodySchema,
+  JoinMatchBodySchema,
+  ReadyBodySchema,
+  RefreshBodySchema,
+  SeatBodySchema,
+  SubmitActionBodySchema,
+  UpdateSettingsBodySchema,
+} from '@warfront/shared/protocol';
 import { createGuest, refresh, requireUser } from './auth';
 import type { Pool } from './db';
 import { HttpError } from './errors';
@@ -79,10 +79,10 @@ export function createApp(deps: AppDeps): express.Express {
 
   const byAddress = limit(new RateLimiter(10, 10 / 60), (req) => req.ip ?? 'unknown');
   app.post('/auth/guest', byAddress, async (req, res) => {
-    res.status(201).json(await createGuest(pool, authSecret, guestBody.parse(req.body).name));
+    res.status(201).json(await createGuest(pool, authSecret, GuestSignInBodySchema.parse(req.body).displayName));
   });
   app.post('/auth/refresh', byAddress, async (req, res) => {
-    res.json(await refresh(pool, authSecret, refreshBody.parse(req.body).refreshToken));
+    res.json(await refresh(pool, authSecret, RefreshBodySchema.parse(req.body).refreshToken));
   });
 
   const user = requireUser(authSecret);
@@ -104,10 +104,10 @@ export function createApp(deps: AppDeps): express.Express {
     res.json(await myMatches(pool, me(req)));
   });
   app.post('/matches', user, perUser, async (req, res) => {
-    res.status(201).json(await createLobby(pool, me(req), createMatchBody.parse(req.body ?? {}).settings));
+    res.status(201).json(await createLobby(pool, me(req), CreateMatchBodySchema.parse(req.body ?? {}).settings));
   });
   app.post('/matches/join', user, perUser, async (req, res) => {
-    changed(res, await joinByCode(pool, me(req), joinBody.parse(req.body).code));
+    changed(res, await joinByCode(pool, me(req), JoinMatchBodySchema.parse(req.body).code));
   });
   app.get('/matches/:id', user, perUser, async (req, res) => {
     const id = matchId(req.params.id);
@@ -116,19 +116,19 @@ export function createApp(deps: AppDeps): express.Express {
     res.json(await readLobby(pool, id));
   });
   app.patch('/matches/:id/settings', user, perUser, async (req, res) => {
-    changed(res, await updateSettings(pool, me(req), matchId(req.params.id), settingsBody.parse(req.body).settings));
+    changed(res, await updateSettings(pool, me(req), matchId(req.params.id), UpdateSettingsBodySchema.parse(req.body)));
   });
   app.post('/matches/:id/seat', user, perUser, async (req, res) => {
-    changed(res, await takeSeat(pool, me(req), matchId(req.params.id), seatBody.parse(req.body).seat));
+    changed(res, await takeSeat(pool, me(req), matchId(req.params.id), SeatBodySchema.parse(req.body).seat));
   });
   app.post('/matches/:id/ready', user, perUser, async (req, res) => {
-    changed(res, await setReady(pool, me(req), matchId(req.params.id), readyBody.parse(req.body).ready));
+    changed(res, await setReady(pool, me(req), matchId(req.params.id), ReadyBodySchema.parse(req.body).ready));
   });
   app.post('/matches/:id/bots', user, perUser, async (req, res) => {
-    changed(res, await addBot(pool, me(req), matchId(req.params.id), seatBody.parse(req.body).seat));
+    changed(res, await addBot(pool, me(req), matchId(req.params.id), SeatBodySchema.parse(req.body).seat));
   });
   app.delete('/matches/:id/seats/:seat', user, perUser, async (req, res) => {
-    changed(res, await clearSeat(pool, me(req), matchId(req.params.id), seatBody.parse({ seat: Number(req.params.seat) }).seat));
+    changed(res, await clearSeat(pool, me(req), matchId(req.params.id), SeatBodySchema.parse({ seat: Number(req.params.seat) }).seat));
   });
   app.post('/matches/:id/leave', user, perUser, async (req, res) => {
     const lobby = await leaveLobby(pool, me(req), matchId(req.params.id));
@@ -145,7 +145,7 @@ export function createApp(deps: AppDeps): express.Express {
   });
   // For async play from a notification, without opening a socket.
   app.post('/matches/:id/actions', user, perUser, async (req, res) => {
-    res.json(await matches.submit(matchId(req.params.id), me(req), submitBody.parse(req.body)));
+    res.json(await matches.submit(matchId(req.params.id), me(req), SubmitActionBodySchema.parse(req.body)));
   });
 
   app.use((_req, res) => {

@@ -1,4 +1,4 @@
-import type { ProtocolError } from '@warfront/shared';
+import type { ProtocolError } from '@warfront/shared/protocol';
 
 /** A refusal with an HTTP status and a code the client can act on. */
 export class HttpError extends Error {

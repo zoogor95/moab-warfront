@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NAME_MAX_LENGTH } from '@warfront/shared';
+import { NAME_MAX_LENGTH } from '@warfront/shared/protocol';
 import { Logo } from '../components/Icons';
 import { signInAsGuest } from '../net/api';
 

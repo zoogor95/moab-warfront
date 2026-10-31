@@ -1,4 +1,4 @@
-import { SEAT_STYLES, type Emblem } from '@warfront/shared';
+import { SEAT_STYLES, type Emblem } from '@warfront/shared/protocol';
 
 export type { Emblem };
 

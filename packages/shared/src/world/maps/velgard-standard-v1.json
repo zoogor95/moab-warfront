@@ -1,0 +1,657 @@
+{
+ "version": "velgard-standard-v1",
+ "source": "Drawn for MOAB: Warfront",
+ "cols": 130,
+ "rows": 97,
+ "wraps": false,
+ "degreesPerTile": 0.4928,
+ "bounds": {
+  "west": 0,
+  "north": 48
+ },
+ "rle": [
+  "s49l9s6l2s64",
+  "s49l11s2l9s59",
+  "s49l22s1l1s57",
+  "s48l18s1l4s59",
+  "s46l10s2l1s2l4s4l1s60",
+  "s44l3s16l2s65",
+  "s44l2s84",
+  "s130",
+  "s130",
+  "s130",
+  "s50l1s1l4s8l4s3l3s56",
+  "s50l7s2l1s4l12s54",
+  "s37l4s9l10s3l14s6l1s2l3s41",
+  "s36l6s3l1s3l12s2l17s2l8s40",
+  "s35l11s2l1m12s2m6l21s40",
+  "s34l12s3m20l22s39",
+  "s34l15m20l22s39",
+  "s33l16m20l26s35",
+  "s29l20m20l27s34",
+  "s28l68s34",
+  "s27l68s3l1s31",
+  "s28l67s35",
+  "s28l67s35",
+  "s29l65s36",
+  "s30l63m2s35",
+  "s29l64m2s35",
+  "s28l65m4l1s13l1s18",
+  "s26l67m4l2s11l4s16",
+  "s25l9m5l54m4l3s8l7s15",
+  "s25l9m5l54m4l3s8l7s15",
+  "s25l9m5l54m4l3s2l1s5l8s14",
+  "s25l9m5l54m4l3s8l9s13",
+  "s12l1s12l9m5l54m4l3s7l10s13",
+  "s11l5s10l8m5l54m4l2s9l9s13",
+  "s8l10s8l8m5l54m4l2s9l9s13",
+  "s8l10s6l10m5l42s1l11m4l2s9l8s14",
+  "s7l10s6l11m5l35s4l2s4l9m4l3s9l5s16",
+  "s7l11s7l9m5l34s11l17s10l2s17",
+  "s8l10s7l9m5l33s13l17s28",
+  "s9l1m4l4s7l9m5l33s13l18s27",
+  "s9l1m4l4s8l8m5l31s15l19s26",
+  "s9l1m4l4s12l4m5l30s16l19s26",
+  "s10m4l2s15l3m5l30s17l17s13l2s12",
+  "s10l1m3l3s14l3m5l30s18l16s11l4s12",
+  "s10m4l2s12l6m5l30s18l15s13l3s12",
+  "s10m4l2s10l8m5l28s22l11s15l4s11",
+  "s10m4l2s10l8m5l28s47l5s11",
+  "s10l5s11l8m5l28s19l14s14l8s8",
+  "s8l9s9l8m5l29s18l15s14l6s9",
+  "s8l9s9l8m5l29s19l14s14l6s9",
+  "s6l12s8l8m5l28s20l15s14l6s8",
+  "s6l11s10l7m5l29s18l17s13l5s9",
+  "s6l11s10l7m5l29s18l17s14l3s10",
+  "s8l9s10l7m5l30s15l19s27",
+  "s9l7s10l8m5l32s12l20s27",
+  "s8l8s9l9m5l37s5l21s28",
+  "s8l7s10l9m5l38s1l22s30",
+  "s8l1s15l10m5l60s31",
+  "s24l10m5l60s31",
+  "s24l10m5l59s14l2s16",
+  "s24l10m5l58s13l7s13",
+  "s25l72s13l8s12",
+  "s25l71s13l9s12",
+  "s27l69s13l8s13",
+  "s27l70s11l9s13",
+  "s28l70s10l8s14",
+  "s28l71s10l7s14",
+  "s28l69s14l5s14",
+  "s28l69s14l5s14",
+  "s29l67s34",
+  "s29l66s35",
+  "s30l63s37",
+  "s34l58s38",
+  "s35l18m12l27s30l3s5",
+  "s35l18m12l19s3l5s28l6s4",
+  "s35l18m12l18s7l2s28l6s4",
+  "s36l17m12l5s1l11s39l5s4",
+  "s38l15m12l3s3l10s41l4s4",
+  "s39l14m12l2s9l4s42l4s4",
+  "s39l28s10l3s42l4s4",
+  "s39l28s55l3s5",
+  "s39l27s64",
+  "s37l29s64",
+  "s37l29s64",
+  "s37l10s4l7s2l5s65",
+  "s37l10s6l5s5l1s66",
+  "s37l11s6l1s75",
+  "s38l10s82",
+  "s38l9s83",
+  "s38l9s83",
+  "s38l6s28l5s53",
+  "s39l5s27l8s2l1s1l1s46",
+  "s40l3s29l12s46",
+  "s73l10s47",
+  "s73l1s4l4s48",
+  "s130",
+  "s130"
+ ],
+ "cities": [
+  {
+   "id": "skarhold",
+   "name": "Skarhold",
+   "x": 56,
+   "y": 13,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "dun-brannoch",
+   "name": "Dun Brannoch",
+   "x": 25,
+   "y": 28,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "elmaris",
+   "name": "Elmaris",
+   "x": 25,
+   "y": 56,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "aurelion",
+   "name": "Aurelion",
+   "x": 79,
+   "y": 34,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "corvesse",
+   "name": "Corvesse",
+   "x": 101,
+   "y": 54,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "zahrenn",
+   "name": "Zahrenn",
+   "x": 55,
+   "y": 85,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "saltmere",
+   "name": "Saltmere",
+   "x": 109,
+   "y": 34,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "wyrnholt",
+   "name": "Wyrnholt",
+   "x": 9,
+   "y": 56,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "isgrav",
+   "name": "Isgrav",
+   "x": 58,
+   "y": 3,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "brennvik",
+   "name": "Brennvik",
+   "x": 45,
+   "y": 15,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kolvenn",
+   "name": "Kolvenn",
+   "x": 70,
+   "y": 13,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "hailvard",
+   "name": "Hailvard",
+   "x": 62,
+   "y": 20,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "ravnsund",
+   "name": "Ravnsund",
+   "x": 38,
+   "y": 13,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "torsgrim",
+   "name": "Torsgrim",
+   "x": 81,
+   "y": 15,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "strathvenn",
+   "name": "Strathvenn",
+   "x": 25,
+   "y": 39,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "craigmuir",
+   "name": "Craigmuir",
+   "x": 27,
+   "y": 34,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "arvoren",
+   "name": "Arvoren",
+   "x": 32,
+   "y": 52,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "sylvaren",
+   "name": "Sylvaren",
+   "x": 42,
+   "y": 52,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "merrowen",
+   "name": "Merrowen",
+   "x": 29,
+   "y": 65,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "lisanwen",
+   "name": "Lisanwen",
+   "x": 27,
+   "y": 47,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "thalport",
+   "name": "Thalport",
+   "x": 65,
+   "y": 46,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "pontevar",
+   "name": "Pontevar",
+   "x": 90,
+   "y": 44,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "orsinna",
+   "name": "Orsinna",
+   "x": 83,
+   "y": 56,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "altavera",
+   "name": "Altavera",
+   "x": 62,
+   "y": 62,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "duravel",
+   "name": "Duravel",
+   "x": 56,
+   "y": 42,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "seravel",
+   "name": "Seravel",
+   "x": 66,
+   "y": 40,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "valcastra",
+   "name": "Valcastra",
+   "x": 76,
+   "y": 58,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "lucerra",
+   "name": "Lucerra",
+   "x": 86,
+   "y": 36,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "valombre",
+   "name": "Valombre",
+   "x": 103,
+   "y": 41,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "aubrevelle",
+   "name": "Aubrevelle",
+   "x": 95,
+   "y": 54,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "roquevelle",
+   "name": "Roquevelle",
+   "x": 102,
+   "y": 30,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "lysandre",
+   "name": "Lysandre",
+   "x": 98,
+   "y": 20,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kethra",
+   "name": "Kethra",
+   "x": 39,
+   "y": 78,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "ambrakesh",
+   "name": "Ambrakesh",
+   "x": 65,
+   "y": 83,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "khetarra",
+   "name": "Khetarra",
+   "x": 90,
+   "y": 75,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "ishvaal",
+   "name": "Ishvaal",
+   "x": 48,
+   "y": 82,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "velshar",
+   "name": "Velshar",
+   "x": 71,
+   "y": 77,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "sarnakh",
+   "name": "Sarnakh",
+   "x": 83,
+   "y": 74,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "tirhazad",
+   "name": "Tirhazad",
+   "x": 85,
+   "y": 68,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "kesh-abir",
+   "name": "Kesh Abir",
+   "x": 60,
+   "y": 68,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "dar-ombai",
+   "name": "Dar Ombai",
+   "x": 42,
+   "y": 90,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "tidefall",
+   "name": "Tidefall",
+   "x": 116,
+   "y": 50,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "coralmoor",
+   "name": "Coralmoor",
+   "x": 111,
+   "y": 66,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "brinewatch",
+   "name": "Brinewatch",
+   "x": 112,
+   "y": 28,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "fennick",
+   "name": "Fennick",
+   "x": 10,
+   "y": 43,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "frosthavn",
+   "name": "Frosthavn",
+   "x": 70,
+   "y": 3,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "ormskar",
+   "name": "Ormskar",
+   "x": 63,
+   "y": 12,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "draumhal",
+   "name": "Draumhal",
+   "x": 42,
+   "y": 22,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "varnheim",
+   "name": "Varnheim",
+   "x": 73,
+   "y": 20,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "ostrask",
+   "name": "Ostrask",
+   "x": 66,
+   "y": 26,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "dyrnholt",
+   "name": "Dyrnholt",
+   "x": 87,
+   "y": 26,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "ardmara",
+   "name": "Ardmara",
+   "x": 30,
+   "y": 24,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "taelwyn",
+   "name": "Taelwyn",
+   "x": 32,
+   "y": 40,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "ithrien",
+   "name": "Ithrien",
+   "x": 44,
+   "y": 42,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "vessaria",
+   "name": "Vessaria",
+   "x": 54,
+   "y": 60,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "calvessa",
+   "name": "Calvessa",
+   "x": 81,
+   "y": 62,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "ostravia",
+   "name": "Ostravia",
+   "x": 58,
+   "y": 30,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "lysmara",
+   "name": "Lysmara",
+   "x": 73,
+   "y": 30,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "sorrevain",
+   "name": "Sorrevain",
+   "x": 98,
+   "y": 66,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "port-isaure",
+   "name": "Port Isaure",
+   "x": 100,
+   "y": 48,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "haddaran",
+   "name": "Haddaran",
+   "x": 32,
+   "y": 71,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "spraywick",
+   "name": "Spraywick",
+   "x": 120,
+   "y": 48,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "driftmark",
+   "name": "Driftmark",
+   "x": 112,
+   "y": 60,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "ebbsend",
+   "name": "Ebbsend",
+   "x": 122,
+   "y": 79,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "gorse-end",
+   "name": "Gorse End",
+   "x": 13,
+   "y": 33,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "crowsmouth",
+   "name": "Crowsmouth",
+   "x": 17,
+   "y": 50,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "rimhold",
+   "name": "Rimhold",
+   "x": 46,
+   "y": 4,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "ashport",
+   "name": "Ashport",
+   "x": 75,
+   "y": 92,
+   "capital": false,
+   "port": false
+  }
+ ]
+}

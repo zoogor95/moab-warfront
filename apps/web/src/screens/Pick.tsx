@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { distance, START_SPACING, START_VALUE_RADIUS, tileIndex, type PlayerView, type Point } from '@warfront/shared';
+import { getMap, START_SPACING, START_VALUE_RADIUS, type PlayerView, type Point } from '@warfront/shared';
 import { Countdown } from '../components/Countdown';
 import { EmblemIcon, Logo } from '../components/Icons';
 import { MapCanvas } from '../map/MapCanvas';
@@ -17,11 +17,12 @@ interface Props {
 /** Hidden start pick for one person. */
 export function Pick({ view, onPick, onPickForMe, deadline, busy }: Props) {
   const seat = view.seat;
+  const map = getMap(view.mapVersion);
   const myPick = view.picking?.myPick ?? null;
   const [choice, setChoice] = useState<string | null>(myPick);
   const city = view.cities.find((c) => c.id === choice) ?? null;
-  const eligible = useMemo(() => new Set(view.cities.filter((c) => c.port).map((c) => tileIndex(c.x, c.y))), [view]);
-  const nearby = city ? view.cities.filter((c) => c.id !== city.id && distance(c, city) <= START_VALUE_RADIUS) : [];
+  const eligible = useMemo(() => new Set(view.cities.filter((c) => c.port).map((c) => map.tileIndex(c.x, c.y))), [view, map]);
+  const nearby = city ? view.cities.filter((c) => c.id !== city.id && map.distance(c, city) <= START_VALUE_RADIUS) : [];
   const picked = view.picking?.picked ?? [];
   const locked = myPick !== null;
 
@@ -51,7 +52,7 @@ export function Pick({ view, onPick, onPickForMe, deadline, busy }: Props) {
         <MapCanvas
           view={view}
           initialTile={7}
-          focus={city ? { x: city.x, y: city.y } : { x: 90, y: 40 }}
+          focus={city ? { x: city.x, y: city.y } : { x: Math.floor(map.cols / 2), y: Math.floor(map.rows / 2) }}
           overlay={{ eligible: locked ? undefined : eligible, pick: city, zone: city ? { x: city.x, y: city.y, radius: START_SPACING, color: SEATS[seat].color } : null }}
           onTileClick={click}
         />

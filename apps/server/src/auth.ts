@@ -1,6 +1,6 @@
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 import type { RequestHandler } from 'express';
-import type { AuthResponse } from '@warfront/shared';
+import type { AuthResponse } from '@warfront/shared/protocol';
 import { tx, type Pool } from './db';
 import { HttpError } from './errors';
 

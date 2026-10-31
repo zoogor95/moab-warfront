@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react';
-import { startValue, type Action, type City } from '@warfront/shared';
+import { useEffect, useRef, useState } from 'react';
+import { getMap, loadMap, startValue, type Action, type City } from '@warfront/shared';
 import { Chat } from '../components/Chat';
 import { ConfirmButton } from '../components/ConfirmButton';
 import { Logo } from '../components/Icons';
@@ -20,6 +20,22 @@ export function OnlineMatch({ matchId, me, onBack }: { matchId: string; me: stri
   const latest = useRef(m.update);
   latest.current = m.update;
 
+  // Maps load on demand; the screens read the match's map synchronously once it is here.
+  const mapVersion = m.update?.view.mapVersion ?? null;
+  const [loadedMap, setLoadedMap] = useState<string | null>(null);
+  const [mapError, setMapError] = useState(false);
+  useEffect(() => {
+    if (!mapVersion) return;
+    let live = true;
+    loadMap(mapVersion).then(
+      () => live && setLoadedMap(mapVersion),
+      () => live && setMapError(true),
+    );
+    return () => {
+      live = false;
+    };
+  }, [mapVersion]);
+
   if (m.error && !m.lobby) {
     return (
       <div className="page pass">
@@ -32,12 +48,12 @@ export function OnlineMatch({ matchId, me, onBack }: { matchId: string; me: stri
       </div>
     );
   }
-  if (!m.lobby || (m.lobby.status !== 'lobby' && !m.update)) {
+  if (!m.lobby || (m.lobby.status !== 'lobby' && (!m.update || loadedMap !== m.update.view.mapVersion))) {
     return (
       <div className="page pass">
         <div className="pass-card" role="status">
           <Logo size={40} />
-          <p className="muted">{m.connected ? 'Loading the match…' : 'Connecting to the game server…'}</p>
+          <p className="muted">{mapError ? 'The map did not load. Check your connection and reload.' : m.connected ? 'Loading the match…' : 'Connecting to the game server…'}</p>
           <button type="button" className="btn ghost" onClick={onBack}>My matches</button>
         </div>
       </div>
@@ -80,8 +96,9 @@ export function OnlineMatch({ matchId, me, onBack }: { matchId: string; me: stri
     };
     // Without the seed, "pick for me" chooses on the device among the best-placed ports.
     const pickForMe = () => {
+      const map = getMap(view.mapVersion);
       const ports = view.cities.filter((c) => c.port) as unknown as City[];
-      const best = [...ports].sort((a, b) => startValue(b, ports) - startValue(a, ports)).slice(0, 7);
+      const best = [...ports].sort((a, b) => startValue(map, b, ports) - startValue(map, a, ports)).slice(0, 7);
       void pick(best[Math.floor(Math.random() * best.length)].id);
     };
     return <Pick view={view} onPick={(c) => void pick(c)} onPickForMe={pickForMe} deadline={deadline} busy={picking} />;

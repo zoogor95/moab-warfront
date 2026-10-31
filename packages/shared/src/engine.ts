@@ -26,7 +26,8 @@ import {
   canCapture,
 } from './units';
 import type { Action, ActionResult, City, GameState, LoggedEvent, MatchSettings, Unit } from './types';
-import { CITY_INFO, MAP_VERSION, distance, inRows, terrainAt, tileIndex, wrapX, type Point } from './world/world';
+import { getMap, mapOf, mapVersionFor } from './world/maps';
+import type { Point } from './world/world';
 
 export interface PlayerSetup {
   name: string;
@@ -42,9 +43,10 @@ export interface CreateMatchOptions {
 
 export function createMatch({ settings, players, seed }: CreateMatchOptions): GameState {
   if (players.length < 2 || players.length > 6) throw new Error('A match needs 2 to 6 players');
+  const map = getMap(mapVersionFor(settings.map, settings.mapSize));
   const s: GameState = {
     version: 1,
-    mapVersion: MAP_VERSION,
+    mapVersion: map.version,
     settings: { ...settings, seats: players.length },
     phase: 'picking',
     round: 0,
@@ -55,10 +57,10 @@ export function createMatch({ settings, players, seed }: CreateMatchOptions): Ga
       name: p.name,
       bot: Boolean(p.bot),
       alive: true,
-      explored: initialExplored(settings.terrain === 'revealed'),
+      explored: initialExplored(map, settings.terrain === 'revealed'),
       memory: {},
     })),
-    cities: CITY_INFO.map((c) => ({ ...c, owner: null, building: 'tank', progress: 0 })),
+    cities: map.cities.map((c) => ({ ...c, owner: null, building: 'tank', progress: 0 })),
     units: [],
     nextId: 1,
     rng: { seed: hashSeed(seed), counter: 0 },
@@ -68,7 +70,7 @@ export function createMatch({ settings, players, seed }: CreateMatchOptions): Ga
     log: [],
   };
   if (settings.startMode === 'auto') {
-    const starts = chooseAutoStarts(s.rng, s.cities, players.length);
+    const starts = chooseAutoStarts(map, s.rng, s.cities, players.length);
     starts.forEach((city, seat) => (city.owner = seat));
     startPlaying(s);
   }
@@ -169,11 +171,12 @@ function finish(s: GameState, from: number, settle = true): ActionResult {
   const fresh = s.log.slice(from);
   if (settle) {
     const visible = refreshMemory(s);
+    const map = mapOf(s);
     for (const e of s.log as PendingEvent[]) {
       if (!e.involves) continue;
       const seen = new Set(e.involves);
       if (e.at) {
-        const i = tileIndex(e.at.x, e.at.y);
+        const i = map.tileIndex(e.at.x, e.at.y);
         for (const [seat, tiles] of visible) if (tiles.has(i)) seen.add(seat);
       }
       e.seenBy = [...seen].sort((a, b) => a - b);
@@ -194,7 +197,7 @@ function startPlaying(s: GameState): void {
 }
 
 function settlePicks(s: GameState): void {
-  const { starts, moved } = resolvePicks(s.rng, s.cities, s.players.length, s.picks);
+  const { starts, moved } = resolvePicks(mapOf(s), s.rng, s.cities, s.players.length, s.picks);
   const reveal: Record<number, string> = {};
   for (const [seat, city] of Object.entries(starts)) {
     const c = getCity(s, city.id);
@@ -227,12 +230,13 @@ function pickStart(s: GameState, seat: number, cityId: string): void {
 function move(s: GameState, seat: number, unitId: string, to: Point): void {
   const u = ownUnit(s, seat, unitId);
   if (u.moves <= 0) fail('no-moves', 'That unit has no moves left this turn');
-  if (!inRows(to.y)) fail('off-map', 'That is off the map');
-  const target = { x: wrapX(to.x), y: to.y };
-  if (distance(u, target) !== 1) fail('not-adjacent', 'Units move one tile at a time');
+  const map = mapOf(s);
+  if (!map.inBounds(to.x, to.y)) fail('off-map', 'That is off the map');
+  const target = { x: map.wrapX(to.x), y: to.y };
+  if (map.distance(u, target) !== 1) fail('not-adjacent', 'Units move one tile at a time');
 
   const domain = UNITS[u.type].domain;
-  const terrain = terrainAt(target.x, target.y);
+  const terrain = map.terrainAt(target.x, target.y);
   const city = cityAt(s, target);
   const onTile = topUnitsOnTile(s, target);
   const enemies = onTile.filter((o) => o.owner !== seat);
@@ -346,11 +350,12 @@ function drop(s: GameState, seat: number, unitId: string, to: Point): void {
   if (u.type !== 'paratrooper') fail('cannot-drop', 'Only paratroopers drop');
   if (u.carriedBy || !ownCityAt(s, u, seat)) fail('cannot-drop', 'Paratroopers drop from your own city');
   if (u.moves < UNITS.paratrooper.moves) fail('cannot-drop', 'A drop takes a full turn of moves');
-  if (!inRows(to.y)) fail('off-map', 'That is off the map');
-  const target = { x: wrapX(to.x), y: to.y };
-  const d = distance(u, target);
+  const map = mapOf(s);
+  if (!map.inBounds(to.x, to.y)) fail('off-map', 'That is off the map');
+  const target = { x: map.wrapX(to.x), y: to.y };
+  const d = map.distance(u, target);
   if (d < 1 || d > PARATROOPER_DROP_RANGE) fail('out-of-range', `Drops reach 1 to ${PARATROOPER_DROP_RANGE} tiles`);
-  if (terrainAt(target.x, target.y) !== 'land') fail('cannot-enter', 'Paratroopers land on open ground or a city');
+  if (map.terrainAt(target.x, target.y) !== 'land') fail('cannot-enter', 'Paratroopers land on open ground or a city');
   if (topUnitsOnTile(s, target).some((o) => o.owner !== seat)) fail('occupied', 'The drop zone is occupied');
   const city = cityAt(s, target);
   if (city && city.owner !== seat) {
@@ -364,10 +369,11 @@ function drop(s: GameState, seat: number, unitId: string, to: Point): void {
 function strike(s: GameState, seat: number, unitId: string, to: Point): void {
   const u = ownUnit(s, seat, unitId);
   if (u.type !== 'bomber') fail('cannot-strike', 'Only bombers strike');
-  if (!inRows(to.y)) fail('off-map', 'That is off the map');
-  const target = { x: wrapX(to.x), y: to.y };
-  if (distance(u, target) > u.moves) fail('out-of-range', 'The target is out of this turn\'s range');
-  const hit = s.units.filter((o) => o.id !== u.id && !o.carriedBy && distance(o, target) <= BOMBER_BLAST_RADIUS);
+  const map = mapOf(s);
+  if (!map.inBounds(to.x, to.y)) fail('off-map', 'That is off the map');
+  const target = { x: map.wrapX(to.x), y: to.y };
+  if (map.distance(u, target) > u.moves) fail('out-of-range', 'The target is out of this turn\'s range');
+  const hit = s.units.filter((o) => o.id !== u.id && !o.carriedBy && map.distance(o, target) <= BOMBER_BLAST_RADIUS);
   const destroyed = hit.flatMap((o) => removeUnit(s, o.id)).map(ref);
   removeUnit(s, u.id);
   const involves = [...new Set([seat, ...destroyed.map((d) => d.owner)])];
