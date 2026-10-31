@@ -73,6 +73,7 @@ export function App() {
         saved={saved}
         onStart={(g) => advance(g, null)}
         onResume={(g) => loadMap(g.mapVersion).then(() => advance(g, null))}
+        onLoad={(g) => advance(g, null)}
         onDiscard={() => {
           saveGame(null);
           setSaved(null);
