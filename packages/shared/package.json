@@ -12,5 +12,8 @@
   "devDependencies": {
     "topojson-client": "^3.1.0",
     "world-atlas": "^2.0.2"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
   }
 }

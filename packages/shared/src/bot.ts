@@ -1,4 +1,4 @@
-import { applyActionInPlace } from './engine';
+import { applyActionInPlace, settleInPlace } from './engine';
 import { quietPassFor } from './path';
 import { hashSeed, randomInt, shuffle } from './rng';
 import { RuleError } from './state';
@@ -63,6 +63,7 @@ export function playBotTurn(state: GameState, seat: number): GameState {
   }
 
   if (s.phase === 'playing' && s.activeSeat === seat) apply({ type: 'endTurn' });
+  else settleInPlace(s);
   return s;
 }
 

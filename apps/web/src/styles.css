@@ -123,7 +123,7 @@ input { height: 42px; padding: 0 12px; border-radius: 10px; border: 1px solid va
   .round { padding-left: 10px; }
   .chip { height: 32px; padding: 0 8px; gap: 6px; font-size: 13px; }
   .chip small { display: none; }
-  .bar .btn.ghost { min-height: 36px; padding: 0 10px; font-size: 13px; }
+  .bar .btn.ghost { min-height: 44px; padding: 0 10px; font-size: 13px; }
   /* The button can wrap to the left edge here, so the prompt spans the header instead. */
   .bar { position: relative; }
   .confirm-anchor { position: static; }
@@ -173,3 +173,27 @@ input { height: 42px; padding: 0 12px; border-radius: 10px; border: 1px solid va
 .token { position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none; border: 1px solid rgba(5, 8, 12, 0.85); }
 .token-emblem { position: absolute; left: -4px; bottom: -4px; border-radius: 4px; background: var(--ground); display: flex; align-items: center; justify-content: center; }
 .token-count { position: absolute; top: -5px; right: -5px; padding: 0 3px; border-radius: 99px; background: var(--ground); border: 1px solid; font-weight: 600; line-height: 1; display: flex; align-items: center; justify-content: center; }
+/* Online */
+.round.urgent strong { color: var(--bad); }
+.who { font-weight: 600; }
+.field { display: flex; flex-direction: column; gap: 6px; width: 100%; text-align: left; font-weight: 600; }
+.field input { width: 100%; }
+.join input { width: 7.5em; height: 48px; text-transform: uppercase; letter-spacing: 0.12em; font: 600 16px var(--display); }
+.match-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.match-row { width: 100%; min-height: 44px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--raised); color: var(--text); text-align: left; cursor: pointer; font-size: 14px; }
+.match-row:hover { border-color: #3a4a5e; }
+.match-row.mine { border-color: var(--amber); }
+.match-players { display: flex; flex-wrap: wrap; gap: 4px 12px; font-weight: 600; }
+.match-player { display: inline-flex; align-items: center; gap: 6px; }
+.invite { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+.code { font: 700 26px var(--display); letter-spacing: 0.2em; padding: 4px 12px; border-radius: 10px; background: var(--raised); border: 1px solid var(--line); }
+.seat-name { flex: 1 1 140px; font-weight: 600; }
+.seat .btn { min-height: 44px; }
+.foot-stack { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px 16px; }
+.banner-inline { padding: 10px 12px; border-radius: 10px; background: rgba(242, 169, 59, 0.12); color: var(--amber); font-weight: 600; }
+.chat { gap: 10px; }
+.chat-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; max-height: 220px; overflow-y: auto; font-size: 14px; }
+.chat-list li { overflow-wrap: anywhere; }
+.chat-form { display: flex; gap: 8px; }
+.chat-form input { flex: 1; min-width: 0; height: 44px; }
+.lobby .chat { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; }

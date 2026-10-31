@@ -1,13 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import {
-  applyAction,
   buildTurns,
   distance,
   findPath,
   PARATROOPER_DROP_RANGE,
   quietPassFor,
   reachable,
-  RuleError,
   samePoint,
   terrainAt,
   tileIndex,
@@ -15,31 +13,38 @@ import {
   tilesWithin,
   UNIT_TYPES,
   UNITS,
-  viewFor,
   type Action,
-  type GameState,
+  type PlayerView,
   type Point,
   type ViewUnit,
 } from '@warfront/shared';
+import { ConfirmButton } from '../components/ConfirmButton';
+import { Countdown } from '../components/Countdown';
 import { EmblemIcon, Logo, UnitToken } from '../components/Icons';
 import { describeEvent } from '../game/session';
 import { MapCanvas } from '../map/MapCanvas';
 
 type Mode = 'move' | 'drop' | 'strike';
-const STOPS = new Set(['combat', 'blocked', 'captured', 'captureFailed', 'strike']);
+
+/** Runs actions in order, stopping at the first refusal or anything that ends a move; returns notes to show. */
+export type RunActions = (actions: Action[], opts?: { stopOnFight?: boolean }) => Promise<string[]> | string[];
 
 interface Props {
-  game: GameState;
-  seat: number;
+  view: PlayerView;
   readOnly?: boolean;
-  onChange?: (g: GameState) => void;
-  onEndTurn?: (g: GameState) => void;
-  onNewGame: () => void;
+  run: RunActions;
+  /** The header's way out, asked inline when `question` is set. */
+  exit: { label: string; question?: string; confirmLabel?: string; onExit: () => void };
+  deadline?: string | null;
+  /** Extra panels for the side, such as chat. */
+  extra?: ReactNode;
+  /** Shown above the side panel, such as "Reconnecting". */
+  banner?: string | null;
 }
 
-export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: Props) {
-  const view = useMemo(() => viewFor(game, seat), [game, seat]);
-  const myTurn = !readOnly && game.phase === 'playing' && game.activeSeat === seat;
+export function Play({ view, readOnly, run: runActions, exit, deadline, extra, banner }: Props) {
+  const seat = view.seat;
+  const myTurn = !readOnly && view.phase === 'playing' && view.activeSeat === seat;
   const fast = view.settings.production === 'fast';
 
   const [selUnit, setSelUnit] = useState<string | null>(null);
@@ -53,16 +58,8 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
     return u ? { x: u.x, y: u.y } : c ? { x: c.x, y: c.y } : { x: 90, y: 40 };
   });
   const toastTimer = useRef(0);
-  // Asked in the page because browser dialogs are blocked in embeds (Discord, artifacts).
-  const [leaving, setLeaving] = useState(false);
-  const newMatchRef = useRef<HTMLButtonElement>(null);
-  const stayRef = useRef<HTMLButtonElement>(null);
-  const leaveAsked = useRef(false);
-  useEffect(() => {
-    if (leaving) stayRef.current?.focus();
-    else if (leaveAsked.current) newMatchRef.current?.focus();
-    leaveAsked.current = leaving;
-  }, [leaving]);
+  // Online, an order waits for the server; a second click meanwhile would act on a stale map.
+  const busy = useRef(false);
 
   const unit = view.units.find((u) => u.id === selUnit && u.owner === seat) ?? null;
   useEffect(() => {
@@ -114,29 +111,15 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
     return ends;
   }, [path, unit]);
 
-  /** Runs actions in order, stopping at the first refusal or anything that ends a move. */
-  const run = (actions: Action[], opts: { stopOnFight?: boolean } = {}): GameState => {
-    let g = game;
-    const notes: string[] = [];
-    for (const a of actions) {
-      if (a.type === 'move' && !g.units.find((u) => u.id === a.unit)?.moves) break;
-      try {
-        const r = applyAction(g, seat, a);
-        g = r.state;
-        const v = viewFor(g, seat);
-        notes.push(...r.events.filter((e) => e.type !== 'built').map((e) => describeEvent(e, v)));
-        if (opts.stopOnFight && r.events.some((e) => STOPS.has(e.type))) break;
-      } catch (e) {
-        if (e instanceof RuleError) {
-          notes.push(e.message);
-          break;
-        }
-        throw e;
-      }
+  const run = async (actions: Action[], opts: { stopOnFight?: boolean } = {}): Promise<void> => {
+    if (busy.current) return;
+    busy.current = true;
+    try {
+      const notes = await runActions(actions, opts);
+      if (notes.length) say(notes.join(' '));
+    } finally {
+      busy.current = false;
     }
-    if (g !== game) onChange?.(g);
-    if (notes.length) say(notes.join(' '));
-    return g;
   };
 
   const waiting = view.units.filter((u) => u.owner === seat && (u.moves ?? 0) > 0 && !u.sentry && !u.carriedBy);
@@ -156,9 +139,8 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
 
   const endTurn = () => {
     if (!myTurn) return;
-    const r = applyAction(game, seat, { type: 'endTurn' });
     setSelUnit(null);
-    onEndTurn?.(r.state);
+    void run([{ type: 'endTurn' }]);
   };
 
   const click = (p: Point, button: 'primary' | 'secondary') => {
@@ -169,12 +151,12 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
       return;
     }
     if (myTurn && unit && mode === 'drop') {
-      run([{ type: 'drop', unit: unit.id, to: p }]);
+      void run([{ type: 'drop', unit: unit.id, to: p }]);
       setMode('move');
       return;
     }
     if (myTurn && unit && mode === 'strike') {
-      run([{ type: 'strike', unit: unit.id, to: p }]);
+      void run([{ type: 'strike', unit: unit.id, to: p }]);
       setMode('move');
       return;
     }
@@ -187,7 +169,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
         say(`No route for this ${UNITS[unit.type].name.toLowerCase()} to that tile.`);
         return;
       }
-      run(route.map((to) => ({ type: 'move', unit: unit.id, to })), { stopOnFight: true });
+      void run(route.map((to) => ({ type: 'move', unit: unit.id, to })), { stopOnFight: true });
       return;
     }
     if (mineHere.length) {
@@ -211,9 +193,8 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
         e.preventDefault();
         nextUnit();
       } else if (e.key === 'e' && myTurn) endTurn();
-      else if (e.key === 's' && unit && myTurn) run([{ type: 'sentry', unit: unit.id, on: !unit.sentry }]);
+      else if (e.key === 's' && unit && myTurn) void run([{ type: 'sentry', unit: unit.id, on: !unit.sentry }]);
       else if (e.key === 'Escape') {
-        setLeaving(false);
         setSelUnit(null);
         setSelTile(null);
         setMode('move');
@@ -239,6 +220,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
       <header className="bar">
         <div className="brand"><Logo /><span>MOAB: Warfront</span></div>
         <div className="round"><small>ROUND</small><strong>{view.round}</strong></div>
+        {deadline && view.phase === 'playing' && <Countdown deadline={deadline} label={myTurn ? 'Your time' : 'Turn time'} />}
         <ol className="chips" aria-label="Turn order">
           {view.players.map((p) => (
             <li key={p.seat} className={`chip ${p.seat === view.activeSeat ? 'active' : ''} ${p.alive ? '' : 'out'}`}>
@@ -250,18 +232,11 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
           ))}
         </ol>
         <span className="grow" />
-        <div className="confirm-anchor">
-          <button type="button" className="btn ghost" ref={newMatchRef} aria-expanded={leaving} onClick={() => setLeaving(!leaving)}>New match</button>
-          {leaving && (
-            <div className="confirm" role="group" aria-labelledby="leave-q">
-              <p id="leave-q">Leave this match? It cannot be resumed.</p>
-              <div className="confirm-actions">
-                <button type="button" className="btn danger" onClick={onNewGame}>Leave</button>
-                <button type="button" className="btn" ref={stayRef} onClick={() => setLeaving(false)}>Stay</button>
-              </div>
-            </div>
-          )}
-        </div>
+        {exit.question ? (
+          <ConfirmButton label={exit.label} question={exit.question} confirmLabel={exit.confirmLabel ?? 'Leave'} onConfirm={exit.onExit} />
+        ) : (
+          <button type="button" className="btn ghost" onClick={exit.onExit}>{exit.label}</button>
+        )}
       </header>
 
       <div className="play-body">
@@ -274,7 +249,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
         />
 
         <aside className="side">
-          {readOnly && <div className="banner">{view.players[view.activeSeat].name} is moving…</div>}
+          {banner ? <div className="banner">{banner}</div> : readOnly && <div className="banner">{view.players[view.activeSeat].name} is moving…</div>}
 
           <section className="panel">
             <h2 className="eyebrow">{unit ? 'Selected' : tile ? 'Tile' : 'Selected'}</h2>
@@ -296,7 +271,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
                 </div>
                 {myTurn && (
                   <div className="orders">
-                    <button type="button" className="btn" onClick={() => run([{ type: 'sentry', unit: unit.id, on: !unit.sentry }])}>{unit.sentry ? 'Wake' : 'Sentry'}<kbd>S</kbd></button>
+                    <button type="button" className="btn" onClick={() => void run([{ type: 'sentry', unit: unit.id, on: !unit.sentry }])}>{unit.sentry ? 'Wake' : 'Sentry'}<kbd>S</kbd></button>
                     <button type="button" className="btn" onClick={nextUnit}>Next unit<kbd>Space</kbd></button>
                     {unit.type === 'paratrooper' && ownCityHere && !unit.carriedBy && unit.moves === UNITS.paratrooper.moves && (
                       <button type="button" className={`btn ${mode === 'drop' ? 'on' : ''}`} onClick={() => setMode(mode === 'drop' ? 'move' : 'drop')}>{mode === 'drop' ? 'Cancel drop' : 'Drop'}</button>
@@ -304,8 +279,8 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
                     {unit.type === 'bomber' && (unit.moves ?? 0) > 0 && (
                       <button type="button" className={`btn ${mode === 'strike' ? 'on' : ''}`} onClick={() => setMode(mode === 'strike' ? 'move' : 'strike')}>{mode === 'strike' ? 'Cancel strike' : 'Strike'}</button>
                     )}
-                    {boardable && <button type="button" className="btn" onClick={() => run([{ type: 'board', unit: unit.id, carrier: boardable.id }])}>Board {UNITS[boardable.type].name.toLowerCase()}</button>}
-                    {carrier && ownCityHere && <button type="button" className="btn" onClick={() => run([{ type: 'leave', unit: unit.id }])}>Step ashore</button>}
+                    {boardable && <button type="button" className="btn" onClick={() => void run([{ type: 'board', unit: unit.id, carrier: boardable.id }])}>Board {UNITS[boardable.type].name.toLowerCase()}</button>}
+                    {carrier && ownCityHere && <button type="button" className="btn" onClick={() => void run([{ type: 'leave', unit: unit.id }])}>Step ashore</button>}
                   </div>
                 )}
                 <p className="hint">
@@ -368,7 +343,7 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
                   const ship = UNITS[t].domain === 'sea';
                   const on = cityHere.building === t;
                   return (
-                    <button key={t} type="button" aria-pressed={on} className={`build ${on ? 'on' : ''}`} disabled={!myTurn || (ship && !cityHere.port)} onClick={() => run([{ type: 'produce', city: cityHere.id, unitType: t }])}>
+                    <button key={t} type="button" aria-pressed={on} className={`build ${on ? 'on' : ''}`} disabled={!myTurn || (ship && !cityHere.port)} onClick={() => void run([{ type: 'produce', city: cityHere.id, unitType: t }])}>
                       <UnitToken type={t} seat={seat} size={26} />
                       <span>{UNITS[t].name}</span>
                       <small>{buildTurns(t, fast)} turns</small>
@@ -388,6 +363,8 @@ export function Play({ game, seat, readOnly, onChange, onEndTurn, onNewGame }: P
               <p className="muted">Nothing seen yet.</p>
             )}
           </section>
+
+          {extra}
 
           {myTurn && (
             <div className="side-foot">

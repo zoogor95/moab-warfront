@@ -47,6 +47,25 @@ describe('whole matches', () => {
     expect(s.log.some((e) => e.type === 'victory')).toBe(true);
   });
 
+  it('tells everyone when a bot wins in the middle of its turn', () => {
+    // The bot's tank attacks the last enemy unit; whichever seed it wins on, the victory is seen.
+    for (let i = 0; i < 20; i++) {
+      const s = blankGame({ keepAlive: false, seed: `bot-win-${i}` });
+      s.players[0].bot = true;
+      own(s, 'lisbon', 0);
+      put(s, 'tank', 0, 86, 25);
+      put(s, 'tank', 1, 87, 25);
+      sync(s);
+      const after = playBotTurn(s, 0);
+      if (after.phase !== 'finished') continue;
+      const won = after.log.find((e) => e.type === 'victory');
+      expect(won?.seenBy).toEqual([0, 1]);
+      expect(after.log.every((e) => !('involves' in e))).toBe(true);
+      return;
+    }
+    throw new Error('the bot never won in 20 seeds');
+  });
+
   it('starts a hidden-pick match with bot picks', () => {
     let s = createMatch({ settings: { ...DEFAULT_SETTINGS, startMode: 'pick' }, players: bots(4), seed: 'bot-picks' });
     for (const p of s.players) s = applyAction(s, p.seat, { type: 'pickStart', city: botPickStart(s, p.seat) }).state;

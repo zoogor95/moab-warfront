@@ -2,27 +2,33 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { loadConfig } from '../src/config';
 import { createPool } from '../src/db';
 import { startServer, type RunningServer } from '../src/server';
-import { freshSchema, hasTestDb } from './db';
+import { freshSchema, hasTestDb, SECRET } from './db';
 
 const dbUp = await hasTestDb();
 
 describe('config', () => {
   it('needs a database URL', () => {
-    expect(() => loadConfig({})).toThrow(/DATABASE_URL/);
+    expect(() => loadConfig({ AUTH_SECRET: SECRET })).toThrow(/DATABASE_URL/);
   });
 
   it('fills in defaults', () => {
-    expect(loadConfig({ DATABASE_URL: 'postgres://x' })).toEqual({
+    expect(loadConfig({ DATABASE_URL: 'postgres://x', AUTH_SECRET: SECRET })).toEqual({
       port: 3100,
       databaseUrl: 'postgres://x',
       clientOrigins: ['http://localhost:5173'],
+      authSecret: SECRET,
     });
   });
 
   it('splits client origins and rejects bad ports', () => {
-    expect(loadConfig({ DATABASE_URL: 'postgres://x', CLIENT_ORIGINS: 'https://a.test, https://b.test' }).clientOrigins)
+    const base = { DATABASE_URL: 'postgres://x', AUTH_SECRET: SECRET };
+    expect(loadConfig({ ...base, CLIENT_ORIGINS: 'https://a.test, https://b.test' }).clientOrigins)
       .toEqual(['https://a.test', 'https://b.test']);
-    expect(() => loadConfig({ DATABASE_URL: 'postgres://x', PORT: 'abc' })).toThrow(/PORT/);
+    expect(() => loadConfig({ ...base, PORT: 'abc' })).toThrow(/PORT/);
+  });
+
+  it('needs a long enough auth secret', () => {
+    expect(() => loadConfig({ DATABASE_URL: 'postgres://x', AUTH_SECRET: 'short' })).toThrow(/AUTH_SECRET/);
   });
 });
 
@@ -31,7 +37,7 @@ describe('server without a database', () => {
   const pool = createPool('postgres://nobody@127.0.0.1:1/none');
   let server: RunningServer;
   beforeAll(async () => {
-    server = await startServer({ port: 0, clientOrigins: [] }, pool);
+    server = await startServer({ port: 0, clientOrigins: [], authSecret: SECRET }, pool, { jobIntervalMs: null });
   });
   afterAll(async () => {
     await server?.close();
@@ -57,7 +63,7 @@ describe.skipIf(!dbUp)('server with a database', () => {
   let server: RunningServer;
   beforeAll(async () => {
     db = await freshSchema();
-    server = await startServer({ port: 0, clientOrigins: [] }, db.pool);
+    server = await startServer({ port: 0, clientOrigins: [], authSecret: SECRET }, db.pool, { jobIntervalMs: null });
   });
   afterAll(async () => {
     await server?.close();
