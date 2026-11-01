@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { getMap, START_SPACING, START_VALUE_RADIUS, type PlayerView, type Point } from '@warfront/shared';
 import { Countdown } from '../components/Countdown';
 import { EmblemIcon, Logo } from '../components/Icons';
+import { HelpButton } from '../components/Help';
 import { MapCanvas } from '../map/MapCanvas';
 import { SEATS } from '../theme';
 
@@ -47,6 +48,8 @@ export function Pick({ view, onPick, onPickForMe, deadline, busy }: Props) {
             </li>
           ))}
         </ul>
+        <span className="grow" />
+        <HelpButton />
       </header>
       <div className="play-body">
         <MapCanvas

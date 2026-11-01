@@ -7,7 +7,7 @@ export const ActionSchema = z.discriminatedUnion('type', [
   z.strictObject({ type: z.literal('move'), unit: IdSchema, to: PointSchema }),
   z.strictObject({ type: z.literal('board'), unit: IdSchema, carrier: IdSchema }),
   z.strictObject({ type: z.literal('leave'), unit: IdSchema }),
-  z.strictObject({ type: z.literal('drop'), unit: IdSchema, to: PointSchema }),
+  z.strictObject({ type: z.literal('land'), unit: IdSchema }),
   z.strictObject({ type: z.literal('strike'), unit: IdSchema, to: PointSchema }),
   z.strictObject({ type: z.literal('produce'), city: IdSchema, unitType: UnitTypeSchema }),
   z.strictObject({ type: z.literal('sentry'), unit: IdSchema, on: z.boolean() }),

@@ -21,7 +21,6 @@ import {
   BOMBER_BLAST_RADIUS,
   CAPTURE_CHANCE,
   NEUTRAL_CAPTURE_CHANCE,
-  PARATROOPER_DROP_RANGE,
   UNITS,
   UNIT_TYPES,
   canCapture,
@@ -128,8 +127,8 @@ export function applyActionInPlace(s: GameState, seat: number, action: Action, o
     case 'leave':
       leave(s, seat, action.unit);
       break;
-    case 'drop':
-      drop(s, seat, action.unit, action.to);
+    case 'land':
+      land(s, seat, action.unit);
       break;
     case 'strike':
       strike(s, seat, action.unit, action.to);
@@ -348,25 +347,25 @@ function leave(s: GameState, seat: number, unitId: string): void {
   u.carriedBy = undefined;
 }
 
-function drop(s: GameState, seat: number, unitId: string, to: Point): void {
+/** A paratrooper comes down where it is and fights on as a tank; on a city it is a capture attempt. */
+function land(s: GameState, seat: number, unitId: string): void {
   const u = ownUnit(s, seat, unitId);
-  if (u.type !== 'paratrooper') fail('cannot-drop', 'Only paratroopers drop');
-  if (u.carriedBy || !ownCityAt(s, u, seat)) fail('cannot-drop', 'Paratroopers drop from your own city');
-  if (u.moves < UNITS.paratrooper.moves) fail('cannot-drop', 'A drop takes a full turn of moves');
-  const map = mapOf(s);
-  if (!map.inBounds(to.x, to.y)) fail('off-map', 'That is off the map');
-  const target = { x: map.wrapX(to.x), y: to.y };
-  const d = map.distance(u, target);
-  if (d < 1 || d > PARATROOPER_DROP_RANGE) fail('out-of-range', `Drops reach 1 to ${PARATROOPER_DROP_RANGE} tiles`);
-  if (map.terrainAt(target.x, target.y) !== 'land') fail('cannot-enter', 'Paratroopers land on open ground or a city');
-  if (topUnitsOnTile(s, target).some((o) => o.owner !== seat)) fail('occupied', 'The drop zone is occupied');
-  const city = cityAt(s, target);
+  if (u.type !== 'paratrooper') fail('cannot-land', 'Only paratroopers land');
+  if (u.carriedBy) fail('cannot-land', 'That unit is aboard');
+  const terrain = mapOf(s).terrainAt(u.x, u.y);
+  if (terrain === 'sea') fail('cannot-land', 'Paratroopers land on land, not at sea');
+  if (terrain === 'mountain') fail('cannot-land', 'Paratroopers cannot land in the mountains');
+  const city = cityAt(s, u);
+  const before = ref(u);
   if (city && city.owner !== seat) {
     capture(s, u, city);
-    return;
+    if (!s.units.includes(u)) return;
+  } else {
+    u.moves = 0;
+    emit(s, { type: 'landed', unit: before, x: u.x, y: u.y }, [seat], u);
   }
-  placeUnit(s, u, target);
-  u.moves = 0;
+  u.type = 'tank';
+  u.hp = Math.min(u.hp, UNITS.tank.hp);
 }
 
 function strike(s: GameState, seat: number, unitId: string, to: Point): void {

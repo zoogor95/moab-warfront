@@ -52,7 +52,7 @@ describe('actions', () => {
       { type: 'move', unit: 'u1', to: { x: 86, y: 25 } },
       { type: 'board', unit: 'u1', carrier: 'u2' },
       { type: 'leave', unit: 'u1' },
-      { type: 'drop', unit: 'u3', to: { x: 0, y: 0 } },
+      { type: 'land', unit: 'u3' },
       { type: 'strike', unit: 'u4', to: { x: 179, y: 89 } },
       { type: 'produce', city: 'mexico-city', unitType: 'carrier' },
       { type: 'sentry', unit: 'u1', on: true },

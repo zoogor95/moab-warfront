@@ -3,6 +3,7 @@ import { MAP_REGIONS, MAP_SIZES, SETTING_LIMITS, type MatchSettings } from '@war
 import type { ChatMessage, Lobby } from '@warfront/shared/protocol';
 import { Chat } from '../components/Chat';
 import { ConfirmButton } from '../components/ConfirmButton';
+import { HelpButton } from '../components/Help';
 import { EmblemIcon, Logo } from '../components/Icons';
 import { MapPreview } from '../components/MapPreview';
 import { Segmented } from '../components/Segmented';
@@ -77,6 +78,7 @@ export function LobbyScreen({ lobby, me, chat, say, onLobby, onLeave, onBack }: 
         <div className="brand"><Logo /><span>MOAB: Warfront</span></div>
         <div className="bar-title"><strong>Lobby</strong><span className="muted">{host ? 'You are the host' : 'The host sets up the match'}</span></div>
         <span className="grow" />
+        <HelpButton />
         <button type="button" className="btn ghost" onClick={onBack}>My matches</button>
         <ConfirmButton label="Leave" question="Leave this lobby? Your seat opens for someone else." confirmLabel="Leave" onConfirm={() => void call('POST', '/leave').then((ok) => ok && onLeave())} />
       </header>

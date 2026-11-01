@@ -23,6 +23,7 @@ export const GameEventSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('built'), city: IdSchema, owner: SeatSchema, unit: UnitTypeSchema, unitId: IdSchema }),
   z.object({ type: z.literal('strike'), by: SeatSchema, x: X, y: Y, destroyed: z.array(UnitRefSchema) }),
   z.object({ type: z.literal('outOfFuel'), unit: UnitRefSchema, x: X, y: Y }),
+  z.object({ type: z.literal('landed'), unit: UnitRefSchema, x: X, y: Y }),
   z.object({ type: z.literal('blocked'), unit: UnitRefSchema, x: X, y: Y }),
   // JSON object keys are strings, so seats arrive as "0".."5".
   z.object({ type: z.literal('startsRevealed'), starts: z.record(z.string().regex(/^[0-5]$/), IdSchema), moved: z.array(SeatSchema) }),

@@ -105,6 +105,7 @@ export type GameEvent =
   | { type: 'built'; city: string; owner: number; unit: UnitType; unitId: string }
   | { type: 'strike'; by: number; x: number; y: number; destroyed: UnitRef[] }
   | { type: 'outOfFuel'; unit: UnitRef; x: number; y: number }
+  | { type: 'landed'; unit: UnitRef; x: number; y: number }
   | { type: 'blocked'; unit: UnitRef; x: number; y: number }
   | { type: 'startsRevealed'; starts: Record<number, string>; moved: number[] }
   | { type: 'resigned'; seat: number }
@@ -143,7 +144,7 @@ export type Action =
   | { type: 'move'; unit: string; to: Point }
   | { type: 'board'; unit: string; carrier: string }
   | { type: 'leave'; unit: string }
-  | { type: 'drop'; unit: string; to: Point }
+  | { type: 'land'; unit: string }
   | { type: 'strike'; unit: string; to: Point }
   | { type: 'produce'; city: string; unitType: UnitType }
   | { type: 'sentry'; unit: string; on: boolean }

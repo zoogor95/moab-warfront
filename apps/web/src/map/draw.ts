@@ -1,5 +1,6 @@
 import { UNITS, getMap, hexHasBit, type GameMap, type PlayerView, type Point, type ViewUnit } from '@warfront/shared';
 import { CITY_GLYPH, EMBLEMS, UNIT_ICONS, path2d } from '../icons';
+import { lowFuel } from '../game/fuel';
 import { C, SEATS, seatColor } from '../theme';
 
 export interface Camera {
@@ -199,6 +200,30 @@ function drawToken(
   ctx.restore();
 }
 
+/** An amber triangle with "!" on the token's top-left corner: a fighter or bomber here is low on fuel. */
+function drawFuelWarning(ctx: CanvasRenderingContext2D, x: number, y: number, t: number) {
+  const b = Math.max(11, t * 0.4);
+  const ox = x - 3;
+  const oy = y - 4;
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(ox + b / 2, oy);
+  ctx.lineTo(ox + b, oy + b * 0.9);
+  ctx.lineTo(ox, oy + b * 0.9);
+  ctx.closePath();
+  ctx.fillStyle = C.amber;
+  ctx.fill();
+  ctx.strokeStyle = C.ground;
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  ctx.fillStyle = C.amberInk;
+  ctx.font = `700 ${Math.round(b * 0.62)}px Barlow, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('!', ox + b / 2, oy + b * 0.56);
+  ctx.restore();
+}
+
 export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam: Camera, view: PlayerView, o: Overlay) {
   const map = getMap(view.mapVersion);
   const t = cam.t;
@@ -358,6 +383,7 @@ export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam
     const mine = shown.owner === view.seat;
     const idle = mine && list.every((u) => !u.moves || u.sentry);
     drawToken(ctx, shown, s.x, s.y, t, { count: list.length > 1 ? list.length : cargo, dim: idle && view.activeSeat === view.seat });
+    if (mine && list.some((u) => lowFuel(view, u))) drawFuelWarning(ctx, s.x, s.y, t);
   }
 
   // Selection and hover

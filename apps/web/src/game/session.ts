@@ -49,6 +49,8 @@ export function describeEvent(e: LoggedEvent, view: PlayerView): string {
       return `${cap(whose(e.by))} bomber struck, destroying ${e.destroyed.length} unit${e.destroyed.length === 1 ? '' : 's'}.`;
     case 'outOfFuel':
       return `${cap(whose(e.unit.owner))} ${unitName(e.unit.type)} ran out of fuel and was lost.`;
+    case 'landed':
+      return `${cap(whose(e.unit.owner))} paratrooper landed and is now a tank.`;
     case 'blocked':
       return `Your ${unitName(e.unit.type)} ran into something it could not see.`;
     case 'startsRevealed': {

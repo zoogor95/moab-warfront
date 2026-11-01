@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyAction, RuleError, viewFor, type GameState } from '../src';
+import { applyAction, RuleError, UNITS, viewFor, type GameState } from '../src';
 import { blankGame, expectTerrain, own, put, sync, unit, unitsAt } from './helpers';
 
 // Iberia, on the 2-degree grid: Lisbon (85,25) is a port, Madrid (88,24) is inland,
@@ -273,7 +273,7 @@ describe('capturing cities', () => {
     expect(checked).toBe(true);
   });
 
-  it('is only for tanks and paratroopers', () => {
+  it('is only for tanks moving in; paratroopers capture by landing', () => {
     const s = sync(blankGame());
     const f = put(s, 'fighter', 0, 87, 24);
     const r = applyAction(s, 0, { type: 'move', unit: f.id, to: MADRID });
@@ -374,21 +374,54 @@ describe('bombers', () => {
 });
 
 describe('paratroopers', () => {
-  it('drop up to 8 tiles from one of your cities', () => {
+  it('fly over sea and land like aircraft, as far as a fighter', () => {
+    expectTerrain(84, 25, 'sea');
     const s = blankGame();
     own(s, 'lisbon', 0);
     const p = put(s, 'paratrooper', 0, 85, 25);
     sync(s);
-    const r = applyAction(s, 0, { type: 'drop', unit: p.id, to: { x: 88, y: 25 } });
-    expect(unit(r.state, p.id)).toMatchObject({ x: 88, y: 25, moves: 0 });
+    let r = applyAction(s, 0, { type: 'move', unit: p.id, to: { x: 84, y: 25 } });
+    expect(unit(r.state, p.id)).toMatchObject({ x: 84, y: 25, moves: UNITS.fighter.moves - 1 });
+    r = applyAction(r.state, 0, { type: 'move', unit: p.id, to: { x: 85, y: 25 } });
+    expect(unit(r.state, p.id)).toMatchObject({ moves: UNITS.fighter.moves - 2 });
   });
 
-  it('can drop straight onto a city to capture it', () => {
+  it('become a tank when they land on open ground', () => {
+    expectTerrain(87, 25, 'land');
+    const s = blankGame();
+    own(s, 'lisbon', 0);
+    const p = put(s, 'paratrooper', 0, 87, 25);
+    sync(s);
+    const r = applyAction(s, 0, { type: 'land', unit: p.id });
+    expect(unit(r.state, p.id)).toMatchObject({ type: 'tank', x: 87, y: 25, moves: 0 });
+    expect(r.events[0]).toMatchObject({ type: 'landed', unit: { id: p.id, type: 'paratrooper' } });
+  });
+
+  it('cannot attack from the air, and fighters can shoot them down', () => {
+    const s = blankGame();
+    own(s, 'lisbon', 0);
+    const p = put(s, 'paratrooper', 0, 86, 25);
+    put(s, 'tank', 1, 87, 25);
+    const f = put(s, 'fighter', 1, 86, 26);
+    sync(s);
+    rejects(() => applyAction(s, 0, { type: 'move', unit: p.id, to: { x: 87, y: 25 } }), 'cannot-attack');
+    s.activeSeat = 1;
+    const r = applyAction(s, 1, { type: 'move', unit: f.id, to: { x: 86, y: 25 } });
+    expect(r.events[0]).toMatchObject({ type: 'combat', defender: { type: 'paratrooper' } });
+  });
+
+  it('take a neutral city by landing on it, and an enemy city half the time', () => {
     const base = blankGame();
     own(base, 'lisbon', 0);
-    const p = put(base, 'paratrooper', 0, 85, 25);
+    const p = put(base, 'paratrooper', 0, MADRID.x, MADRID.y);
     sync(base);
-    const taken = (s: GameState) => applyAction(s, 0, { type: 'drop', unit: p.id, to: MADRID }).state.cities.find((c) => c.id === 'madrid')!.owner === 0;
+    const taken = (s: GameState) => {
+      const r = applyAction(s, 0, { type: 'land', unit: p.id });
+      const won = r.state.cities.find((c) => c.id === 'madrid')!.owner === 0;
+      if (won) expect(unit(r.state, p.id)).toMatchObject({ type: 'tank', moves: 0 });
+      else expect(unit(r.state, p.id)).toBeUndefined();
+      return won;
+    };
     expect(trials(base, 50, taken)).toBe(1);
     own(base, 'madrid', 1);
     const rate = trials(base, 400, taken);
@@ -396,14 +429,52 @@ describe('paratroopers', () => {
     expect(rate).toBeLessThan(0.6);
   });
 
-  it('refuse drops out of range or away from a city', () => {
+  it('do not capture by flying over a city', () => {
     const s = blankGame();
     own(s, 'lisbon', 0);
-    const p = put(s, 'paratrooper', 0, 85, 25);
-    const away = put(s, 'paratrooper', 0, 86, 25);
+    const p = put(s, 'paratrooper', 0, 87, 24);
     sync(s);
-    rejects(() => applyAction(s, 0, { type: 'drop', unit: p.id, to: { x: 95, y: 25 } }), 'out-of-range');
-    rejects(() => applyAction(s, 0, { type: 'drop', unit: away.id, to: { x: 88, y: 25 } }), 'cannot-drop');
+    const r = applyAction(s, 0, { type: 'move', unit: p.id, to: MADRID });
+    expect(r.state.cities.find((c) => c.id === 'madrid')!.owner).toBeNull();
+    expect(unit(r.state, p.id)).toMatchObject({ type: 'paratrooper', ...MADRID });
+  });
+
+  it('refuse to land at sea, in the mountains, or for other units', () => {
+    expectTerrain(85, 24, 'sea');
+    expectTerrain(89, 23, 'mountain');
+    const s = blankGame();
+    own(s, 'lisbon', 0);
+    const wet = put(s, 'paratrooper', 0, 85, 24);
+    const high = put(s, 'paratrooper', 0, 89, 23);
+    const f = put(s, 'fighter', 0, 87, 25);
+    sync(s);
+    rejects(() => applyAction(s, 0, { type: 'land', unit: wet.id }), 'cannot-land');
+    rejects(() => applyAction(s, 0, { type: 'land', unit: high.id }), 'cannot-land');
+    rejects(() => applyAction(s, 0, { type: 'land', unit: f.id }), 'cannot-land');
+  });
+
+  it('fly home or are lost if still in the air at turn end', () => {
+    const s = blankGame();
+    own(s, 'lisbon', 0);
+    own(s, 'rome', 1);
+    const near = put(s, 'paratrooper', 0, 87, 25);
+    const far = put(s, 'paratrooper', 0, 120, 30);
+    sync(s);
+    near.moves = 3;
+    far.moves = 3;
+    const r = applyAction(s, 0, { type: 'endTurn' });
+    expect(unit(r.state, near.id)).toMatchObject({ ...LISBON, type: 'paratrooper' });
+    expect(unit(r.state, far.id)).toBeUndefined();
+    expect(r.events.some((e) => e.type === 'outOfFuel' && e.unit.id === far.id)).toBe(true);
+  });
+
+  it('cannot ride transports', () => {
+    const s = blankGame();
+    own(s, 'lisbon', 0);
+    const ship = put(s, 'transport', 0, LISBON.x, LISBON.y);
+    const p = put(s, 'paratrooper', 0, LISBON.x, LISBON.y);
+    sync(s);
+    rejects(() => applyAction(s, 0, { type: 'board', unit: p.id, carrier: ship.id }), 'cannot-carry');
   });
 });
 

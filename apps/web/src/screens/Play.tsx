@@ -3,7 +3,6 @@ import {
   buildTurns,
   findPath,
   getMap,
-  PARATROOPER_DROP_RANGE,
   quietPassFor,
   reachable,
   samePoint,
@@ -16,12 +15,14 @@ import {
 } from '@warfront/shared';
 import { ConfirmButton } from '../components/ConfirmButton';
 import { Countdown } from '../components/Countdown';
+import { HelpButton } from '../components/Help';
 import { EmblemIcon, Logo, UnitToken } from '../components/Icons';
+import { isAircraft, lowFuel } from '../game/fuel';
 import { describeEvent } from '../game/session';
 import { effectsOf, isPlaying, type Effect } from '../map/effects';
 import { MapCanvas } from '../map/MapCanvas';
 
-type Mode = 'move' | 'drop' | 'strike';
+type Mode = 'move' | 'strike';
 /** The replay at the start of a turn shows at most this many of the latest events. */
 const MAX_REPLAY = 12;
 const REPLAY_STEP = 1100;
@@ -132,13 +133,6 @@ export function Play({ view, readOnly, run: runActions, exit, deadline, extra, b
 
   const highlight = useMemo(() => {
     if (!unit || !myTurn) return undefined;
-    if (mode === 'drop') {
-      const enemy = new Set(view.units.filter((u) => u.owner !== seat).map((u) => map.tileIndex(u.x, u.y)));
-      return new Set(map.tilesWithin(unit.x, unit.y, PARATROOPER_DROP_RANGE).filter((i) => {
-        const p = map.tilePoint(i);
-        return map.terrainAt(p.x, p.y) === 'land' && !enemy.has(i) && map.distance(p, unit) >= 1;
-      }));
-    }
     if (mode === 'strike') return new Set(map.tilesWithin(unit.x, unit.y, unit.moves ?? 0));
     if (!unit.moves || !canPass) return undefined;
     return new Set(reachable(map, unit, unit.moves, canPass).keys());
@@ -207,11 +201,6 @@ export function Play({ view, readOnly, run: runActions, exit, deadline, extra, b
       setMode('move');
       return;
     }
-    if (myTurn && unit && mode === 'drop') {
-      void run([{ type: 'drop', unit: unit.id, to: p }]);
-      setMode('move');
-      return;
-    }
     if (myTurn && unit && mode === 'strike') {
       void run([{ type: 'strike', unit: unit.id, to: p }]);
       setMode('move');
@@ -274,6 +263,8 @@ export function Play({ view, readOnly, run: runActions, exit, deadline, extra, b
   const carrier = unit?.carriedBy ? view.units.find((u) => u.id === unit.carriedBy) : undefined;
   const boardable = unit && !unit.carriedBy ? unitsHere.find((u) => u.owner === seat && u.id !== unit.id && UNITS[u.type].capacity?.types.includes(unit.type) && view.units.filter((c) => c.carriedBy === u.id).length < (UNITS[u.type].capacity?.count ?? 0)) : undefined;
   const ownCityHere = cityHere?.owner === seat;
+  const canLand = unit?.type === 'paratrooper' && !unit.carriedBy && map.terrainAt(unit.x, unit.y) === 'land';
+  const low = unit ? lowFuel(view, unit) : false;
   const recent = view.log.filter((e) => e.round >= view.round - 1).slice(-8).reverse();
   const name = (s: number) => (s === seat ? 'You' : view.players[s].name);
 
@@ -294,6 +285,7 @@ export function Play({ view, readOnly, run: runActions, exit, deadline, extra, b
           ))}
         </ol>
         <span className="grow" />
+        <HelpButton />
         {headerExtra}
         {exit.question ? (
           <ConfirmButton label={exit.label} question={exit.question} confirmLabel={exit.confirmLabel ?? 'Leave'} onConfirm={exit.onExit} />
@@ -339,16 +331,17 @@ export function Play({ view, readOnly, run: runActions, exit, deadline, extra, b
                   </div>
                 </div>
                 <div className="stats">
-                  <div><small>Moves</small><strong>{unit.moves ?? 0} / {UNITS[unit.type].moves}</strong></div>
+                  <div className={low ? 'low' : undefined}><small>{isAircraft(unit) ? 'Fuel' : 'Moves'}</small><strong>{unit.moves ?? 0} / {UNITS[unit.type].moves}</strong></div>
                   <div><small>Health</small><strong>{unit.hp} / {UNITS[unit.type].hp}</strong></div>
                   <div><small>Attack</small><strong>{UNITS[unit.type].attack || '—'}</strong></div>
                 </div>
+                {low && <p className="fuel-warn" role="status">Low fuel: {unit.moves ?? 0} left. Get back to a city or carrier this turn, or it is lost.</p>}
                 {myTurn && (
                   <div className="orders">
                     <button type="button" className="btn" onClick={() => void run([{ type: 'sentry', unit: unit.id, on: !unit.sentry }])}>{unit.sentry ? 'Wake' : 'Sentry'}<kbd>S</kbd></button>
                     <button type="button" className="btn" onClick={nextUnit}>Next unit<kbd>Space</kbd></button>
-                    {unit.type === 'paratrooper' && ownCityHere && !unit.carriedBy && unit.moves === UNITS.paratrooper.moves && (
-                      <button type="button" className={`btn ${mode === 'drop' ? 'on' : ''}`} onClick={() => setMode(mode === 'drop' ? 'move' : 'drop')}>{mode === 'drop' ? 'Cancel drop' : 'Drop'}</button>
+                    {canLand && (
+                      <button type="button" className="btn" onClick={() => void run([{ type: 'land', unit: unit.id }])}>{cityHere && !ownCityHere ? 'Land and capture' : 'Land'}</button>
                     )}
                     {unit.type === 'bomber' && (unit.moves ?? 0) > 0 && (
                       <button type="button" className={`btn ${mode === 'strike' ? 'on' : ''}`} onClick={() => setMode(mode === 'strike' ? 'move' : 'strike')}>{mode === 'strike' ? 'Cancel strike' : 'Strike'}</button>
@@ -358,11 +351,11 @@ export function Play({ view, readOnly, run: runActions, exit, deadline, extra, b
                   </div>
                 )}
                 <p className="hint">
-                  {mode === 'drop'
-                    ? `Tap open ground or a city within ${PARATROOPER_DROP_RANGE} tiles. A city drop is a capture attempt.`
-                    : mode === 'strike'
+                  {mode === 'strike'
                       ? 'Tap the target. Everything within 2 tiles is destroyed, yours included, and the bomber is used up.'
-                      : myTurn
+                      : myTurn && unit.type === 'paratrooper'
+                        ? 'Fly over land or sea, then press Land to become a tank. Landing on a city you do not own tries to capture it. Still flying at turn end, it heads home or is lost.'
+                        : myTurn
                         ? 'Tap a lit tile to move, or a tile further away to head there. Moving into an enemy attacks it.'
                         : 'Waiting for your turn.'}
                 </p>
@@ -396,7 +389,7 @@ export function Play({ view, readOnly, run: runActions, exit, deadline, extra, b
                     <button type="button" className={`here-btn ${u.id === unit?.id ? 'on' : ''}`} onClick={() => { setSelUnit(u.id); setSelTile(null); setMode('move'); }}>
                       <UnitToken type={u.type} seat={seat} size={26} />
                       <span>{UNITS[u.type].name}{u.carriedBy ? ' (aboard)' : ''}</span>
-                      <small className="muted">{u.moves ?? 0} moves{u.sentry ? ' · sentry' : ''}</small>
+                      <small className={lowFuel(view, u) ? 'warn' : 'muted'}>{u.moves ?? 0} {isAircraft(u) ? 'fuel' : 'moves'}{u.sentry ? ' · sentry' : ''}</small>
                     </button>
                   </li>
                 ))}

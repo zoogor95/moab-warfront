@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { MatchCodeSchema, type Lobby, type MatchSummary } from '@warfront/shared/protocol';
 import { ConfirmButton } from '../components/ConfirmButton';
 import { EmblemIcon, Logo } from '../components/Icons';
+import { HelpButton } from '../components/Help';
 import { api, signOut, type Session } from '../net/api';
 
 function statusLine(m: MatchSummary): string {
@@ -86,6 +87,7 @@ export function Home({ session, inviteCode, onInviteUsed, onOpen, onHotSeat }: P
         <div className="brand"><Logo /><span>MOAB: Warfront</span></div>
         <span className="grow" />
         <span className="muted who">{session.user.name}</span>
+        <HelpButton />
         <ConfirmButton label="Sign out" question="Sign out? As a guest you cannot sign back in to these matches." confirmLabel="Sign out" onConfirm={signOut} />
       </header>
       <main className="setup-body">

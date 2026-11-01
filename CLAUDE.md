@@ -120,6 +120,8 @@ Settled while building phase 1, and open to change if the user asks:
 - The attacker never moves into the tile it won.
 - Aircraft outside a base at turn end fly to the nearest own city or carrier within their remaining moves, or are lost.
 - Players start with one city building tanks and no units.
+- Paratroopers are aircraft until they land: they fly 8 tiles like a fighter, over land or sea, cannot attack, and follow the aircraft turn-end rule. The `land` action brings one down where it is (land, not mountains) and makes it a tank for good; landing on a city you don't own is a capture attempt. Only tanks capture by moving in. (User's call, 2026-11-01; replaced the old 8-tile `drop`.)
+- An aircraft's fuel is its moves left this turn. Fighters and bombers away from a base with fewer than `LOW_FUEL` (5) show a warning.
 - A tank or paratrooper always takes a neutral city. An enemy city with no land defenders falls half the time (`CAPTURE_CHANCE`), and the unit is lost otherwise. (User's call, 2026-11-01.)
 
 If a rule is unclear, check the design doc first, then ask. Don't invent rules silently.

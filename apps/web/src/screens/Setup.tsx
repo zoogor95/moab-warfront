@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { createMatch, DEFAULT_SETTINGS, loadMap, MAP_REGIONS, MAP_SIZES, mapVersionFor, type GameState, type MatchSettings } from '@warfront/shared';
+import { HelpButton } from '../components/Help';
 import { EmblemIcon, Logo } from '../components/Icons';
 import { MapPreview } from '../components/MapPreview';
 import { SavedMatches } from '../components/SavedMatches';
@@ -61,6 +62,7 @@ export function Setup({ saved, onStart, onResume, onLoad, onDiscard, onBack }: P
         <div className="brand"><Logo /><span>MOAB: Warfront</span></div>
         <span className="tag">Hot-seat play-test</span>
         <span className="grow" />
+        <HelpButton />
         <button type="button" className="btn ghost" onClick={onBack}>Play online</button>
       </header>
       <main className="setup-body">
