@@ -5,7 +5,6 @@
 // `spacing` is the closest two cities may be, in tiles; small maps space them wider so the
 // same priority-ordered list yields fewer, evenly spread cities.
 
-import { VELGARD_BOUNDS, VELGARD_LAND, VELGARD_MOUNTAINS, VELGARD_STRAITS } from './velgard.mjs';
 
 const NE = 'Natural Earth 1:50m land (public domain), via world-atlas';
 
@@ -36,6 +35,25 @@ const STRAITS = {
   belleIsle: [-57.4, 51.1, -55.8, 51.9],
   magellan: [-68.5, -52.45, -70.4, -52.95, -71.2, -53.4, -72.6, -53.6],
 };
+
+// The Earth-wide ranges are too coarse here: their Himalaya box would bury Delhi and the
+// Punjab. These follow the arc of the Himalaya and leave the plains, valleys and passes open.
+const SOUTH_ASIA_MOUNTAINS = [
+  [67.5, 71, 34.9, 36.2], // Hindu Kush, leaving the Kunduz plain to the north
+  [71, 74, 35.2, 37.5], // Hindu Kush, east
+  [74.8, 80, 34.6, 37.5], // Karakoram, west of the Gilgit valley
+  [77.8, 80, 32.4, 34.6], // Ladakh and Zanskar
+  [76.6, 79, 31.4, 32.4], // Himachal Himalaya
+  [78.4, 81, 30.2, 31.4], // Garhwal and Kumaon
+  [81, 88.1, 28.3, 30.2], // Nepal Himalaya
+  [88.1, 92.4, 27.75, 28.4], // Sikkim and Bhutan
+  [92.4, 97.5, 27.9, 29.2], // Eastern Himalaya
+  [80, 98, 30.3, 37.5], // Tibetan Plateau
+  [64.6, 67.4, 33.4, 34.8], // Afghan central highlands, with Bamyan's valley at their edge
+  [69.2, 70.2, 29.6, 31.8], // Sulaiman Range
+  [93.8, 94.6, 17.2, 22.4], // Arakan Yoma
+  [95.2, 97.2, 26.2, 27.6], // Patkai
+];
 
 /** The three sizes of a regional map. */
 function regional(region, bounds, straits, extra = {}) {
@@ -109,10 +127,10 @@ export const MAPS = [
   // the nearer Pacific islands.
   ...regional('asean-australia', [92, 180, -48, 29], [STRAITS.singapore, STRAITS.sunda, STRAITS.bali, STRAITS.cook]),
 
-  // Velgard, an original fantasy continent (see velgard.mjs).
-  ...regional('velgard', VELGARD_BOUNDS, VELGARD_STRAITS, {
-    source: 'Drawn for MOAB: Warfront',
-    land: VELGARD_LAND,
-    mountains: VELGARD_MOUNTAINS,
+  // South Asia: the subcontinent with Afghanistan, the Himalaya and southern Tibet, the eastern
+  // edge of Iran, western Myanmar, Sri Lanka, the Maldives and the Andaman Islands.
+  ...regional('south-asia', [60, 98, -1.5, 37.5], [], {
+    mountains: SOUTH_ASIA_MOUNTAINS,
+    islands: [[73.51, 4.17], [73.10, -0.63], [72.64, 10.57], [92.73, 11.62], [92.82, 9.17]],
   }),
 ];

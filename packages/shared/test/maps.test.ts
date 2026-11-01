@@ -138,8 +138,8 @@ describe('regional maps', () => {
       expect(sameSea(asia, [52, 26], [60, 20]), `${asia.version}: Persian Gulf to Arabian Sea`).toBe(true);
       const sa = getMap(mapVersionFor('south-america', size));
       expect(sameSea(sa, [-80, 5], [-75, 13]), `${sa.version}: Pacific to Caribbean through Panama`).toBe(true);
-      const velgard = getMap(mapVersionFor('velgard', size));
-      expect(sameSea(velgard, [38, 25], [60, 40]), `${velgard.version}: Mirrow Sea to the ocean`).toBe(true);
+      const southAsia = getMap(mapVersionFor('south-asia', size));
+      expect(sameSea(southAsia, [65, 15], [88, 15]), `${southAsia.version}: Arabian Sea to Bay of Bengal`).toBe(true);
     }
   });
 });

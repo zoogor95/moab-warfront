@@ -5,11 +5,11 @@ export const MAP_REGIONS = [
   { id: 'world', name: 'World' },
   { id: 'africa', name: 'Africa' },
   { id: 'asia', name: 'Asia' },
+  { id: 'south-asia', name: 'South Asia' },
   { id: 'europe', name: 'Europe' },
   { id: 'north-america', name: 'North America' },
   { id: 'south-america', name: 'South America' },
   { id: 'asean-australia', name: 'ASEAN and Australia' },
-  { id: 'velgard', name: 'Velgard' },
 ] as const;
 export type MapRegion = (typeof MAP_REGIONS)[number]['id'];
 export const MAP_REGION_IDS = MAP_REGIONS.map((r) => r.id) as [MapRegion, ...MapRegion[]];

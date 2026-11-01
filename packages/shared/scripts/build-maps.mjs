@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Builds every map in src/world/maps/: terrain on a grid of square lon/lat tiles, plus cities.
 //
-// Real-world coastlines come from Natural Earth (public domain) via the world-atlas package;
-// Velgard's coastline is drawn by hand in velgard.mjs. Each tile samples 9 points and is land
+// Coastlines come from Natural Earth (public domain) via the world-atlas package, unless a map
+// brings its own polygons (`land`). Each tile samples 9 points and is land
 // when at least 4 of them fall on land. Mountain ranges are approximate lon/lat boxes.
 //
 // Run with: npm run maps (from the repo root). Pass map versions to build only those:

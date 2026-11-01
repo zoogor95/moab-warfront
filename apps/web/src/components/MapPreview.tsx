@@ -68,8 +68,8 @@ export function MapPreview({ region, size }: Props) {
   const sizeInfo = MAP_SIZES.find((s) => s.id === size) ?? MAP_SIZES[1];
   const capitals = shown?.cities.filter((c) => c.capital).length ?? 0;
   const ports = shown?.cities.filter((c) => c.port).length ?? 0;
-  // Velgard is invented, so its tiles have no real-world size.
-  const km = shown && region !== 'velgard' ? Math.round((shown.degreesPerTile * 111) / 10) * 10 : null;
+  // A degree of latitude is about 111 km; good enough for a scale hint.
+  const km = shown ? Math.round((shown.degreesPerTile * 111) / 10) * 10 : null;
 
   return (
     <figure className="map-preview">

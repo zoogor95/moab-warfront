@@ -79,4 +79,4 @@ These follow the design doc. A few details the doc left open:
 
 ## Map data
 
-Coastlines come from [Natural Earth](https://www.naturalearthdata.com/) (public domain) via the `world-atlas` package. Mountain ranges are approximate boxes, for terrain only. `npm run maps` regenerates the maps in `packages/shared/src/world/maps/`. Velgard's coastline and names are original, drawn for this game.
+Coastlines come from [Natural Earth](https://www.naturalearthdata.com/) (public domain) via the `world-atlas` package. Mountain ranges are approximate boxes, for terrain only. `npm run maps` regenerates the maps in `packages/shared/src/world/maps/`.

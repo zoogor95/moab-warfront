@@ -137,7 +137,7 @@ export function LobbyScreen({ lobby, me, chat, say, onLobby, onLeave, onBack }: 
 
         <section className="card">
           <div className="card-head"><h2>Match settings</h2>{!host && <span className="muted">Set by the host</span>}</div>
-          {option('Map', `${MAP_REGIONS.find((r) => r.id === settings.map)?.name ?? settings.map}. ${settings.map === 'velgard' ? 'An invented continent of nine kingdoms round an inland sea.' : 'Real coastlines and cities.'}`,
+          {option('Map', `${MAP_REGIONS.find((r) => r.id === settings.map)?.name ?? settings.map}. Real coastlines and cities.`,
             <Segmented label="Map" disabled={busy} value={settings.map} options={MAP_REGIONS.map((r) => ({ value: r.id, label: r.name }))} onChange={(v) => set('map', v)} />)}
           {option('Map size', `${size.name}: suits ${size.players.toLowerCase()}. Any size works for any number of players.`,
             <Segmented label="Map size" disabled={busy} value={settings.mapSize} options={MAP_SIZES.map((m) => ({ value: m.id, label: m.name }))} onChange={(v) => set('mapSize', v)} />)}

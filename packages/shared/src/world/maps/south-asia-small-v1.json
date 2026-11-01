@@ -1,0 +1,465 @@
+{
+ "version": "south-asia-small-v1",
+ "source": "Natural Earth 1:50m land (public domain), via world-atlas",
+ "cols": 71,
+ "rows": 73,
+ "wraps": false,
+ "degreesPerTile": 0.5315,
+ "bounds": {
+  "west": 60,
+  "north": 37.5
+ },
+ "rle": [
+  "l21m5l2m43",
+  "l21m5l2m43",
+  "l14m12l2m43",
+  "l14m12l2m43",
+  "l14m7l7m43",
+  "l9m5l19m38",
+  "l9m5l19m38",
+  "l9m5l19m38",
+  "l33m38",
+  "l33m38",
+  "l31m5l2m33",
+  "l17m2l16m36",
+  "l17m2l16m36",
+  "l17m2l16m36",
+  "l17m2l21m13l18",
+  "l40m13l18",
+  "l40m13l8m10",
+  "l53m18",
+  "l71",
+  "l66m4l1",
+  "l66m4l1",
+  "l71",
+  "l71",
+  "s13l58",
+  "s14l57",
+  "s14l57",
+  "s16l55",
+  "s17l54",
+  "s17l41s2l4m1l6",
+  "s18l5s1l32s4l4m1l6",
+  "s19l4s1l27s9l4m1l6",
+  "s20l1s3l27s10l3m1l6",
+  "s24l26s12l2m1l6",
+  "s24l24s15l1m1l6",
+  "s24l23s16l1m1l6",
+  "s24l22s18m1l6",
+  "s24l21s20l6",
+  "s25l19s21l6",
+  "s25l17s23l6",
+  "s25l17s22l4s3",
+  "s25l15s26l1s4",
+  "s26l12s33",
+  "s26l12s33",
+  "s27l11s33",
+  "s27l11s33",
+  "s28l10s33",
+  "s28l10s33",
+  "s28l10s33",
+  "s29l8s24l1s9",
+  "s30l7s34",
+  "s23l1s6l7s34",
+  "s30l6s35",
+  "s31l5s35",
+  "s31l4s2l2s22l1s9",
+  "s32l2s3l3s31",
+  "s37l4s30",
+  "s37l4s30",
+  "s37l4s30",
+  "s38l3s30",
+  "s71",
+  "s66l2s3",
+  "s67l4",
+  "s25l1s42l3",
+  "s69l2",
+  "s70l1",
+  "s71",
+  "s71",
+  "s71",
+  "s70l1",
+  "s71",
+  "s71",
+  "s24l1s46",
+  "s71"
+ ],
+ "cities": [
+  {
+   "id": "new-delhi",
+   "name": "New Delhi",
+   "x": 32,
+   "y": 16,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "islamabad",
+   "name": "Islamabad",
+   "x": 24,
+   "y": 7,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "dhaka",
+   "name": "Dhaka",
+   "x": 57,
+   "y": 25,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "kabul",
+   "name": "Kabul",
+   "x": 17,
+   "y": 5,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "kathmandu",
+   "name": "Kathmandu",
+   "x": 47,
+   "y": 18,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "colombo",
+   "name": "Colombo",
+   "x": 37,
+   "y": 57,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "thimphu",
+   "name": "Thimphu",
+   "x": 55,
+   "y": 18,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "male",
+   "name": "Malé",
+   "x": 25,
+   "y": 62,
+   "capital": true,
+   "port": true
+  },
+  {
+   "id": "naypyidaw",
+   "name": "Naypyidaw",
+   "x": 67,
+   "y": 33,
+   "capital": true,
+   "port": false
+  },
+  {
+   "id": "mumbai",
+   "name": "Mumbai",
+   "x": 24,
+   "y": 34,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kolkata",
+   "name": "Kolkata",
+   "x": 53,
+   "y": 28,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "chennai",
+   "name": "Chennai",
+   "x": 37,
+   "y": 45,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "bengaluru",
+   "name": "Bengaluru",
+   "x": 33,
+   "y": 46,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "hyderabad",
+   "name": "Hyderabad",
+   "x": 34,
+   "y": 37,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "karachi",
+   "name": "Karachi",
+   "x": 13,
+   "y": 23,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "lahore",
+   "name": "Lahore",
+   "x": 26,
+   "y": 11,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "ahmedabad",
+   "name": "Ahmedabad",
+   "x": 23,
+   "y": 27,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "chittagong",
+   "name": "Chittagong",
+   "x": 60,
+   "y": 28,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "kochi",
+   "name": "Kochi",
+   "x": 30,
+   "y": 51,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "visakhapatnam",
+   "name": "Visakhapatnam",
+   "x": 43,
+   "y": 37,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "jaipur",
+   "name": "Jaipur",
+   "x": 29,
+   "y": 19,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "lucknow",
+   "name": "Lucknow",
+   "x": 39,
+   "y": 20,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "kandahar",
+   "name": "Kandahar",
+   "x": 10,
+   "y": 11,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "herat",
+   "name": "Herat",
+   "x": 4,
+   "y": 5,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "quetta",
+   "name": "Quetta",
+   "x": 13,
+   "y": 13,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "srinagar",
+   "name": "Srinagar",
+   "x": 27,
+   "y": 6,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "guwahati",
+   "name": "Guwahati",
+   "x": 59,
+   "y": 21,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "nagpur",
+   "name": "Nagpur",
+   "x": 35,
+   "y": 30,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "patna",
+   "name": "Patna",
+   "x": 47,
+   "y": 22,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "bhubaneswar",
+   "name": "Bhubaneswar",
+   "x": 48,
+   "y": 32,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "panaji",
+   "name": "Panaji",
+   "x": 26,
+   "y": 41,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "thiruvananthapuram",
+   "name": "Thiruvananthapuram",
+   "x": 32,
+   "y": 54,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "jaffna",
+   "name": "Jaffna",
+   "x": 37,
+   "y": 53,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "gwadar",
+   "name": "Gwadar",
+   "x": 4,
+   "y": 22,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "multan",
+   "name": "Multan",
+   "x": 21,
+   "y": 13,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "lhasa",
+   "name": "Lhasa",
+   "x": 58,
+   "y": 14,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "yangon",
+   "name": "Yangon",
+   "x": 68,
+   "y": 38,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "mandalay",
+   "name": "Mandalay",
+   "x": 67,
+   "y": 29,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "chabahar",
+   "name": "Chabahar",
+   "x": 1,
+   "y": 22,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "port-blair",
+   "name": "Port Blair",
+   "x": 61,
+   "y": 48,
+   "capital": false,
+   "port": true
+  },
+  {
+   "id": "bhopal",
+   "name": "Bhopal",
+   "x": 32,
+   "y": 26,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "mazar-i-sharif",
+   "name": "Mazar-i-Sharif",
+   "x": 13,
+   "y": 1,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "varanasi",
+   "name": "Varanasi",
+   "x": 43,
+   "y": 22,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "jodhpur",
+   "name": "Jodhpur",
+   "x": 24,
+   "y": 21,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "rajkot",
+   "name": "Rajkot",
+   "x": 20,
+   "y": 28,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "madurai",
+   "name": "Madurai",
+   "x": 34,
+   "y": 51,
+   "capital": false,
+   "port": false
+  },
+  {
+   "id": "mangaluru",
+   "name": "Mangaluru",
+   "x": 28,
+   "y": 46,
+   "capital": false,
+   "port": true
+  }
+ ]
+}

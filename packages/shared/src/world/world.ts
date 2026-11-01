@@ -21,7 +21,7 @@ export interface MapData {
   rows: number;
   /** Only the whole-Earth maps join east to west; regional maps have hard edges. */
   wraps?: boolean;
-  /** Degrees (or Velgard's map units) per tile, and the north-west corner; world-v1 predates both. */
+  /** Degrees per tile and the north-west corner; world-v1 predates both. */
   degreesPerTile?: number;
   bounds?: { west: number; north: number };
   /** Row strings of run-length terrain: s = sea, l = land, m = mountain. */
@@ -45,7 +45,7 @@ export class GameMap {
   private readonly cityByTile: Map<number, CityInfo>;
   private readonly west: number;
   private readonly north: number;
-  /** Degrees per tile (Velgard: map units), for scale labels and tools. */
+  /** Degrees per tile, for scale labels and tools. */
   readonly degreesPerTile: number;
 
   constructor(data: MapData) {
@@ -63,7 +63,7 @@ export class GameMap {
     this.degreesPerTile = data.degreesPerTile ?? 180 / data.rows;
   }
 
-  /** The tile under a longitude and latitude (Velgard: map units); for tools and tests. */
+  /** The tile under a longitude and latitude; for tools and tests. */
   tileAt(lon: number, lat: number): Point {
     return { x: Math.floor((lon - this.west) / this.degreesPerTile), y: Math.floor((this.north - lat) / this.degreesPerTile) };
   }

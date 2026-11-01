@@ -108,7 +108,7 @@ export function Setup({ saved, onStart, onResume, onLoad, onDiscard, onBack }: P
         <section className="card">
           <div className="card-head"><h2>Match settings</h2></div>
           <div className="setting">
-            <div><strong>Map</strong><p className="muted">{settings.map === 'velgard' ? 'An invented continent of nine kingdoms round an inland sea.' : 'Real coastlines and cities.'}</p></div>
+            <div><strong>Map</strong><p className="muted">Real coastlines and cities.</p></div>
             <Segmented label="Map" value={settings.map} options={MAP_REGIONS.map((r) => ({ value: r.id, label: r.name }))} onChange={(v) => set('map', v)} />
           </div>
           <div className="setting">

@@ -1,5 +1,5 @@
 import { randomInt } from 'node:crypto';
-import { DEFAULT_SETTINGS, type MatchSettings } from '@warfront/shared';
+import { DEFAULT_SETTINGS, MAP_REGION_IDS, type MatchSettings } from '@warfront/shared';
 import {
   MatchSettingsSchema,
   SEAT_STYLES,
@@ -14,6 +14,16 @@ import { conflict, forbidden, HttpError, notFound } from './errors';
 
 // No 0/O or 1/I, so a code read aloud or off a screen is never ambiguous.
 const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+/**
+ * Stored settings with today's defaults filled in. A lobby saved on a map that has since been
+ * retired (Velgard) falls back to the default map, so it still opens and can start.
+ */
+export function storedSettings(saved: Partial<MatchSettings>): MatchSettings {
+  const settings = { ...DEFAULT_SETTINGS, ...saved };
+  if (!(MAP_REGION_IDS as readonly string[]).includes(settings.map)) settings.map = DEFAULT_SETTINGS.map;
+  return settings;
+}
 
 export function newCode(): string {
   return Array.from({ length: 6 }, () => CODE_ALPHABET[randomInt(CODE_ALPHABET.length)]).join('');
@@ -51,7 +61,7 @@ export async function readLobby(c: Pick<Pool, 'query'>, matchId: string): Promis
     hostId: row.host_id,
     status: row.status,
     // Lobbies made before a setting existed get its default.
-    settings: { ...DEFAULT_SETTINGS, ...row.settings },
+    settings: storedSettings(row.settings),
     seats: s.rows.map((r): LobbySeat => ({
       seat: r.seat,
       userId: r.user_id,
@@ -181,7 +191,7 @@ export async function updateSettings(pool: Pool, userId: string, matchId: string
   await tx(pool, async (c) => {
     const m = await lockLobby(c, matchId);
     requireHost(m, userId);
-    const settings = MatchSettingsSchema.parse({ ...DEFAULT_SETTINGS, ...m.settings, ...change });
+    const settings = MatchSettingsSchema.parse({ ...storedSettings(m.settings), ...change });
     const seats = await seatsOf(c, matchId);
     const highest = Math.max(...seats.map((s) => s.seat));
     if (settings.seats <= highest) throw conflict('seat-in-use', `Seat ${highest + 1} is in use; empty it first`);

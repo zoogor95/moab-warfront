@@ -49,8 +49,8 @@ describe('save files', () => {
   });
 
   it('accepts a save on a regional map once that map is loaded', async () => {
-    await loadMap('velgard-small-v1');
-    const read = roundTrip(botMatch('velgard', 'small', 9));
+    await loadMap('south-asia-small-v1');
+    const read = roundTrip(botMatch('south-asia', 'small', 9));
     expect(read.ok).toBe(true);
     if (read.ok) expect(checkSavedGame(read.save.game)).toBeNull();
   });

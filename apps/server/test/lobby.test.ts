@@ -1,10 +1,18 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { DEFAULT_SETTINGS } from '@warfront/shared';
 import type { Lobby, MatchSummary } from '@warfront/shared/protocol';
+import { storedSettings } from '../src/lobby';
 import { Player, testServer, type TestServer } from './client';
 import { hasTestDb } from './db';
 
 const dbUp = await hasTestDb();
+
+describe('stored settings', () => {
+  it('move a lobby saved on a retired map to the default map', () => {
+    expect(storedSettings({ map: 'velgard' as never, mapSize: 'small' })).toMatchObject({ map: DEFAULT_SETTINGS.map, mapSize: 'small' });
+    expect(storedSettings({ map: 'south-asia' }).map).toBe('south-asia');
+  });
+});
 
 describe.skipIf(!dbUp)('lobbies', () => {
   let t: TestServer;
