@@ -28,6 +28,8 @@ export interface ViewUnit {
   hp: number;
   /** Only for your own units. */
   moves?: number;
+  /** Only for your own fighters and bombers. */
+  fuel?: number;
   carriedBy?: string;
   sentry?: boolean;
 }
@@ -81,7 +83,7 @@ export function viewFor(s: GameState, seat: number): PlayerView {
   const units: ViewUnit[] = [];
   for (const u of s.units) {
     if (u.owner === seat) {
-      units.push({ id: u.id, type: u.type, owner: u.owner, x: u.x, y: u.y, hp: u.hp, moves: u.moves, carriedBy: u.carriedBy, sentry: u.sentry });
+      units.push({ id: u.id, type: u.type, owner: u.owner, x: u.x, y: u.y, hp: u.hp, moves: u.moves, fuel: u.fuel, carriedBy: u.carriedBy, sentry: u.sentry });
     } else if (canSeeUnit(s, u, seat, visible)) {
       units.push({ id: u.id, type: u.type, owner: u.owner, x: u.x, y: u.y, hp: u.hp });
     }

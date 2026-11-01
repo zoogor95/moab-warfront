@@ -72,6 +72,7 @@ export const PlayerViewSchema = z.object({
       y: Y,
       hp: z.int().min(0),
       moves: z.int().min(0).optional(),
+      fuel: z.int().min(0).optional(),
       carriedBy: IdSchema.optional(),
       sentry: z.boolean().optional(),
     }),

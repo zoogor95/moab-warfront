@@ -71,6 +71,8 @@ export function createUnit(s: GameState, type: UnitType, owner: number, at: Poin
     hp: UNITS[type].hp,
     moves: UNITS[type].moves,
   };
+  const fuel = UNITS[type].fuel;
+  if (fuel !== undefined) unit.fuel = fuel;
   s.units.push(unit);
   return unit;
 }

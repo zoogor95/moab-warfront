@@ -118,10 +118,10 @@ From the design doc: sequential turns; live or async; Auto or hidden Pick starts
 Settled while building phase 1, and open to change if the user asks:
 - A tile holds one owner's units, with no stacking limit.
 - The attacker never moves into the tile it won.
-- Aircraft outside a base at turn end fly to the nearest own city or carrier within their remaining moves, or are lost.
+- Fighters (16) and bombers (30) carry fuel (`UnitStats.fuel`, `Unit.fuel`) across turns: 1 per tile, refilled on entering your city (fighters also your carrier) and at turn start in a base; at 0 away from a base they crash. Aircraft without a tank (flying paratroopers) must end the turn at a base: they fly to the nearest one in reach or are lost. Aircraft cannot enter a city that is not theirs, except a paratrooper about to land. Bombers have attack 0 and keep the one-use blast, so a fighter always downs one. (User's call, 2026-11-01.)
 - Players start with one city building tanks and no units.
 - Paratroopers are aircraft until they land: they fly 8 tiles like a fighter, over land or sea, cannot attack, and follow the aircraft turn-end rule. The `land` action brings one down where it is (land, not mountains) and makes it a tank for good; landing on a city you don't own is a capture attempt. Only tanks capture by moving in. (User's call, 2026-11-01; replaced the old 8-tile `drop`.)
-- An aircraft's fuel is its moves left this turn. Fighters and bombers away from a base with fewer than `LOW_FUEL` (5) show a warning.
+- Fighters and bombers away from a base with less than `LOW_FUEL` (5) fuel show a warning. A flying paratrooper's fuel is its moves left this turn.
 - A tank or paratrooper always takes a neutral city. An enemy city with no land defenders falls half the time (`CAPTURE_CHANCE`), and the unit is lost otherwise. (User's call, 2026-11-01.)
 
 If a rule is unclear, check the design doc first, then ask. Don't invent rules silently.

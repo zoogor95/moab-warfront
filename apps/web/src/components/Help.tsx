@@ -18,8 +18,8 @@ const DOMAIN = { land: 'Land', air: 'Air', sea: 'Sea' } as const;
 const NOTES: Record<UnitType, string> = {
   tank: 'Fights units on land and captures cities by moving in. Rides transports across the sea.',
   paratrooper: 'Flies from your city like a fighter, over land or sea, but cannot attack while flying. Press Land to come down and become a tank. Landing on a city you do not own is a capture attempt.',
-  fighter: 'Attacks anything: aircraft, land units and ships. Must end its turn in your city or aboard your carrier.',
-  bomber: `Cannot fight. One strike destroys every unit within ${BOMBER_BLAST_RADIUS} tiles of the target, yours included, and uses up the bomber. Must end its turn in your city.`,
+  fighter: `Attacks anything: aircraft, land units and ships, and always shoots down a bomber. Carries ${UNITS.fighter.fuel} fuel and refuels in your city or aboard your carrier.`,
+  bomber: `Cannot fight, so escort it with fighters. One strike destroys every unit within ${BOMBER_BLAST_RADIUS} tiles of the target, yours included, and uses up the bomber. Carries ${UNITS.bomber.fuel} fuel and refuels in your city.`,
   transport: `Carries up to ${UNITS.transport.capacity?.count} tanks. Cannot attack; its cargo sinks with it.`,
   destroyer: 'Attacks ships. Reveals enemy submarines on the tiles next to it.',
   submarine: 'Attacks ships only, and hits hard. Hidden from enemies unless one of their destroyers is next to it.',
@@ -98,7 +98,7 @@ function HelpContent() {
                 <UnitToken type={t} seat={0} size={40} />
                 <div>
                   <div className="help-unit-head"><strong>{u.name}</strong><span className="pill">{DOMAIN[u.domain]}</span></div>
-                  <p className="help-stats">{u.domain === 'air' ? 'Fuel' : 'Moves'} {u.moves} · Health {u.hp} · Attack {u.attack || '—'} · Build {u.build} turns</p>
+                  <p className="help-stats">Moves {u.moves}{u.fuel ? ` · Fuel ${u.fuel}` : ''} · Health {u.hp} · Attack {u.attack || '—'} · Build {u.build} turns</p>
                   <p>{NOTES[t]}</p>
                 </div>
               </li>
@@ -141,10 +141,12 @@ function HelpContent() {
       <section id="help-air">
         <h3>Aircraft and fuel</h3>
         <ul>
-          <li>An aircraft's <strong>fuel</strong> is the moves it has left this turn. It fills up again at the start of your next turn.</li>
-          <li>At the end of your turn, any aircraft not in your city (or, for fighters, aboard your carrier) flies to the nearest one it can reach with its fuel. If none is in reach, it is lost.</li>
+          <li><strong>Fighters</strong> carry {UNITS.fighter.fuel} fuel and <strong>bombers</strong> {UNITS.bomber.fuel}. Each tile flown burns 1, and fuel carries over from turn to turn.</li>
+          <li>Flying into your city refills the tank at once; so does landing a fighter on your carrier. Bombers cannot use carriers.</li>
+          <li>An aircraft that runs out of fuel away from a base crashes and is lost.</li>
           <li>A fighter or bomber away from a base with less than {LOW_FUEL} fuel shows an amber warning on the map and in its panel.</li>
-          <li><strong>Paratroopers</strong> follow the same rule until they land. Once landed they are tanks for good.</li>
+          <li>Aircraft cannot enter a city that is not yours; only a paratrooper may, to land on it.</li>
+          <li><strong>Paratroopers</strong> have no tank: until they land, their fuel is the moves left this turn. If one is still flying when your turn ends, it flies to your nearest city in reach, or is lost. Once landed it is a tank for good.</li>
         </ul>
       </section>
 

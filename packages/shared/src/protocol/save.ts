@@ -61,6 +61,7 @@ export const GameStateSchema = z.object({
       y: Y,
       hp: z.int().positive(),
       moves: z.int().min(0),
+      fuel: z.int().min(0).optional(),
       carriedBy: IdSchema.optional(),
       sentry: z.boolean().optional(),
     }),

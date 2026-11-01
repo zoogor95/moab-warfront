@@ -275,11 +275,30 @@ function move(s: GameState, seat: number, unitId: string, to: Point): void {
     return;
   }
 
-  // Air: anywhere. A fighter over your carrier at sea lands on it.
+  // Air: anywhere except into a city that is not yours: aircraft never occupy one. A paratrooper
+  // may, to land on it, since it cannot stay airborne past the end of the turn.
+  const over = cityAt(s, target);
+  if (u.type !== 'paratrooper' && over && over.owner !== seat) fail('cannot-enter', 'Aircraft cannot occupy a city that is not yours');
+  // A fighter over your carrier at sea lands on it.
   const carrier = !ownCityAt(s, target, seat) ? onTile.find((o) => canCarry(o, u.type) && freeSpace(s, o) > 0) : undefined;
   u.carriedBy = carrier?.id;
   placeUnit(s, u, target);
   u.moves -= 1;
+  burnFuel(s, u);
+}
+
+/** Fuel refills at a base and burns one per tile elsewhere; an empty tank away from a base is a crash. */
+function burnFuel(s: GameState, u: Unit): void {
+  const max = UNITS[u.type].fuel;
+  if (max === undefined) return;
+  if (u.carriedBy || ownCityAt(s, u, u.owner)) {
+    u.fuel = max;
+    return;
+  }
+  u.fuel = (u.fuel ?? max) - 1;
+  if (u.fuel > 0) return;
+  removeUnit(s, u.id);
+  emit(s, { type: 'outOfFuel', unit: ref(u), x: u.x, y: u.y }, [u.owner], u);
 }
 
 function attack(s: GameState, u: Unit, target: Point, enemies: Unit[], city: City | undefined): void {

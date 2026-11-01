@@ -1,7 +1,7 @@
 import { applyAction, RuleError, viewFor, type Action, type GameState } from '@warfront/shared';
 import { describeEvent } from './session';
 
-const STOPS = new Set(['combat', 'blocked', 'captured', 'captureFailed', 'strike']);
+const STOPS = new Set(['combat', 'blocked', 'captured', 'captureFailed', 'strike', 'outOfFuel']);
 
 /** Hot-seat: runs actions on the device, stopping at the first refusal or anything that ends a move. */
 export function runLocal(game: GameState, seat: number, actions: Action[], opts: { stopOnFight?: boolean } = {}): { state: GameState; notes: string[] } {

@@ -3,6 +3,19 @@ import { applyAction, hexHasBit, viewFor, WORLD } from '../src';
 import { blankGame, own, put, sync } from './helpers';
 
 describe('what each player can see', () => {
+  it('shows fuel and moves only for your own aircraft', () => {
+    const s = blankGame();
+    own(s, 'lisbon', 0);
+    const mine = put(s, 'fighter', 0, 86, 25, { fuel: 9 });
+    const theirs = put(s, 'fighter', 1, 87, 25, { fuel: 4 });
+    sync(s);
+    const v = viewFor(s, 0);
+    expect(v.units.find((u) => u.id === mine.id)).toMatchObject({ fuel: 9, moves: 8 });
+    const seen = v.units.find((u) => u.id === theirs.id)!;
+    expect(seen.fuel).toBeUndefined();
+    expect(seen.moves).toBeUndefined();
+  });
+
   it('shows enemy units only within sight', () => {
     const s = blankGame();
     own(s, 'lisbon', 0);

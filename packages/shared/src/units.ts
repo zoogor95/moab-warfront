@@ -23,6 +23,11 @@ export interface UnitStats {
   sight: number;
   /** How many units it carries, and of which types. */
   capacity?: { count: number; types: UnitType[] };
+  /**
+   * Tiles it can fly before it must refuel in your city (fighters also on your carrier); it crashes at 0.
+   * Aircraft without it must instead be back at a base when the turn ends.
+   */
+  fuel?: number;
 }
 
 export const UNIT_TYPES: readonly UnitType[] = [
@@ -33,8 +38,8 @@ export const UNITS: Readonly<Record<UnitType, UnitStats>> = {
   tank: { name: 'Tank', domain: 'land', moves: 2, hp: 1, attack: 1, build: 5, sight: 1 },
   // Flies from your city until it lands, when it becomes a tank; it cannot attack from the air.
   paratrooper: { name: 'Paratrooper', domain: 'air', moves: 8, hp: 1, attack: 0, build: 10, sight: 1 },
-  fighter: { name: 'Fighter', domain: 'air', moves: 8, hp: 2, attack: 1, build: 10, sight: 2 },
-  bomber: { name: 'Bomber', domain: 'air', moves: 6, hp: 1, attack: 0, build: 20, sight: 2 },
+  fighter: { name: 'Fighter', domain: 'air', moves: 8, hp: 2, attack: 1, build: 10, sight: 2, fuel: 16 },
+  bomber: { name: 'Bomber', domain: 'air', moves: 6, hp: 1, attack: 0, build: 20, sight: 2, fuel: 30 },
   transport: { name: 'Transport', domain: 'sea', moves: 3, hp: 1, attack: 0, build: 15, sight: 1, capacity: { count: 6, types: ['tank'] } },
   destroyer: { name: 'Destroyer', domain: 'sea', moves: 4, hp: 3, attack: 1, build: 15, sight: 1 },
   submarine: { name: 'Submarine', domain: 'sea', moves: 3, hp: 2, attack: 3, build: 20, sight: 1 },
@@ -47,7 +52,7 @@ export const BOMBER_BLAST_RADIUS = 2;
 /** Attacker's chance to win each round of a fight. */
 export const ROUND_WIN = 0.5;
 export const ROUND_WIN_VS_CITY = 0.4;
-/** Aircraft away from a base with fewer moves left than this are flagged as low on fuel. */
+/** Aircraft away from a base with less fuel than this (moves left, or a fighter's fuel) are flagged. */
 export const LOW_FUEL = 5;
 /** Chance a tank or paratrooper takes an enemy city with no land defenders; it is lost otherwise. */
 export const CAPTURE_CHANCE = 0.5;

@@ -11,7 +11,7 @@ import { Results } from '../screens/Results';
 import { LobbyScreen } from './LobbyScreen';
 import { useMatch } from './useMatch';
 
-const STOPS = new Set(['combat', 'blocked', 'captured', 'captureFailed', 'strike']);
+const STOPS = new Set(['combat', 'blocked', 'captured', 'captureFailed', 'strike', 'outOfFuel']);
 
 /** One online match, from lobby to results, driven by the views the server sends this seat. */
 export function OnlineMatch({ matchId, me, onBack }: { matchId: string; me: string; onBack: () => void }) {

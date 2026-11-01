@@ -49,6 +49,8 @@ export interface Unit {
   y: number;
   hp: number;
   moves: number;
+  /** Fighters and bombers: tiles left before it must refuel. Missing (older saves) means full. */
+  fuel?: number;
   /** Id of the transport or carrier this unit is aboard. */
   carriedBy?: string;
   sentry?: boolean;

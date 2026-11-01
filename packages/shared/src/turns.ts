@@ -19,12 +19,14 @@ export function beginTurn(s: GameState, seat: number): void {
     if (u.owner !== seat) continue;
     if (u.hp < UNITS[u.type].hp && ownCityAt(s, u, seat)) u.hp += 1;
     u.moves = UNITS[u.type].moves;
+    const fuel = UNITS[u.type].fuel;
+    if (fuel !== undefined && (u.carriedBy || ownCityAt(s, u, seat))) u.fuel = fuel;
   }
 }
 
-/** Aircraft must end the turn in one of your cities or aboard your carrier. */
+/** Aircraft without a fuel tank (bombers, flying paratroopers) must end the turn at a base. */
 export function landAircraft(s: GameState, seat: number): void {
-  const flying = s.units.filter((u) => u.owner === seat && UNITS[u.type].domain === 'air' && !u.carriedBy && !ownCityAt(s, u, seat));
+  const flying = s.units.filter((u) => u.owner === seat && UNITS[u.type].domain === 'air' && UNITS[u.type].fuel === undefined && !u.carriedBy && !ownCityAt(s, u, seat));
   for (const plane of flying) {
     const base = nearestBase(s, plane);
     if (base) {

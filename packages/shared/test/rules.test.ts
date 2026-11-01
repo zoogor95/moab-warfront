@@ -276,8 +276,7 @@ describe('capturing cities', () => {
   it('is only for tanks moving in; paratroopers capture by landing', () => {
     const s = sync(blankGame());
     const f = put(s, 'fighter', 0, 87, 24);
-    const r = applyAction(s, 0, { type: 'move', unit: f.id, to: MADRID });
-    expect(r.state.cities.find((c) => c.id === 'madrid')!.owner).toBeNull();
+    rejects(() => applyAction(s, 0, { type: 'move', unit: f.id, to: MADRID }), 'cannot-enter');
   });
 });
 
@@ -325,26 +324,81 @@ describe('production', () => {
   });
 });
 
-describe('aircraft', () => {
-  it('fly home to the nearest base in range when the turn ends', () => {
+describe('aircraft fuel', () => {
+  it('fighters burn a fuel per tile away from a base and stay out when the turn ends', () => {
     const s = blankGame();
     own(s, 'lisbon', 0);
     own(s, 'rome', 1);
-    const f = put(s, 'fighter', 0, 88, 25, { moves: 5 });
+    const f = put(s, 'fighter', 0, 88, 25);
     sync(s);
-    const r = applyAction(s, 0, { type: 'endTurn' });
-    expect(unit(r.state, f.id)).toMatchObject(LISBON);
+    expect(f.fuel).toBe(UNITS.fighter.fuel);
+    let r = applyAction(s, 0, { type: 'move', unit: f.id, to: { x: 89, y: 25 } });
+    expect(unit(r.state, f.id)).toMatchObject({ fuel: 15, moves: 7 });
+    r = applyAction(r.state, 0, { type: 'endTurn' });
+    expect(unit(r.state, f.id)).toMatchObject({ x: 89, y: 25, fuel: 15 });
+    // Fuel carries over: a new turn gives moves back, not fuel.
+    r = applyAction(r.state, 1, { type: 'endTurn' });
+    expect(unit(r.state, f.id)).toMatchObject({ fuel: 15, moves: UNITS.fighter.moves });
   });
 
-  it('are lost when no base is in range', () => {
+  it('refuel in your city and aboard your carrier', () => {
+    expectTerrain(84, 25, 'sea');
+    const s = blankGame();
+    own(s, 'lisbon', 0);
+    const a = put(s, 'fighter', 0, 86, 25, { fuel: 3 });
+    const b = put(s, 'fighter', 0, 83, 25, { fuel: 3 });
+    put(s, 'carrier', 0, 84, 25);
+    sync(s);
+    let r = applyAction(s, 0, { type: 'move', unit: a.id, to: LISBON });
+    expect(unit(r.state, a.id)!.fuel).toBe(UNITS.fighter.fuel);
+    r = applyAction(r.state, 0, { type: 'move', unit: b.id, to: { x: 84, y: 25 } });
+    expect(unit(r.state, b.id)).toMatchObject({ fuel: UNITS.fighter.fuel, carriedBy: expect.any(String) });
+  });
+
+  it('crash when the last fuel runs out away from a base', () => {
+    const s = blankGame();
+    own(s, 'lisbon', 0);
+    const f = put(s, 'fighter', 0, 88, 25, { fuel: 1 });
+    sync(s);
+    const r = applyAction(s, 0, { type: 'move', unit: f.id, to: { x: 89, y: 25 } });
+    expect(unit(r.state, f.id)).toBeUndefined();
+    expect(r.events[0]).toMatchObject({ type: 'outOfFuel', unit: { id: f.id } });
+  });
+
+  it('give bombers 30 fuel under the same rules', () => {
     const s = blankGame();
     own(s, 'lisbon', 0);
     own(s, 'rome', 1);
-    const f = put(s, 'fighter', 0, 70, 25, { moves: 1 });
+    const b = put(s, 'bomber', 0, 88, 25);
     sync(s);
-    const r = applyAction(s, 0, { type: 'endTurn' });
-    expect(unit(r.state, f.id)).toBeUndefined();
-    expect(r.events.some((e) => e.type === 'outOfFuel')).toBe(true);
+    expect(b.fuel).toBe(30);
+    let r = applyAction(s, 0, { type: 'move', unit: b.id, to: { x: 89, y: 25 } });
+    r = applyAction(r.state, 0, { type: 'endTurn' });
+    expect(unit(r.state, b.id)).toMatchObject({ x: 89, y: 25, fuel: 29 });
+  });
+
+  it('keep aircraft out of cities that are not yours', () => {
+    const s = blankGame();
+    own(s, 'lisbon', 0);
+    const f = put(s, 'fighter', 0, 87, 24);
+    const b = put(s, 'bomber', 0, 87, 24);
+    sync(s);
+    rejects(() => applyAction(s, 0, { type: 'move', unit: f.id, to: MADRID }), 'cannot-enter');
+    rejects(() => applyAction(s, 0, { type: 'move', unit: b.id, to: MADRID }), 'cannot-enter');
+  });
+
+  it('let a fighter always shoot down a bomber', () => {
+    const base = blankGame();
+    own(base, 'lisbon', 0);
+    own(base, 'rome', 1);
+    const f = put(base, 'fighter', 0, 88, 25);
+    put(base, 'bomber', 1, 89, 25);
+    sync(base);
+    const rate = trials(base, 100, (s) => {
+      const r = applyAction(s, 0, { type: 'move', unit: f.id, to: { x: 89, y: 25 } });
+      return r.events[0].type === 'combat' && unit(r.state, f.id)?.hp === UNITS.fighter.hp;
+    });
+    expect(rate).toBe(1);
   });
 });
 

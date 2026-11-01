@@ -17,7 +17,7 @@ import { ConfirmButton } from '../components/ConfirmButton';
 import { Countdown } from '../components/Countdown';
 import { HelpButton } from '../components/Help';
 import { EmblemIcon, Logo, UnitToken } from '../components/Icons';
-import { isAircraft, lowFuel } from '../game/fuel';
+import { fuelOf, hasTank, isAircraft, lowFuel } from '../game/fuel';
 import { describeEvent } from '../game/session';
 import { effectsOf, isPlaying, type Effect } from '../map/effects';
 import { MapCanvas } from '../map/MapCanvas';
@@ -135,7 +135,9 @@ export function Play({ view, readOnly, run: runActions, exit, deadline, extra, b
     if (!unit || !myTurn) return undefined;
     if (mode === 'strike') return new Set(map.tilesWithin(unit.x, unit.y, unit.moves ?? 0));
     if (!unit.moves || !canPass) return undefined;
-    return new Set(reachable(map, unit, unit.moves, canPass).keys());
+    // A fighter or bomber cannot fly further than its fuel, whatever its moves.
+    const range = hasTank(unit) ? Math.min(unit.moves, fuelOf(unit).left) : unit.moves;
+    return new Set(reachable(map, unit, range, canPass).keys());
   }, [unit, myTurn, mode, view, seat, canPass, map]);
 
   const path = useMemo(() => {
@@ -331,11 +333,12 @@ export function Play({ view, readOnly, run: runActions, exit, deadline, extra, b
                   </div>
                 </div>
                 <div className="stats">
-                  <div className={low ? 'low' : undefined}><small>{isAircraft(unit) ? 'Fuel' : 'Moves'}</small><strong>{unit.moves ?? 0} / {UNITS[unit.type].moves}</strong></div>
+                  <div><small>{isAircraft(unit) && !hasTank(unit) ? 'Fuel' : 'Moves'}</small><strong>{unit.moves ?? 0} / {UNITS[unit.type].moves}</strong></div>
+                  {hasTank(unit) && <div className={low ? 'low' : undefined}><small>Fuel</small><strong>{fuelOf(unit).left} / {fuelOf(unit).max}</strong></div>}
                   <div><small>Health</small><strong>{unit.hp} / {UNITS[unit.type].hp}</strong></div>
                   <div><small>Attack</small><strong>{UNITS[unit.type].attack || '—'}</strong></div>
                 </div>
-                {low && <p className="fuel-warn" role="status">Low fuel: {unit.moves ?? 0} left. Get back to a city or carrier this turn, or it is lost.</p>}
+                {low && <p className="fuel-warn" role="status">Low fuel: {fuelOf(unit).left} left. Land in your city{unit.type === 'fighter' ? ' or on your carrier' : ''} before it runs out, or it crashes.</p>}
                 {myTurn && (
                   <div className="orders">
                     <button type="button" className="btn" onClick={() => void run([{ type: 'sentry', unit: unit.id, on: !unit.sentry }])}>{unit.sentry ? 'Wake' : 'Sentry'}<kbd>S</kbd></button>
@@ -389,7 +392,7 @@ export function Play({ view, readOnly, run: runActions, exit, deadline, extra, b
                     <button type="button" className={`here-btn ${u.id === unit?.id ? 'on' : ''}`} onClick={() => { setSelUnit(u.id); setSelTile(null); setMode('move'); }}>
                       <UnitToken type={u.type} seat={seat} size={26} />
                       <span>{UNITS[u.type].name}{u.carriedBy ? ' (aboard)' : ''}</span>
-                      <small className={lowFuel(view, u) ? 'warn' : 'muted'}>{u.moves ?? 0} {isAircraft(u) ? 'fuel' : 'moves'}{u.sentry ? ' · sentry' : ''}</small>
+                      <small className={lowFuel(view, u) ? 'warn' : 'muted'}>{u.moves ?? 0} moves{hasTank(u) ? ` · ${fuelOf(u).left} fuel` : ''}{u.sentry ? ' · sentry' : ''}</small>
                     </button>
                   </li>
                 ))}

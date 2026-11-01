@@ -78,7 +78,8 @@ export function quietPassFor(view: PlayerView, unit: ViewUnit): (p: Point) => bo
     const t = map.terrainAt(p.x, p.y);
     const hasCity = cityOwner.has(i);
     const own = cityOwner.get(i) === me;
-    if (domain === 'air') return true;
+    // Fighters stay out of cities that are not yours; a paratrooper may fly in to land.
+    if (domain === 'air') return unit.type === 'paratrooper' || !hasCity || own;
     if (domain === 'sea') return t === 'sea' || (hasCity && own);
     if (t === 'mountain') return false;
     if (t === 'sea') return ownCarrier.has(i);

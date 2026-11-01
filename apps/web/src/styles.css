@@ -150,7 +150,7 @@ input { height: 42px; padding: 0 12px; border-radius: 10px; border: 1px solid va
 .banner { padding: 10px 20px; background: rgba(242, 169, 59, 0.12); color: var(--amber); font-weight: 600; border-bottom: 1px solid var(--line); }
 .unit-head { display: flex; align-items: center; gap: 14px; }
 .unit-head .title { font: 600 20px var(--display); }
-.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(76px, 1fr)); gap: 8px; }
 .stats div { padding: 8px 12px; border-radius: 10px; background: var(--raised); display: flex; flex-direction: column; }
 .stats small { color: var(--muted); }
 .stats strong { font: 600 18px var(--display); }
