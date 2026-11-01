@@ -218,9 +218,23 @@ describe('combat', () => {
 });
 
 describe('capturing cities', () => {
-  it('takes an undefended city half the time and loses the tank otherwise', () => {
+  it('always takes a neutral city', () => {
     const base = blankGame();
-    own(base, 'rome', 1);
+    const t = put(base, 'tank', 0, 87, 24);
+    sync(base);
+    expect(base.cities.find((c) => c.id === 'madrid')!.owner).toBeNull();
+    const rate = trials(base, 200, (s) => {
+      const r = applyAction(s, 0, { type: 'move', unit: t.id, to: MADRID });
+      expect(r.events[0]).toMatchObject({ type: 'captured', city: 'madrid', from: null });
+      expect(unit(r.state, t.id)).toMatchObject({ ...MADRID, moves: 0 });
+      return r.state.cities.find((c) => c.id === 'madrid')!.owner === 0;
+    });
+    expect(rate).toBe(1);
+  });
+
+  it('takes an undefended enemy city half the time and loses the tank otherwise', () => {
+    const base = blankGame();
+    own(base, 'madrid', 1);
     const t = put(base, 'tank', 0, 87, 24);
     sync(base);
     let lost = 0;
@@ -374,7 +388,10 @@ describe('paratroopers', () => {
     own(base, 'lisbon', 0);
     const p = put(base, 'paratrooper', 0, 85, 25);
     sync(base);
-    const rate = trials(base, 400, (s) => applyAction(s, 0, { type: 'drop', unit: p.id, to: MADRID }).state.cities.find((c) => c.id === 'madrid')!.owner === 0);
+    const taken = (s: GameState) => applyAction(s, 0, { type: 'drop', unit: p.id, to: MADRID }).state.cities.find((c) => c.id === 'madrid')!.owner === 0;
+    expect(trials(base, 50, taken)).toBe(1);
+    own(base, 'madrid', 1);
+    const rate = trials(base, 400, taken);
     expect(rate).toBeGreaterThan(0.4);
     expect(rate).toBeLessThan(0.6);
   });

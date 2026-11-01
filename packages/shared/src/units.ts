@@ -47,7 +47,10 @@ export const BOMBER_BLAST_RADIUS = 2;
 /** Attacker's chance to win each round of a fight. */
 export const ROUND_WIN = 0.5;
 export const ROUND_WIN_VS_CITY = 0.4;
+/** Chance a tank or paratrooper takes an enemy city with no land defenders; it is lost otherwise. */
 export const CAPTURE_CHANCE = 0.5;
+/** Neutral cities always fall to a tank or paratrooper. */
+export const NEUTRAL_CAPTURE_CHANCE = 1;
 /** Starts must be at least this far apart; with Pick, the later seat keeps a contested spot. */
 export const START_SPACING = 12;
 export const START_VALUE_RADIUS = 10;

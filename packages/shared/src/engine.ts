@@ -20,6 +20,7 @@ import { advanceTurn, beginTurn, landAircraft, settleSurvivors } from './turns';
 import {
   BOMBER_BLAST_RADIUS,
   CAPTURE_CHANCE,
+  NEUTRAL_CAPTURE_CHANCE,
   PARATROOPER_DROP_RANGE,
   UNITS,
   UNIT_TYPES,
@@ -313,7 +314,9 @@ function attack(s: GameState, u: Unit, target: Point, enemies: Unit[], city: Cit
 function capture(s: GameState, u: Unit, city: City): void {
   const from = city.owner;
   const involves = from === null ? [u.owner] : [u.owner, from];
-  if (nextRandom(s.rng) < CAPTURE_CHANCE) {
+  const chance = from === null ? NEUTRAL_CAPTURE_CHANCE : CAPTURE_CHANCE;
+  // A certain capture takes no roll, so it leaves the random sequence untouched.
+  if (chance >= 1 || nextRandom(s.rng) < chance) {
     for (const e of topUnitsOnTile(s, city)) if (e.owner !== u.owner) removeUnit(s, e.id);
     city.owner = u.owner;
     city.building = 'tank';

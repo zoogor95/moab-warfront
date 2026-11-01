@@ -120,6 +120,7 @@ Settled while building phase 1, and open to change if the user asks:
 - The attacker never moves into the tile it won.
 - Aircraft outside a base at turn end fly to the nearest own city or carrier within their remaining moves, or are lost.
 - Players start with one city building tanks and no units.
+- A tank or paratrooper always takes a neutral city. An enemy city with no land defenders falls half the time (`CAPTURE_CHANCE`), and the unit is lost otherwise. (User's call, 2026-11-01.)
 
 If a rule is unclear, check the design doc first, then ask. Don't invent rules silently.
 
