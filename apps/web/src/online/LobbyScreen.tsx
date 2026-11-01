@@ -4,6 +4,7 @@ import type { ChatMessage, Lobby } from '@warfront/shared/protocol';
 import { Chat } from '../components/Chat';
 import { ConfirmButton } from '../components/ConfirmButton';
 import { EmblemIcon, Logo } from '../components/Icons';
+import { MapPreview } from '../components/MapPreview';
 import { Segmented } from '../components/Segmented';
 import { api } from '../net/api';
 import { SEATS } from '../theme';
@@ -138,6 +139,7 @@ export function LobbyScreen({ lobby, me, chat, say, onLobby, onLeave, onBack }: 
             <Segmented label="Map" disabled={busy} value={settings.map} options={MAP_REGIONS.map((r) => ({ value: r.id, label: r.name }))} onChange={(v) => set('map', v)} />)}
           {option('Map size', `${size.name}: suits ${size.players.toLowerCase()}. Any size works for any number of players.`,
             <Segmented label="Map size" disabled={busy} value={settings.mapSize} options={MAP_SIZES.map((m) => ({ value: m.id, label: m.name }))} onChange={(v) => set('mapSize', v)} />)}
+          <MapPreview region={settings.map} size={settings.mapSize} />
           {option('Starting position', settings.startMode === 'auto' ? 'Auto: coastal starts spread out by the game.' : 'Pick: everyone picks a coastal city; picks stay hidden until turn 1.',
             <Segmented label="Starting position" disabled={busy} value={settings.startMode} options={[{ value: 'auto', label: 'Auto' }, { value: 'pick', label: 'Pick' }]} onChange={(v) => set('startMode', v)} />)}
           {option('Turn timer', `${settings.turnLimitSeconds} seconds per turn. When it runs out, the turn ends.`,

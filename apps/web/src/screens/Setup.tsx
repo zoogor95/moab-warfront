@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createMatch, DEFAULT_SETTINGS, loadMap, MAP_REGIONS, MAP_SIZES, mapVersionFor, type GameState, type MatchSettings } from '@warfront/shared';
 import { EmblemIcon, Logo } from '../components/Icons';
+import { MapPreview } from '../components/MapPreview';
 import { SavedMatches } from '../components/SavedMatches';
 import { Segmented } from '../components/Segmented';
 import { SEATS } from '../theme';
@@ -112,6 +113,7 @@ export function Setup({ saved, onStart, onResume, onLoad, onDiscard, onBack }: P
             <div><strong>Map size</strong><p className="muted">Suits {size.players.toLowerCase()}. Any size works for any number of players.</p></div>
             <Segmented label="Map size" value={settings.mapSize} options={MAP_SIZES.map((m) => ({ value: m.id, label: m.name }))} onChange={(v) => set('mapSize', v)} />
           </div>
+          <MapPreview region={settings.map} size={settings.mapSize} />
           <div className="setting">
             <div><strong>Starting position</strong><p className="muted">{settings.startMode === 'auto' ? 'Coastal starts spread out by the game.' : 'Everyone picks a coastal city; picks stay hidden until turn 1.'}</p></div>
             <Segmented label="Starting position" value={settings.startMode} options={[{ value: 'auto', label: 'Auto' }, { value: 'pick', label: 'Pick' }]} onChange={(v) => set('startMode', v)} />

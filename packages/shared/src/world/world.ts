@@ -45,7 +45,8 @@ export class GameMap {
   private readonly cityByTile: Map<number, CityInfo>;
   private readonly west: number;
   private readonly north: number;
-  private readonly degreesPerTile: number;
+  /** Degrees per tile (Velgard: map units), for scale labels and tools. */
+  readonly degreesPerTile: number;
 
   constructor(data: MapData) {
     this.version = data.version;

@@ -44,7 +44,8 @@ export function tileToScreen(map: GameMap, cam: Camera, w: number, h: number, p:
 }
 
 const terrainCache = new Map<string, HTMLCanvasElement>();
-function terrain(map: GameMap): HTMLCanvasElement {
+/** One pixel per tile, coloured by terrain; shared with the map preview on the setup screens. */
+export function terrainImage(map: GameMap): HTMLCanvasElement {
   const hit = terrainCache.get(map.version);
   if (hit) return hit;
   const { cols, rows } = map;
@@ -205,7 +206,7 @@ export function drawMap(ctx: CanvasRenderingContext2D, w: number, h: number, cam
   ctx.fillStyle = map.wraps ? C.sea : C.ground;
   ctx.fillRect(0, 0, w, h);
   ctx.imageSmoothingEnabled = false;
-  drawLayer(ctx, map, terrain(map), cam, w, h);
+  drawLayer(ctx, map, terrainImage(map), cam, w, h);
   if (view.phase === 'playing' || view.phase === 'finished') drawLayer(ctx, map, mask(map, view.visible, [3, 7, 11, 133]), cam, w, h);
   if (view.settings.terrain === 'unexplored') drawLayer(ctx, map, mask(map, view.explored, [5, 8, 11, 255]), cam, w, h);
   const toScreen = (p: Point) => tileToScreen(map, cam, w, h, p);
